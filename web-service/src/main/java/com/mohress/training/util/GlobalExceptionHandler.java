@@ -29,9 +29,9 @@ public class GlobalExceptionHandler {
     /**
      * 业务异常处理
      *
-     * @param request
-     * @param exception
-     * @return
+     * @param request HTTP请求
+     * @param exception 业务异常
+     * @return 业务异常响应结果
      */
     @ResponseBody
     @ExceptionHandler(BusinessException.class)
@@ -50,9 +50,9 @@ public class GlobalExceptionHandler {
     /**
      * 未知异常处理
      *
-     * @param request
-     * @param throwable
-     * @return
+     * @param request HTTP请求
+     * @param throwable 未知异常
+     * @return 内部错误响应结果
      */
     @ResponseBody
     @ExceptionHandler(Throwable.class)
