@@ -1,0 +1,62 @@
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+    <!--非过滤的资源-->
+    <http pattern="**/*.css" security="none"/>
+    <http pattern="**/*.image" security="none"/>
+
+    <http auto-config="true">
+        <custom-filter ref="resourceAccessSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
+
+        <!--&lt;!&ndash;登录页配置&ndash;&gt;
+        <form-login login-page="/login"/>-->
+
+        <!--记住我功能-->
+        <remember-me key="ptoken" use-secure-cookie="true"/>
+
+        <!--同一个账号最多只能同时在线一个-->
+        <session-management>
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="false"/>
+        </session-management>
+    </http>
+
+
+    <!--访问认证管理器-->
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="accountSecurityService">
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>
+    </authentication-manager>
+
+    <!--密码加密-->
+    <b:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+    <!--账号及账号权限加载器-->
+    <b:bean id="accountSecurityService" class="com.mohress.training.service.security.AccountSecurityService"/>
+
+    <!--资源权限加载器，定义某个资源必须具备的权限-->
+    <b:bean id="ResourceAuthorityLoadingService" class="com.mohress.training.service.security.ResourceAuthorityLoadingService"/>
+
+    <!--访问决策器，决定用户是否有足够的权限访问某个资源-->
+    <b:bean id="resourceAccessDecisionService" class="com.mohress.training.service.security.ResourceAccessDecisionService">
+        <b:constructor-arg name="voter" ref="roleVoter"/>
+    </b:bean>
+
+    <!--自定义权限前缀符号-->
+    <b:bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
+        <b:property name="rolePrefix" value="AUTH_"/>
+    </b:bean>
+
+    <!--资源访问安全拦截器-->
+    <b:bean id="resourceAccessSecurityInterceptor" class="com.mohress.training.service.security.AuthorityVerifyInterceptor">
+        <b:property name="authenticationManager" ref="authenticationManager"/>
+        <b:property name="accessDecisionManager" ref="resourceAccessDecisionService"/>
+        <b:property name="resourceAuthorityLoadingService" ref="ResourceAuthorityLoadingService"/>
+        <b:property name="publishAuthorizationSuccess" value="true"/>
+    </b:bean>
+</b:beans>

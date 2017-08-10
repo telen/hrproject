@@ -5,7 +5,6 @@ import com.mohress.training.enums.ResultCode;
 /**
  * 自定义业务异常
  *
- * Created by youtao.wan on 2017/8/9.
  */
 public class BusinessException extends RuntimeException{
 

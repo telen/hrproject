@@ -12,6 +12,13 @@
     <url>http://maven.apache.org</url>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.mohress.training</groupId>
+            <artifactId>web-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
