@@ -44,9 +44,4 @@ public class TblAuditNode {
      * 节点规则Id
      */
     private String nodeRuleId;
-
-    /**
-     * 项目Id
-     */
-    private String projectId;
 }

@@ -36,7 +36,7 @@ public class TblAuditProject {
     /**
      * 起始节点
      */
-    private String StartNode;
+    private String startNode;
 
     /**
      * 终止节点

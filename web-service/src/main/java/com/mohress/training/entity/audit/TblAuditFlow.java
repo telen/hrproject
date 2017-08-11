@@ -23,6 +23,11 @@ public class TblAuditFlow {
     private String flowId;
 
     /**
+     * 项目Id
+     */
+    private String projectId;
+
+    /**
      * 流程当前节点Id
      */
     private String nodeId;

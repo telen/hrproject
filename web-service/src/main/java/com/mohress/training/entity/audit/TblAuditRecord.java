@@ -39,7 +39,7 @@ public class TblAuditRecord {
 
     /**
      * 审核执行动作
-     * 撤销，通过，回退，否决
+     * 撤销，回退，通过，否决
      */
     private Integer action;
 
