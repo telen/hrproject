@@ -1,6 +1,5 @@
 package com.mohress.training.service.audit.action;
 
-import com.mohress.training.service.audit.action.Action;
 
 /**
  * 审核-回退动作
@@ -8,5 +7,5 @@ import com.mohress.training.service.audit.action.Action;
  *
  * Created by youtao.wan on 2017/8/10.
  */
-public interface RollBackAction extends Action {
+public interface RollBackAction extends AuditAction {
 }

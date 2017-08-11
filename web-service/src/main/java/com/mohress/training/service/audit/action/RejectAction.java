@@ -1,6 +1,5 @@
 package com.mohress.training.service.audit.action;
 
-import com.mohress.training.service.audit.action.Action;
 
 /**
  * 审核-否决动作
@@ -8,6 +7,6 @@ import com.mohress.training.service.audit.action.Action;
  *
  * Created by youtao.wan on 2017/8/10.
  */
-public interface RejectAction extends Action {
+public interface RejectAction extends AuditAction {
 
 }

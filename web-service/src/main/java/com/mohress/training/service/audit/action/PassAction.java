@@ -6,5 +6,5 @@ package com.mohress.training.service.audit.action;
  *
  * Created by youtao.wan on 2017/8/10.
  */
-public interface PassAction extends Action {
+public interface PassAction extends AuditAction {
 }
