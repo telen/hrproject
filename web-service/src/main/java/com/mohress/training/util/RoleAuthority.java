@@ -1,4 +1,4 @@
-package com.mohress.training.dto;
+package com.mohress.training.util;
 
 import com.mohress.training.entity.security.TblAuthority;
 import com.mohress.training.entity.security.TblRole;

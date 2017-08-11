@@ -14,7 +14,7 @@
     <http pattern="**/*.image" security="none"/>
     <http pattern="${login-url}" security="none"/>
 
-    <http auto-config="true" entry-point-ref="authEntryPoint">
+    <http auto-config="true">
         <custom-filter ref="resourceAccessSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
 
         <!--登录页面设置-->
@@ -64,9 +64,5 @@
         <b:property name="accessDecisionManager" ref="resourceAccessDecisionService"/>
         <b:property name="resourceAuthorityLoadingService" ref="resourceAuthorityLoadingService"/>
         <b:property name="publishAuthorizationSuccess" value="true"/>
-    </b:bean>
-
-    <b:bean id="authEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-        <b:constructor-arg name="loginFormUrl" value="${login-url}"/>
     </b:bean>
 </b:beans>
