@@ -9,6 +9,12 @@ import com.mohress.training.service.audit.action.AuditAction;
  */
 public interface AuditService {
 
-    void run(AuditAction action) throws ExecuteException;
+    /**
+     * 执行审核操作
+     *
+     * @param action
+     * @throws ExecuteException
+     */
+    void audit(AuditAction action) throws ExecuteException;
 
 }
