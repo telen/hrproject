@@ -38,6 +38,9 @@ public class AuditServiceImpl implements AuditService{
 
         // 3.执行审核动作
         action.execute();
+
+        // 4.通知审核人
+        auditNotify(action);
     }
 
     /**
@@ -64,5 +67,15 @@ public class AuditServiceImpl implements AuditService{
         for (TblAuditRule rule : auditRuleList){
             log.info("执行校验规则 {}", rule);
         }
+    }
+
+    /**
+     * 通知操作
+     *
+     *
+     * @param auditAction
+     */
+    private void auditNotify(AuditAction auditAction){
+        log.info("notify");
     }
 }
