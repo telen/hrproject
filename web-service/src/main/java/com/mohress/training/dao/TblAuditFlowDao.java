@@ -8,4 +8,8 @@ import com.mohress.training.entity.audit.TblAuditFlow;
 public interface TblAuditFlowDao {
 
     int insert(TblAuditFlow flow);
+
+    TblAuditFlow selectByFlowId(String flowId);
+
+    int updateByFlowIdAndVersion(String flowId, int version);
 }
