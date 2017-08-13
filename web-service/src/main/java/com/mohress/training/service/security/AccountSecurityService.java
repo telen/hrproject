@@ -37,11 +37,9 @@ public class AccountSecurityService implements UserDetailsService{
             throw new UsernameNotFoundException("登录账号为空");
         }
 
-        String encryptAccount = "";
-
         AccountAuthority accountAuthority;
         try {
-            accountAuthority = cache.get(encryptAccount);
+            accountAuthority = cache.get(s);
         } catch (Exception e) {
             throw new UsernameNotFoundException("加载账号信息失败，请稍后重试");
         }

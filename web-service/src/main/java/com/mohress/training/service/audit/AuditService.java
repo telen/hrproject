@@ -1,6 +1,6 @@
 package com.mohress.training.service.audit;
 
-import com.mohress.training.exception.ExecuteException;
+import com.mohress.training.exception.ActionException;
 import com.mohress.training.service.audit.action.AuditAction;
 
 /**
@@ -13,8 +13,8 @@ public interface AuditService {
      * 执行审核操作
      *
      * @param action
-     * @throws ExecuteException
+     * @throws ActionException
      */
-    void audit(AuditAction action) throws ExecuteException;
+    void audit(AuditAction action) throws ActionException;
 
 }
