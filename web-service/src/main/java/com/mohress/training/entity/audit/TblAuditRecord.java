@@ -46,7 +46,7 @@ public class TblAuditRecord {
     /**
      * 审核意见
      */
-    private String auditOpinion;
+    private String auditResult;
 
     /**
      * 创建时间
