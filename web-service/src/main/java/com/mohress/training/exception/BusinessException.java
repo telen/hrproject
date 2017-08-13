@@ -12,6 +12,12 @@ public class BusinessException extends RuntimeException{
 
     private String resultDesc;
 
+    public BusinessException(ResultCode resultCode, String resultDesc) {
+        super(resultDesc);
+        this.resultCode = resultCode;
+        this.resultDesc = resultDesc;
+    }
+
     public BusinessException(ResultCode resultCode, String resultDesc, String message, Throwable cause) {
         super(message, cause);
         this.resultCode = resultCode;

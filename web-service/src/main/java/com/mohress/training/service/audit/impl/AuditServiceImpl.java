@@ -1,9 +1,7 @@
 package com.mohress.training.service.audit.impl;
 
 import com.mohress.training.dao.TblAuditRecordDao;
-import com.mohress.training.entity.audit.TblAuditFlow;
 import com.mohress.training.entity.audit.TblAuditRecord;
-import com.mohress.training.exception.ActionException;
 import com.mohress.training.service.audit.AuditService;
 import com.mohress.training.service.audit.action.AuditAction;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +22,7 @@ public class AuditServiceImpl implements AuditService{
     private TblAuditRecordDao auditRecordDao;
 
     @Transactional
-    public void audit(AuditAction action) throws ActionException {
+    public void audit(AuditAction action) {
         try {
             // 1.执行审核动作
             action.execute();
@@ -33,9 +31,7 @@ public class AuditServiceImpl implements AuditService{
             TblAuditRecord auditRecord = newAuditRecord(action);
             auditRecordDao.insert(auditRecord);
         }catch (Throwable t){
-            TblAuditFlow flow = action.getAuditFlow();
             log.error("审核流执行异常", t);
-            throw new ActionException(flow.toString(), t);
         }
     }
 
