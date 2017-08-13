@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 import static com.mohress.training.enums.AuditStatus.AUDIT_PASS;
+import static com.mohress.training.enums.AuditStatus.AUDIT_WAIT;
 
 /**
  * 审核-通过动作
@@ -53,9 +54,12 @@ public class PassAction extends AbstractAuditAction {
         auditRecord.setUpdateTime(new Date());
 
         // 流程指向下一节点
-        auditFlow.setNodeStatus(AUDIT_PASS.getStatus());
-        auditFlow.setNodeId(nextAuditNode.getNodeId());
-        auditFlow.setUpdateTime(new Date());
+        if (nextAuditNode == null){
+            auditFlow.setNodeStatus(AUDIT_PASS.getStatus());
+        }else {
+            auditFlow.setNodeId(nextAuditNode.getNodeId());
+            auditFlow.setNodeStatus(AUDIT_WAIT.getStatus());
+        }
 
         SpringContextHelper.getBean(TblAuditRecordDao.class).insert(auditRecord);
         int updateResult = SpringContextHelper.getBean(TblAuditFlowDao.class).updateByFlowIdAndVersion(auditFlow.getFlowId(), auditFlow.getVersion());
