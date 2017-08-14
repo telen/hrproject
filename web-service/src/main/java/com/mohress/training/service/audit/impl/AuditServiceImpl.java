@@ -5,7 +5,6 @@ import com.mohress.training.dao.TblAuditRuleDao;
 import com.mohress.training.entity.audit.TblAuditFlow;
 import com.mohress.training.entity.audit.TblAuditMember;
 import com.mohress.training.entity.audit.TblAuditRule;
-import com.mohress.training.enums.AuditStatus;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
 import com.mohress.training.service.audit.AuditService;
@@ -61,9 +60,6 @@ public class AuditServiceImpl implements AuditService{
      */
     private void verifyRule(AuditAction auditAction){
         TblAuditFlow auditFlow = auditAction.getAuditFlow();
-        if (AuditStatus.AUDIT_REJECT.getStatus() == auditFlow.getNodeStatus()){
-            throw new BusinessException(ResultCode.AUDIT_FAIL, String.format("%s节点已经处于审核终态。", auditFlow.getNodeId()));
-        }
 
         List<TblAuditRule> auditRuleList = auditRuleDao.selectByNodeId(auditFlow.getNodeId());
         for (TblAuditRule rule : auditRuleList){

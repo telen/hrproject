@@ -56,6 +56,7 @@ public class RollBackAction extends AbstractAuditAction {
 
         TblAuditNode auditNode = SpringContextHelper.getBean(TblAuditNodeDao.class).selectByNodeId(auditFlow.getNodeId());
 
+        // 审核记录存档
         TblAuditRecord auditRecord = new TblAuditRecord();
         auditRecord.setRecordId("");
         auditRecord.setFlowId(flowId);
