@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 权限管理-账号信息
+ * 权限管理-账号实体
  *
  */
 @Data
@@ -22,7 +22,7 @@ public class TblAccount {
     private String userId;
 
     /**
-     * 登录账号(唯一键)(密文)
+     * 登录账号(唯一键)
      */
     private String account;
 

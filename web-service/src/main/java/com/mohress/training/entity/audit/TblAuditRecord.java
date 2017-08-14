@@ -39,14 +39,14 @@ public class TblAuditRecord {
 
     /**
      * 审核执行动作
-     * 撤销，回退，通过，否决
+     * 初始化，撤销，回退，通过，否决
      */
     private Integer action;
 
     /**
      * 审核意见
      */
-    private String auditOpinion;
+    private String auditResult;
 
     /**
      * 创建时间
