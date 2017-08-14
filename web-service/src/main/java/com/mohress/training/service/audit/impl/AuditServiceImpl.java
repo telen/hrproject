@@ -61,7 +61,7 @@ public class AuditServiceImpl implements AuditService{
             return;
         }
 
-        // 审核人没有当前节点的审核权限，但是执行撤回操作，检查上一个节点的审核人权限
+        // 审核人没有当前节点的审核权限，但是执行撤回操作，检查审核人是否具备上一个节点的权限
         if (auditAction instanceof RetractAction){
             TblAuditNode auditNode = auditNodeDao.selectByNodeId(auditFlow.getNodeId());
             TblAuditMember previousAuditMember = auditMemberDao.selectByNodeIdAndUserId(auditNode.getPreviousNode(), auditAction.getAuditor());
