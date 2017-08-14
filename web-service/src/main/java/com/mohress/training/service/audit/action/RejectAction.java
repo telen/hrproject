@@ -40,6 +40,7 @@ public class RejectAction extends AbstractAuditAction {
         TblAuditFlow auditFlow = getAuditFlow();
 
         auditFlow.setNodeStatus(AUDIT_REJECT.getStatus());
+        auditFlow.setFlowStatus(AUDIT_REJECT.getStatus());
 
         TblAuditRecord auditRecord = new TblAuditRecord();
         auditRecord.setAction(ACTION_ID);

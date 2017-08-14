@@ -10,4 +10,6 @@ import com.mohress.training.entity.audit.TblAuditRecord;
 public interface TblAuditRecordDao {
 
     int insert(TblAuditRecord record);
+
+    TblAuditRecord selectByFlowIdAndAuditor(String flowId, String auditor);
 }

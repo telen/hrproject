@@ -38,6 +38,11 @@ public class TblAuditFlow {
     private Integer nodeStatus;
 
     /**
+     * 当前流程状态
+     */
+    private Integer flowStatus;
+
+    /**
      * 审核流程发起人
      */
     private String creator;

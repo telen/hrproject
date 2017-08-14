@@ -56,6 +56,7 @@ public class PassAction extends AbstractAuditAction {
         // 流程指向下一节点
         if (nextAuditNode == null){
             auditFlow.setNodeStatus(AUDIT_PASS.getStatus());
+            auditFlow.setFlowStatus(AUDIT_PASS.getStatus());
         }else {
             auditFlow.setNodeId(nextAuditNode.getNodeId());
             auditFlow.setNodeStatus(AUDIT_WAIT.getStatus());
