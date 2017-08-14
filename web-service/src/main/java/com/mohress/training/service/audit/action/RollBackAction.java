@@ -13,6 +13,7 @@ import com.mohress.training.enums.AuditStatus;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
 import com.mohress.training.util.SpringContextHelper;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -36,6 +37,7 @@ public class RollBackAction extends AbstractAuditAction {
         return SpringContextHelper.getBean(TblAuditFlowDao.class).selectByFlowId(flowId);
     }
 
+    @Transactional
     protected void doExecute() {
         TblAuditFlow auditFlow = getAuditFlow();
 
