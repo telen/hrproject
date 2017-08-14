@@ -2,6 +2,8 @@ package com.mohress.training.dao;
 
 import com.mohress.training.entity.audit.TblAuditRecord;
 
+import java.util.List;
+
 /**
  * 审核记录
  *
@@ -11,5 +13,5 @@ public interface TblAuditRecordDao {
 
     int insert(TblAuditRecord record);
 
-    TblAuditRecord selectByFlowIdAndAuditor(String flowId, String auditor);
+    List<TblAuditRecord> selectByFlowIdAndAuditor(String flowId, String auditor);
 }

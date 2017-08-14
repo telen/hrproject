@@ -12,7 +12,10 @@ import com.mohress.training.util.SpringContextHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import static com.mohress.training.enums.AuditStatus.AUDIT_WAIT;
 
@@ -40,7 +43,8 @@ public class RetractAction extends AbstractAuditAction {
 
         // 2.查询审核人当前流程的审核记录
         TblAuditRecordDao auditRecordDao = SpringContextHelper.getBean(TblAuditRecordDao.class);
-        TblAuditRecord auditHistoryRecord = auditRecordDao.selectByFlowIdAndAuditor(flowId, getAuditor());
+        List<TblAuditRecord> auditHistoryRecordList = auditRecordDao.selectByFlowIdAndAuditor(flowId, getAuditor());
+        TblAuditRecord auditHistoryRecord = select(auditHistoryRecordList);
 
         // 3.执行动作5分钟后，拒绝撤销
         if (DateUtil.isBeforeNow(DateUtil.addMinute(auditHistoryRecord.getCreateTime(), 5))){
@@ -82,6 +86,21 @@ public class RetractAction extends AbstractAuditAction {
 
     public TblAuditFlow getAuditFlow() {
         return SpringContextHelper.getBean(TblAuditFlowDao.class).selectByFlowId(flowId);
+    }
+
+    /**
+     * 选择用户最近执行的操作动作
+     *
+     * @param auditHistoryRecordList
+     * @return
+     */
+    private TblAuditRecord select(List<TblAuditRecord> auditHistoryRecordList){
+        Collections.sort(auditHistoryRecordList, new Comparator<TblAuditRecord>() {
+            public int compare(TblAuditRecord o1, TblAuditRecord o2) {
+                return o1.getId() - o2.getId();
+            }
+        });
+        return auditHistoryRecordList.get(0);
     }
 
     /**

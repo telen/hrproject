@@ -1,14 +1,17 @@
 package com.mohress.training.service.audit.impl;
 
 import com.mohress.training.dao.TblAuditMemberDao;
+import com.mohress.training.dao.TblAuditNodeDao;
 import com.mohress.training.dao.TblAuditRuleDao;
 import com.mohress.training.entity.audit.TblAuditFlow;
 import com.mohress.training.entity.audit.TblAuditMember;
+import com.mohress.training.entity.audit.TblAuditNode;
 import com.mohress.training.entity.audit.TblAuditRule;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
 import com.mohress.training.service.audit.AuditService;
 import com.mohress.training.service.audit.action.AuditAction;
+import com.mohress.training.service.audit.action.RetractAction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,9 @@ public class AuditServiceImpl implements AuditService{
 
     @Resource
     private TblAuditRuleDao auditRuleDao;
+
+    @Resource
+    private TblAuditNodeDao auditNodeDao;
 
     public void audit(AuditAction action) {
 
@@ -49,9 +55,22 @@ public class AuditServiceImpl implements AuditService{
     private void verifyAuthority(AuditAction auditAction){
         TblAuditFlow auditFlow = auditAction.getAuditFlow();
         TblAuditMember auditMember = auditMemberDao.selectByNodeIdAndUserId(auditFlow.getNodeId(), auditAction.getAuditor());
-        if (auditMember == null){
-            throw new BusinessException(ResultCode.AUDIT_NO_PRIVILEGE, String.format("%s在%s节点下无审核权限", auditAction.getAuditor(), auditFlow.getNodeId()));
+
+        // 判断审核人是否拥有当前节点下的审核权限
+        if (auditMember != null){
+            return;
         }
+
+        // 审核人没有当前节点的审核权限，但是执行撤回操作，检查上一个节点的审核人权限
+        if (auditAction instanceof RetractAction){
+            TblAuditNode auditNode = auditNodeDao.selectByNodeId(auditFlow.getNodeId());
+            TblAuditMember previousAuditMember = auditMemberDao.selectByNodeIdAndUserId(auditNode.getPreviousNode(), auditAction.getAuditor());
+            if (previousAuditMember != null){
+                return;
+            }
+        }
+
+        throw new BusinessException(ResultCode.AUDIT_NO_PRIVILEGE, String.format("%s在%s节点下无审核权限", auditAction.getAuditor(), auditFlow.getNodeId()));
     }
 
     /**
