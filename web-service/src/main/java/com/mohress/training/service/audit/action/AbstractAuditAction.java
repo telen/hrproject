@@ -1,7 +1,5 @@
 package com.mohress.training.service.audit.action;
 
-import com.mohress.training.enums.ResultCode;
-import com.mohress.training.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -32,9 +30,6 @@ public abstract class AbstractAuditAction implements AuditAction{
      *
      */
     public void execute() {
-        if (getAuditFlow() == null){
-            throw new BusinessException(ResultCode.AUDIT_FAIL, "审核流程不存在");
-        }
         // 执行审核动作
         doExecute();
     }
