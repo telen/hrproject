@@ -33,10 +33,10 @@ public class AuthorityVerifyInterceptor extends AbstractSecurityInterceptor impl
         InterceptorStatusToken token = super.beforeInvocation(invocation);
         try {
             invocation.getChain().doFilter(invocation.getRequest(), invocation.getResponse());
-            super.afterInvocation(token, null);
         }finally {
             super.finallyInvocation(token);
         }
+        super.afterInvocation(token, null);
     }
 
     public Class<?> getSecureObjectClass() {

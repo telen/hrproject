@@ -1,4 +1,4 @@
-package com.mohress.training.service.audit;
+package com.mohress.training.service.audit.action;
 
 /**
  * 执行动作

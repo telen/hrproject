@@ -14,7 +14,7 @@ public class Response<T> implements Serializable{
     /**
      * 响应结果码
      */
-    private int code;
+    private String code;
 
     /**
      * 结果信息

@@ -1,4 +1,4 @@
-package com.mohress.training.dto;
+package com.mohress.training.util;
 
 import com.mohress.training.entity.security.TblAccount;
 import lombok.AllArgsConstructor;
