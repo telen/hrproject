@@ -7,11 +7,14 @@ import com.mohress.training.entity.audit.TblAuditFlow;
 import com.mohress.training.entity.audit.TblAuditRecord;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
+import com.mohress.training.util.DateUtil;
 import com.mohress.training.util.SpringContextHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+
+import static com.mohress.training.enums.AuditStatus.AUDIT_WAIT;
 
 /**
  * 审核-撤回动作
@@ -39,19 +42,26 @@ public class RetractAction extends AbstractAuditAction {
         TblAuditRecordDao auditRecordDao = SpringContextHelper.getBean(TblAuditRecordDao.class);
         TblAuditRecord auditHistoryRecord = auditRecordDao.selectByFlowIdAndAuditor(flowId, getAuditor());
 
-        // 3.分析审核人执行操作
+        // 3.执行动作5分钟后，拒绝撤销
+        if (DateUtil.isBeforeNow(DateUtil.addMinute(auditHistoryRecord.getCreateTime(), 5))){
+            throw new BusinessException(ResultCode.AUDIT_FAIL, "超过5分钟撤销时限，不能撤销");
+        }
+
+        // 4.分析审核人执行操作
         switch (auditHistoryRecord.getAction()){
             case 3:
                 log.info("审核通过操作回退");
+                passActionRetract(auditFlow, auditHistoryRecord);
                 break;
             case 4:
                 log.info("审核否决操作回退");
+                rejectActionRetract(auditFlow, auditHistoryRecord);
                 break;
             default:
-                throw new BusinessException(ResultCode.AUDIT_FAIL, "不支持的回退操作");
+                throw new BusinessException(ResultCode.AUDIT_FAIL, "不支持的撤销操作");
         }
 
-        // 4.操作记录入库存档
+        // 5.操作记录入库存档
         TblAuditRecord auditRecord = new TblAuditRecord();
         auditRecord.setAction(ACTION_ID);
         auditRecord.setRecordId("");
@@ -63,9 +73,48 @@ public class RetractAction extends AbstractAuditAction {
         auditRecord.setUpdateTime(new Date());
 
         auditRecordDao.insert(auditRecord);
+
+        int flowUpdateResult = SpringContextHelper.getBean(TblAuditFlowDao.class).updateByFlowIdAndVersion(auditFlow);
+        if (flowUpdateResult != 1){
+            throw new BusinessException(ResultCode.AUDIT_FAIL, "更新审核流程信息失败，请重新审核");
+        }
     }
 
     public TblAuditFlow getAuditFlow() {
         return SpringContextHelper.getBean(TblAuditFlowDao.class).selectByFlowId(flowId);
+    }
+
+    /**
+     * 撤销审核通过动作
+     *
+     * @param auditFlow
+     * @param auditRecord
+     */
+    private void passActionRetract(TblAuditFlow auditFlow, TblAuditRecord auditRecord){
+        String currentNodeId = auditFlow.getNodeId();
+        String recordNodeId = auditRecord.getNodeId();
+        if (currentNodeId.equals(recordNodeId)){
+            log.info("当前审核人没变");
+            auditFlow.setNodeStatus(AUDIT_WAIT.getStatus());
+            auditFlow.setFlowStatus(AUDIT_WAIT.getStatus());
+            return;
+        }
+
+        if (AUDIT_WAIT.getStatus() != auditFlow.getNodeStatus()){
+            throw new BusinessException(ResultCode.AUDIT_FAIL, "下一处理人已处理该流程，无法执行撤回操作。");
+        }
+
+        auditFlow.setNodeId(auditRecord.getNodeId());
+    }
+
+    /**
+     * 撤销审核否决动作
+     *
+     * @param auditFlow
+     * @param auditRecord
+     */
+    private void rejectActionRetract(TblAuditFlow auditFlow, TblAuditRecord auditRecord){
+        auditFlow.setNodeStatus(AUDIT_WAIT.getStatus());
+        auditFlow.setFlowStatus(AUDIT_WAIT.getStatus());
     }
 }

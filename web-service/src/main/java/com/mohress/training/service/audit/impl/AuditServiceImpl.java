@@ -30,6 +30,7 @@ public class AuditServiceImpl implements AuditService{
     private TblAuditRuleDao auditRuleDao;
 
     public void audit(AuditAction action) {
+
         // 1.校验审核权限
         verifyAuthority(action);
 

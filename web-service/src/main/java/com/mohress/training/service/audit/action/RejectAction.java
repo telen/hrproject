@@ -53,7 +53,7 @@ public class RejectAction extends AbstractAuditAction {
         auditRecord.setUpdateTime(new Date());
 
         SpringContextHelper.getBean(TblAuditRecordDao.class).insert(auditRecord);
-        int updateResult = SpringContextHelper.getBean(TblAuditFlowDao.class).updateByFlowIdAndVersion(auditFlow.getFlowId(), auditFlow.getVersion());
+        int updateResult = SpringContextHelper.getBean(TblAuditFlowDao.class).updateByFlowIdAndVersion(auditFlow);
 
         if (updateResult != 1){
             throw new BusinessException(ResultCode.AUDIT_FAIL, "更新审核流程信息失败，请重新审核。");
