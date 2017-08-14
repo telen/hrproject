@@ -42,7 +42,7 @@ public class RollBackAction extends AbstractAuditAction {
         TblAuditProject auditProject = SpringContextHelper.getBean(TblAuditProjectDao.class).selectByProjectId(auditFlow.getProjectId());
 
         // 若为首步骤，直接返回
-        if (auditFlow.getNodeId() == auditProject.getStartNode()){
+        if (auditProject.getStartNode().equals(auditFlow.getNodeId())){
             return;
         }
 
