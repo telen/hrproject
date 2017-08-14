@@ -8,4 +8,6 @@ import com.mohress.training.entity.audit.TblAuditNode;
 public interface TblAuditNodeDao {
 
     TblAuditNode selectByParentNodeId(String parentNodeId);
+
+    TblAuditNode selectByNodeId(String nodeId);
 }
