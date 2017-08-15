@@ -12,18 +12,17 @@
     <!--非过滤的资源-->
     <http pattern="**/*.css" security="none"/>
     <http pattern="**/*.image" security="none"/>
-    <http pattern="${login-url}" security="none"/>
 
     <http auto-config="true">
         <custom-filter ref="resourceAccessSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
 
         <!--登录页面设置-->
-        <form-login login-page="${login-url}"/>
+        <!--<form-login login-page="${login-url}"/>-->
 
-        <logout delete-cookies="remember-me" logout-success-url= "${login-url}"/>
+        <logout delete-cookies="remember-me"/>
 
         <!--记住我功能-->
-        <remember-me key="ptoken" token-validity-seconds="86400" data-source-ref="datasource"/>
+        <remember-me key="ptoken" token-validity-seconds="86400" data-source-ref="dataSource"/>
 
         <!--同一个账号最多只能同时在线一个-->
         <session-management>
@@ -31,7 +30,7 @@
         </session-management>
 
         <!--用户访问页面无权限时，指定跳转页面-->
-        <access-denied-handler error-page="${access-denied-url}"/>
+        <!--<access-denied-handler error-page="${access-denied-url}"/>-->
     </http>
 
     <!--访问认证管理器-->

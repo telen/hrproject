@@ -9,4 +9,22 @@
         <result column="previous_node" property="previousNode" jdbcType="VARCHAR"/>
         <result column="next_node" property="nextNode" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <sql id="columnList">
+        id, node_id, node_name, node_desc, previous_node, next_node
+    </sql>
+
+    <select id="selectByParentNodeId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_audit_role
+        WHERE previous_node = #{parentNodeId}
+    </select>
+
+    <select id="selectByNodeId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_audit_role
+        WHERE node_id = #{nodeId}
+    </select>
 </mapper>

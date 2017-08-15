@@ -11,4 +11,15 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
+
+    <sql id="columnList">
+        id, project_id, project_name, project_desc, start_node, end_node, create_time, update_time
+    </sql>
+
+    <select id="selectByProjectId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_audit_project
+        WHERE project_id = #{projectId}
+    </select>
 </mapper>

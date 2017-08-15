@@ -10,4 +10,25 @@
     <sql id="columnList">
         id, authority_id, role_id
     </sql>
+
+    <insert id="insert" parameterType="TblRoleAuthority">
+        INSERT INTO tb_role_authority
+        (authority_id, role_id)
+        VALUE
+        (#{authorityId}, #{roleId})
+    </insert>
+
+    <select id="selectByRoleId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_role_authority
+        WHERE role_id = #{roleId}
+    </select>
+
+    <select id="selectByAuthorityId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_role_authority
+        WHERE authority_id = #{authorityId}
+    </select>
 </mapper>

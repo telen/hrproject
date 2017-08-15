@@ -21,4 +21,55 @@
     <sql id="columnList">
         id, user_id, account, password, user_name, mobile, email,login_ip, login_time, enable, locked, expired_time, create_time, update_time
     </sql>
+
+    <insert id="insert" parameterType="TblAccount">
+        INSERT INTO tb_account
+        (user_id, account, password, user_name, mobile, email, expired_time)
+        VALUE
+        (#{userId}, #{account}, #{password}, #{userName}, #{mobile}, #{email}, #{expiredTime})
+    </insert>
+
+    <update id="updatePassword">
+        UPDATE tb_account
+        SET password = #{password}
+        WHERE account = #{account}
+    </update>
+
+    <update id="updateExpiredTime">
+        UPDATE tb_account
+        SET expired_time = #{expiredTime}
+        WHERE account = #{account}
+    </update>
+
+    <update id="updateEnable">
+        UPDATE tb_account
+        SET enable = #{enable}
+        WHERE account = #{account}
+    </update>
+
+    <update id="updateLocked">
+        UPDATE tb_account
+        SET locked = #{locked}
+        WHERE account = #{account}
+    </update>
+
+    <update id="updateLogin">
+        UPDATE tb_account
+        SET login_ip = #{loginIp}, login_time = #{loginTime}
+        WHERE account = #{account}
+    </update>
+
+    <select id="selectByUserId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_account
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="selectByAccount" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_account
+        WHERE account = #{account}
+    </select>
 </mapper>
