@@ -2,11 +2,9 @@ package com.mohress.training.service.audit.impl;
 
 import com.mohress.training.dao.TblAuditMemberDao;
 import com.mohress.training.dao.TblAuditNodeDao;
-import com.mohress.training.dao.TblAuditRuleDao;
 import com.mohress.training.entity.audit.TblAuditFlow;
 import com.mohress.training.entity.audit.TblAuditMember;
 import com.mohress.training.entity.audit.TblAuditNode;
-import com.mohress.training.entity.audit.TblAuditRule;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
 import com.mohress.training.service.audit.AuditService;
@@ -16,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * 审核服务
@@ -30,9 +27,6 @@ public class AuditServiceImpl implements AuditService{
     private TblAuditMemberDao auditMemberDao;
 
     @Resource
-    private TblAuditRuleDao auditRuleDao;
-
-    @Resource
     private TblAuditNodeDao auditNodeDao;
 
     public void audit(AuditAction action) {
@@ -42,10 +36,7 @@ public class AuditServiceImpl implements AuditService{
         // 2.校验审核权限
         verifyAuthority(action);
 
-        // 3.执行校验规则
-        verifyRule(action);
-
-        // 4.执行审核动作
+        // 3.执行审核动作
         action.execute();
     }
 
@@ -84,19 +75,5 @@ public class AuditServiceImpl implements AuditService{
         }
 
         throw new BusinessException(ResultCode.AUDIT_NO_PRIVILEGE, String.format("%s在%s节点下无审核权限", auditAction.getAuditor(), auditFlow.getNodeId()));
-    }
-
-    /**
-     * 执行该节点下的校验规则
-     *
-     * @param auditAction
-     */
-    private void verifyRule(AuditAction auditAction){
-        TblAuditFlow auditFlow = auditAction.getAuditFlow();
-
-        List<TblAuditRule> auditRuleList = auditRuleDao.selectByNodeId(auditFlow.getNodeId());
-        for (TblAuditRule rule : auditRuleList){
-            log.info("执行校验规则 {}", rule);
-        }
     }
 }

@@ -14,12 +14,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("api/class/")
 public class ClassController {
-
-    public Response addClass(){
-        return null;
-    }
-
-    public Response queryClass(){
-        return null;
-    }
 }

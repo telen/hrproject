@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mohress.training.dao.TblRoleDao">
+    <resultMap id="resultMap" type="TblRole">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="role_id" property="roleId" jdbcType="VARCHAR"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="role_desc" property="roleDesc" jdbcType="VARCHAR"/>
+        <result column="priority" property="priority" jdbcType="INTEGER"/>
+        <result column="enable" property="enable" jdbcType="TINYINT"/>
+        <result column="parent_role_id" property="parentRoleId" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="columnList">
+        id, role_id, role_name, role_desc, priority, enable, parent_role_id, create_time, update_time
+    </sql>
+</mapper>

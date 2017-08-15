@@ -82,7 +82,10 @@ public class AccountAuthorityCache extends ForwardingLoadingCache<String, Accoun
 
         Set<RoleAuthority> roleAuthoritySet = Sets.newHashSet();
         for (TblAccountRole it : accountRoleList){
-            roleAuthoritySet.add(loadRoleAuthority(it.getRoleId()));
+            RoleAuthority roleAuthority = loadRoleAuthority(it.getRoleId());
+            if (roleAuthority != null){
+                roleAuthoritySet.add(roleAuthority);
+            }
 
         }
         return new AccountAuthority(tblAccount, roleAuthoritySet);

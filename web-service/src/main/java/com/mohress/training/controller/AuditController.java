@@ -89,9 +89,6 @@ public class AuditController {
 
         auditService.audit(auditAction);
 
-        Response response = new Response();
-        response.setCode(AUDIT_SUCCESS.getCode());
-        response.setMessage(AUDIT_SUCCESS.getDesc());
-        return response;
+        return new Response(AUDIT_SUCCESS.getCode(), AUDIT_SUCCESS.getDesc());
     }
 }

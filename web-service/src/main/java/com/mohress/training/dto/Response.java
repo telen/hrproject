@@ -25,4 +25,18 @@ public class Response<T> implements Serializable{
      * 响应数据
      */
     private T data;
+
+    public Response() {
+    }
+
+    public Response(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public Response(String code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
 }
