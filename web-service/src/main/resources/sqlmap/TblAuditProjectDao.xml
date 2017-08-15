@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mohress.training.dao.TblAuditProjectDao">
+    <resultMap id="resultMap" type="TblAuditProject">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="project_id" property="projectId" jdbcType="VARCHAR"/>
+        <result column="project_name" property="projectName" jdbcType="VARCHAR"/>
+        <result column="project_desc" property="projectDesc" jdbcType="VARCHAR"/>
+        <result column="start_node" property="startNode" jdbcType="VARCHAR"/>
+        <result column="end_node" property="endNode" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+</mapper>

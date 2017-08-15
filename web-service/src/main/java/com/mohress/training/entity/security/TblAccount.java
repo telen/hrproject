@@ -32,6 +32,11 @@ public class TblAccount {
     private String password;
 
     /**
+     * 用户姓名
+     */
+    private String userName;
+
+    /**
      * 用户手机号(密文)
      */
     private String mobile;

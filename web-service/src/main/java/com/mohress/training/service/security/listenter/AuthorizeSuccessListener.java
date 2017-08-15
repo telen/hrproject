@@ -11,6 +11,8 @@ import org.springframework.util.CollectionUtils;
 import java.util.Collection;
 
 /**
+ * 授权成功监听器
+ *
  * Created by youtao.wan on 2017/8/9.
  */
 @Slf4j
