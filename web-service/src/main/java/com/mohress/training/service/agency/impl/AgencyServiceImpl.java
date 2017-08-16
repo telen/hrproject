@@ -40,7 +40,7 @@ public class AgencyServiceImpl implements AgencyService {
 
     @Override
     public void updateAgency(TblAgency tblAgency) {
-        Verify.verify(tblAgencyDao.updateSelective(tblAgency) > 0, "更新机构SQL异常");
+        Verify.verify(tblAgencyDao.updateByPrimaryKeySelective(tblAgency) > 0, "更新机构SQL异常");
     }
 
     @Override

@@ -38,7 +38,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public void update(TblTeacher teacher) {
-        Verify.verify(tblTeacherDao.updateSelective(teacher) > 0, "更新机构SQL异常");
+        Verify.verify(tblTeacherDao.updateByPrimaryKeySelective(teacher) > 0, "更新机构SQL异常");
     }
 
     @Override

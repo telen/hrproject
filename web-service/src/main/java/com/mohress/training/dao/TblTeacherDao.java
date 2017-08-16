@@ -13,7 +13,7 @@ import java.util.List;
 public interface TblTeacherDao {
     int insertSelective(TblTeacher tblTeacher);
 
-    int updateSelective(TblTeacher tblTeacher);
+    int updateByPrimaryKeySelective(TblTeacher tblTeacher);
 
     int updateStatus(String agencyId,int toStatus);
 
