@@ -1,12 +1,9 @@
 <b:beans xmlns="http://www.springframework.org/schema/security"
          xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:context="http://www.springframework.org/schema/context"
          xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
     http://www.springframework.org/schema/security
-    http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-
-    <context:property-placeholder location="classpath:config/web-url.properties" ignore-unresolvable="false"/>
+    http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http auto-config="true" entry-point-ref="customAuthenticationEntryPoint">
         <custom-filter ref="resourceAccessSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
@@ -20,7 +17,7 @@
 
         <!--同一个账号最多只能同时在线一个-->
         <session-management>
-            <concurrency-control max-sessions="1" error-if-maximum-exceeded="false" expired-url="${login-url}"/>
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="false"/>
         </session-management>
 
         <!--用户访问页面无权限时，指定跳转页面-->
