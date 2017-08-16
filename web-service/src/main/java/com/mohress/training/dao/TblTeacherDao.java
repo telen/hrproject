@@ -1,0 +1,21 @@
+package com.mohress.training.dao;
+
+
+import com.mohress.training.entity.TblTeacher;
+import com.mohress.training.service.teacher.TeacherQuery;
+
+import java.util.List;
+
+/**
+ * 教师dao
+ * Created by qx.wang on 2017/8/16.
+ */
+public interface TblTeacherDao {
+    int insertSelective(TblTeacher tblTeacher);
+
+    int updateSelective(TblTeacher tblTeacher);
+
+    int updateStatus(String agencyId,int toStatus);
+
+    List<TblTeacher> queryTeacherList(TeacherQuery query);
+}

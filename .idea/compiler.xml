@@ -13,7 +13,7 @@
     <bytecodeTargetLevel>
       <module name="training-parent" target="1.5" />
       <module name="web-app" target="1.5" />
-      <module name="web-service" target="1.5" />
+      <module name="web-service" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
