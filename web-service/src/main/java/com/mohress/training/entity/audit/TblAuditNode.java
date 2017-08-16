@@ -39,9 +39,4 @@ public class TblAuditNode {
      * 后置节点
      */
     private String nextNode;
-
-    /**
-     * 节点规则Id
-     */
-    private String nodeRuleId;
 }

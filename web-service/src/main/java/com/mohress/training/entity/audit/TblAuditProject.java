@@ -24,7 +24,7 @@ public class TblAuditProject {
 
     /**
      * 项目名称
-     * (培训结构审核、开班审核)
+     * (培训结构审核、开班审核，台账审核)
      */
     private String projectName;
 

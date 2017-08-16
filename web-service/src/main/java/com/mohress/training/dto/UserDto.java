@@ -14,7 +14,7 @@ public class UserDto {
 
     private String userName;
 
-    private OrganizationDto organization;
+    private String role;
 
-    private List<RoleDto> roleList;
+    private List<String> authorityList;
 }

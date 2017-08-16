@@ -56,13 +56,14 @@ public class PassAction extends AbstractAuditAction {
         // 流程指向下一节点
         if (nextAuditNode == null){
             auditFlow.setNodeStatus(AUDIT_PASS.getStatus());
+            auditFlow.setFlowStatus(AUDIT_PASS.getStatus());
         }else {
             auditFlow.setNodeId(nextAuditNode.getNodeId());
             auditFlow.setNodeStatus(AUDIT_WAIT.getStatus());
         }
 
         SpringContextHelper.getBean(TblAuditRecordDao.class).insert(auditRecord);
-        int updateResult = SpringContextHelper.getBean(TblAuditFlowDao.class).updateByFlowIdAndVersion(auditFlow.getFlowId(), auditFlow.getVersion());
+        int updateResult = SpringContextHelper.getBean(TblAuditFlowDao.class).updateByFlowIdAndVersion(auditFlow);
 
         if (updateResult != 1){
             throw new BusinessException(ResultCode.AUDIT_FAIL, "更新审核流程信息失败，请重新审核。");

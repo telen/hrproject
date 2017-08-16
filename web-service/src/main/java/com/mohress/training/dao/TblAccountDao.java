@@ -13,7 +13,7 @@ public interface TblAccountDao {
 
     int updatePassword(String account, String password);
 
-    int updateDeadLine(String account, Date deadLine);
+    int updateExpiredTime(String account, Date expiredTime);
 
     int updateEnable(String account, boolean enable);
 

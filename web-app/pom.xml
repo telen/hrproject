@@ -11,6 +11,10 @@
     <name>web-app Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
+    <properties>
+        <profiles.dir>src/profiles</profiles.dir>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -29,5 +33,47 @@
 
     <build>
         <finalName>mohress-training</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources.${deploy.type}</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
+
+    <profiles>
+        <profile>
+            <id>betam</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/betam</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <profile>
+            <id>betan</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/betan</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+    </profiles>
 </project>

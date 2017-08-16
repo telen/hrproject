@@ -6,6 +6,9 @@ import org.springframework.security.authentication.event.AuthenticationFailureBa
 import org.springframework.stereotype.Component;
 
 /**
+ * 账号登录失败事件监听
+ * 如果连续三次密码输入失败，直接锁定账号
+ *
  * Created by youtao.wan on 2017/8/9.
  */
 @Slf4j

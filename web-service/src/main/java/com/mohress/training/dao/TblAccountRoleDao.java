@@ -13,8 +13,6 @@ public interface TblAccountRoleDao {
 
     int delete(Long id);
 
-    int updateByParmarilyKey(TblAccountRole tblAccountRole);
-
     List<TblAccountRole> selectByUserId(String userId);
 
     List<TblAccountRole> selectByRoleId(String roleId);

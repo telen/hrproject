@@ -11,5 +11,5 @@ public interface TblAuditFlowDao {
 
     TblAuditFlow selectByFlowId(String flowId);
 
-    int updateByFlowIdAndVersion(String flowId, int version);
+    int updateByFlowIdAndVersion(TblAuditFlow auditFlow);
 }
