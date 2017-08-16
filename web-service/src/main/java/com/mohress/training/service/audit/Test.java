@@ -1,5 +1,6 @@
 package com.mohress.training.service.audit;
 
+import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -10,4 +11,6 @@ public class Test {
     AuthenticationFailureHandler test = null;
 
     UsernamePasswordAuthenticationFilter filter = null;
+    ExceptionTranslationFilter s = null;
+
 }

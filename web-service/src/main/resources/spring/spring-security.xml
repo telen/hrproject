@@ -6,18 +6,12 @@
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-
     <context:property-placeholder location="classpath:config/web-url.properties" ignore-unresolvable="false"/>
 
-    <!--非过滤的资源-->
-    <http pattern="**/*.css" security="none"/>
-    <http pattern="**/*.image" security="none"/>
-
-    <http auto-config="true">
+    <http auto-config="true" entry-point-ref="customAuthenticationEntryPoint">
         <custom-filter ref="resourceAccessSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
 
-        <!--登录页面设置-->
-        <!--<form-login login-page="${login-url}"/>-->
+        <form-login login-processing-url="/api/v1/user/login" authentication-failure-handler-ref="loginFailHandler" authentication-success-handler-ref="loginSuccessHandler"/>
 
         <logout delete-cookies="remember-me"/>
 
@@ -30,7 +24,8 @@
         </session-management>
 
         <!--用户访问页面无权限时，指定跳转页面-->
-        <!--<access-denied-handler error-page="${access-denied-url}"/>-->
+        <access-denied-handler ref="customAccessDeniedHandler"/>
+        <csrf disabled="true"/>
     </http>
 
     <!--访问认证管理器-->
@@ -55,7 +50,9 @@
     </b:bean>
 
     <!--自定义权限前缀符号-->
-    <b:bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"/>
+    <b:bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
+        <b:property name="rolePrefix" value="AUTH_"/>
+    </b:bean>
 
     <!--资源访问安全拦截器-->
     <b:bean id="resourceAccessSecurityInterceptor" class="com.mohress.training.service.security.AuthorityVerifyInterceptor">
@@ -64,4 +61,16 @@
         <b:property name="resourceAuthorityLoadingService" ref="resourceAuthorityLoadingService"/>
         <b:property name="publishAuthorizationSuccess" value="true"/>
     </b:bean>
+
+    <!--访问拒绝处理器-->
+    <b:bean id="customAccessDeniedHandler" class="com.mohress.training.service.security.handler.CustomAccessDeniedHandler"/>
+
+    <!--账号验证失败处理器-->
+    <b:bean id="customAuthenticationEntryPoint" class="com.mohress.training.service.security.handler.CustomAuthenticationEntryPoint"/>
+
+    <!--账号登录失败处理器-->
+    <b:bean id="loginFailHandler" class="com.mohress.training.service.security.handler.LoginFailHandler"/>
+
+    <!--账号登录成功处理器-->
+    <b:bean id="loginSuccessHandler" class="com.mohress.training.service.security.handler.LoginSuccessHandler"/>
 </b:beans>

@@ -162,7 +162,8 @@ public class AccountAuthorityCache extends ForwardingLoadingCache<String, Accoun
             return false;
         }
         try {
-            Field enableField = enableObject.getClass().getField("enable");
+            Field enableField = enableObject.getClass().getDeclaredField("enable");
+            enableField.setAccessible(true);
             return enableField.getBoolean(enableObject);
         } catch (Exception e){
             return false;

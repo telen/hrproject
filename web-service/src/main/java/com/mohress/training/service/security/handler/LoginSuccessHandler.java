@@ -1,4 +1,4 @@
-package com.mohress.training.controller;
+package com.mohress.training.service.security.handler;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -6,38 +6,65 @@ import com.mohress.training.cache.AccountAuthorityCache;
 import com.mohress.training.dto.Response;
 import com.mohress.training.dto.UserDto;
 import com.mohress.training.entity.security.TblAuthority;
-import com.mohress.training.enums.ResultCode;
 import com.mohress.training.util.AccountAuthority;
 import com.mohress.training.util.RoleAuthority;
+import com.mohress.training.util.SerializerFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.mohress.training.enums.ResultCode.SUCCESS;
+
 /**
- * 账号接口
- *
+ * Created by youtao.wan on 2017/8/16.
  */
 @Slf4j
-@Controller
-@RequestMapping("api/user/")
-public class AccountController {
+public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Resource
     private AccountAuthorityCache cache;
 
-    @ResponseBody
-    @RequestMapping(value = "user")
-    public Response<UserDto> login(HttpServletRequest request){
-        /*String account = "root";
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        if (!response.isCommitted()){
+            response.setStatus(400);
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json; charset=utf-8");
 
+            UserDto userDto = getAccountAuthority(authentication.getName());
+            String json = SerializerFactory.defaultSerializer().serialize(new Response<>(SUCCESS.getCode(), "登录成功", userDto));
+            Cookie cookie = new Cookie("userToken", userDto.getUserId());
+
+            PrintWriter writer = null;
+            try {
+                response.addCookie(cookie);
+
+                writer = response.getWriter();
+                writer.append(json);
+            }catch (IOException ie){
+                log.error("登录成功数据写入异常。", ie);
+            }finally {
+                if (writer != null){
+                    writer.flush();
+                    writer.close();
+                }
+            }
+        }
+    }
+
+    private UserDto getAccountAuthority(String account){
         // 1.缓存获取用户及权限信息
         AccountAuthority accountAuthority = cache.getUnchecked(account);
 
@@ -66,13 +93,7 @@ public class AccountController {
 
         user.setUserId(accountAuthority.getAccount().getUserId());
         user.setUserName(accountAuthority.getAccount().getUserName());
-        return new Response<UserDto>(ResultCode.SUCCESS.getCode(), "用户登录成功", user);*/
-        return null;
-    }
 
-    @ResponseBody
-    @RequestMapping(value = "reset")
-    public Response resetPassword(){
-        return new Response(ResultCode.SUCCESS.getCode(), "成功");
+        return user;
     }
 }
