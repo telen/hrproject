@@ -8,7 +8,7 @@
     <http auto-config="true" entry-point-ref="customAuthenticationEntryPoint">
         <custom-filter ref="resourceAccessSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
 
-        <form-login login-processing-url="/api/v1/user/login" authentication-failure-handler-ref="loginFailHandler" authentication-success-handler-ref="loginSuccessHandler"/>
+        <form-login login-processing-url="/api/user/login" authentication-failure-handler-ref="loginFailHandler" authentication-success-handler-ref="loginSuccessHandler"/>
 
         <logout delete-cookies="remember-me"/>
 

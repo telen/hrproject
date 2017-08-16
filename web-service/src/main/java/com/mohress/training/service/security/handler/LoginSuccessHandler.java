@@ -39,13 +39,15 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         if (!response.isCommitted()){
-            response.setStatus(400);
+            response.setStatus(200);
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json; charset=utf-8");
 
             UserDto userDto = getAccountAuthority(authentication.getName());
             String json = SerializerFactory.defaultSerializer().serialize(new Response<>(SUCCESS.getCode(), "登录成功", userDto));
-            Cookie cookie = new Cookie("userToken", userDto.getUserId());
+            Cookie cookie = new Cookie("token", userDto.getUserId());
+            cookie.setPath("/");
+            cookie.setMaxAge(86400);
 
             PrintWriter writer = null;
             try {
