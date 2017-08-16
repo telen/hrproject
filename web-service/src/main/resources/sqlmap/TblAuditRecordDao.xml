@@ -12,4 +12,22 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
+
+    <sql id="columnList">
+        id, record_id, flow_id, node_id, auditor, action, audit_result, create_time, update_time
+    </sql>
+
+    <insert id="insert" parameterType="TblAuditRecord">
+        INSERT INTO tb_audit_record
+        (record_id, flow_id, node_id, auditor, action, audit_result)
+        VALUE
+        (#{recordId}, #{flowId}, #{nodeId}, #{auditor}, #{action}, #{auditResult})
+    </insert>
+
+    <select id="selectByFlowIdAndAuditor" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_audit_record
+        WHERE flow_id = #{flowId} AND auditor = #{auditor}
+    </select>
 </mapper>

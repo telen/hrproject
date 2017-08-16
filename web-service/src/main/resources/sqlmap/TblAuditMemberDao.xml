@@ -7,4 +7,20 @@
         <result column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="priority" property="priority" jdbcType="TIMESTAMP"/>
     </resultMap>
+
+    <sql id="columnList">
+        id, node_id, user_id, priority
+    </sql>
+
+    <select id="selectByNodeId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        WHERE node_id = #{nodeId}
+    </select>
+
+    <select id="selectByNodeIdAndUserId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        WHERE node_id = #{nodeId} AND user_id = #{userId}
+    </select>
 </mapper>

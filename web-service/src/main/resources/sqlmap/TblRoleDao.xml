@@ -16,4 +16,25 @@
     <sql id="columnList">
         id, role_id, role_name, role_desc, priority, enable, parent_role_id, create_time, update_time
     </sql>
+
+    <insert id="insert" parameterType="TblRole">
+        INSERT INTO tb_role
+        (role_id, role_name, role_desc, priority, enable, parent_role_id)
+        VALUE
+        (#{roleId}, #{roleName}, #{roleDesc}, #{priority}, #{enable}, #{parentRoleId})
+    </insert>
+
+    <select id="selectByRoleId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_role
+        WHERE role_id = #{roleId}
+    </select>
+
+    <select id="selectByParentRoleId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_role
+        WHERE parent_role_id = #{parentRoleId}
+    </select>
 </mapper>

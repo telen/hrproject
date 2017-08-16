@@ -13,4 +13,28 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
+
+    <sql id="columnList">
+        id, flow_id, project_id, node_id, node_status, flow_status, creator, version, create_time, update_time
+    </sql>
+
+    <insert id="insert" parameterType="TblAuditFlow">
+        INSERT INTO tb_audit_flow
+        (flow_id, project_id, node_id, node_status, flow_status, creator, version)
+        VALUE
+        (#{flowId}, #{projectId},  #{nodeId}, #{nodeStatus}, #{flowStatus}, #{creator}, #{version})
+    </insert>
+
+    <select id="selectByFlowId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_audit_flow
+        WHERE flow_id = #{flowId}
+    </select>
+
+    <update id="updateByFlowIdAndVersion" parameterType="TblAuditFlow">
+        UPDATE tb_audit_flow
+        SET node_id = #{nodeId}, node_status = #{nodeStatus}, flow_status = #{flowStatus}, version = version + 1
+        WHERE flow_id = #{flowId} AND version = #{version}
+    </update>
 </mapper>

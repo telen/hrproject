@@ -50,7 +50,6 @@
     <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
   </listener>
 
-
   <!-- Spring MVC servlet -->
   <servlet>
     <servlet-name>SpringMVC</servlet-name>

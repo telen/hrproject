@@ -25,6 +25,5 @@
         <typeAlias alias="TblAuditNode" type="com.mohress.training.entity.audit.TblAuditNode"/>
         <typeAlias alias="TblAuditProject" type="com.mohress.training.entity.audit.TblAuditProject"/>
         <typeAlias alias="TblAuditRecord" type="com.mohress.training.entity.audit.TblAuditRecord"/>
-        <typeAlias alias="TblAuditRule" type="com.mohress.training.entity.audit.TblAuditRule"/>
     </typeAliases>
 </configuration>
