@@ -1,5 +1,8 @@
 package com.mohress.training.service;
 
+import com.mohress.training.dto.PageDto;
+import com.mohress.training.dto.QueryDto;
+
 import java.util.List;
 
 /**
@@ -10,7 +13,7 @@ public interface ModuleBiz {
     /**
      * 新增
      */
-    void newModule(Object o);
+    void newModule(String o);
 
     /**
      * 批量删除
@@ -20,6 +23,9 @@ public interface ModuleBiz {
     /**
      * 更新
      */
-    void update(Object o);
+    void update(String o);
 
+    Object query(PageDto pageDto);
+
+    Object queryByKeyword(QueryDto queryDto);
 }

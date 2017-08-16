@@ -10,6 +10,7 @@
           <element id="archive" name="web-service-1.0.0-SNAPSHOT.jar">
             <element id="module-output" name="web-service" />
           </element>
+          <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.5" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.0" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:4.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />

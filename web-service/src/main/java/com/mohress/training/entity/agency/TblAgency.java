@@ -10,6 +10,7 @@ import java.util.Date;
  */
 @Data
 public class TblAgency {
+    private Integer id;
     /**
      * 机构编码
      */
