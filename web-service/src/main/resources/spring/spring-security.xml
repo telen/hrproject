@@ -22,6 +22,9 @@
 
         <!--用户访问页面无权限时，指定跳转页面-->
         <access-denied-handler ref="customAccessDeniedHandler"/>
+
+        <anonymous enabled="false"/>
+
         <csrf disabled="true"/>
     </http>
 
