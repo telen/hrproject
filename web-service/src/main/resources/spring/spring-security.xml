@@ -5,15 +5,14 @@
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <http auto-config="true" entry-point-ref="customAuthenticationEntryPoint">
+    <http auto-config="true" entry-point-ref="authenticateFailHandler">
         <custom-filter ref="resourceAccessSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
 
         <form-login login-processing-url="/api/user/login" authentication-failure-handler-ref="loginFailHandler" authentication-success-handler-ref="loginSuccessHandler"/>
 
-        <logout delete-cookies="remember-me"/>
+        <logout delete-cookies="token"/>
 
-        <!--记住我功能-->
-        <remember-me key="ptoken" token-validity-seconds="86400" data-source-ref="dataSource"/>
+        <!--<remember-me key="ptoken" token-validity-seconds="86400" data-source-ref="dataSource"/>-->
 
         <!--同一个账号最多只能同时在线一个-->
         <session-management>
@@ -21,8 +20,9 @@
         </session-management>
 
         <!--用户访问页面无权限时，指定跳转页面-->
-        <access-denied-handler ref="customAccessDeniedHandler"/>
+        <access-denied-handler ref="authorizeFailHandler"/>
 
+        <!--关闭匿名登录-->
         <anonymous enabled="false"/>
 
         <csrf disabled="true"/>
@@ -63,10 +63,10 @@
     </b:bean>
 
     <!--访问拒绝处理器-->
-    <b:bean id="customAccessDeniedHandler" class="com.mohress.training.service.security.handler.CustomAccessDeniedHandler"/>
+    <b:bean id="authorizeFailHandler" class="com.mohress.training.service.security.handler.AuthorizeFailHandler"/>
 
     <!--账号验证失败处理器-->
-    <b:bean id="customAuthenticationEntryPoint" class="com.mohress.training.service.security.handler.CustomAuthenticationEntryPoint"/>
+    <b:bean id="authenticateFailHandler" class="com.mohress.training.service.security.handler.AuthenticateFailHandler"/>
 
     <!--账号登录失败处理器-->
     <b:bean id="loginFailHandler" class="com.mohress.training.service.security.handler.LoginFailHandler"/>
