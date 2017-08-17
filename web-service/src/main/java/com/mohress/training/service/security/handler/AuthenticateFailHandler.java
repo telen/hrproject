@@ -26,6 +26,6 @@ public class AuthenticateFailHandler implements AuthenticationEntryPoint {
         log.error("账号验证失败。", e);
 
         Writer writer = new JsonResponseWriter(response);
-        writer.write(new Response(FAIL.getCode(), "账号密码验证不通过"));
+        writer.write(new Response(FAIL.getCode(), "用户尚未登录，请重新登录"));
     }
 }

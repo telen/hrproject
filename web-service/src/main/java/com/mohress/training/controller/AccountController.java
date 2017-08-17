@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -39,33 +36,10 @@ public class AccountController {
     @ResponseBody
     @RequestMapping(value = "user")
     public Response<UserDto> login(@CookieValue("token") String userId){
-        return null;
-    }
 
-    @ResponseBody
-    @RequestMapping(value = "login")
-    public Response login(HttpServletRequest request, HttpServletResponse response){
+        UserDto userDto = getAccountAuthority("root");
 
-        // 1.获取账号名
-        String account = (String) request.getAttribute("userName");
-
-        // 2.查询用户信息
-        UserDto userDto = getAccountAuthority(account);
-
-        // 3.添加cookie
-        Cookie cookie = new Cookie("token", userDto.getUserId());
-        cookie.setPath("/");
-        cookie.setMaxAge(86400);
-        response.addCookie(cookie);
-
-        // 4.数据返回
-        return new Response<>(ResultCode.SUCCESS.getCode(), "用户登录成功", userDto);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "logout")
-    public Response logout(){
-        return new Response(ResultCode.SUCCESS.getCode(), "退出登录成功");
+        return new Response<>(ResultCode.SUCCESS.getCode(), "成功", userDto);
     }
 
     @ResponseBody
