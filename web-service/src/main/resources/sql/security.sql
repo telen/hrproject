@@ -66,3 +66,9 @@ CREATE TABLE tb_role_authority (
   KEY idx_role_id(role_id),
   KEY idx_authority_id(authority_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='权限角色关联表';
+
+INSERT INTO mohress_training.tb_account (user_id, account, password, user_name, mobile, email, login_ip, login_time, enable, locked, expired_time, create_time, update_time) VALUES ('17081610203221032122', 'root', '$2a$10$ZWVAc1w.cYA9Ye9za.3GE.wf7Ap97HYX47kSWb2tB29w2lZyk5tCC', 'Mr.Monkey', '15201529169', '251961289@qq.com', '0:0:0:0:0:0:0:1', '2017-08-16 20:31:59', 1, 0, '2018-08-16 10:19:32', '2017-08-16 10:20:41', '2017-08-16 20:31:59');
+INSERT INTO mohress_training.tb_account (user_id, account, password, user_name, mobile, email, login_ip, login_time, enable, locked, expired_time, create_time, update_time) VALUES ('17081610203221032122', 'root', '$2a$10$ZWVAc1w.cYA9Ye9za.3GE.wf7Ap97HYX47kSWb2tB29w2lZyk5tCC', 'Mr.Monkey', '15201529169', '251961289@qq.com', '0:0:0:0:0:0:0:1', '2017-08-16 20:31:59', 1, 0, '2018-08-16 10:19:32', '2017-08-16 10:20:41', '2017-08-16 20:31:59');
+INSERT INTO mohress_training.tb_authority (authority_id, authority_name, authority_desc, resource_path, enable, create_time, update_time) VALUES ('17081610203221032567', 'AUTH_root', '任何路径', '/*', 1, '2017-08-16 10:22:41', '2017-08-16 11:24:30');
+INSERT INTO mohress_training.tb_role (role_id, role_name, role_desc, priority, enable, parent_role_id, create_time, update_time) VALUES ('17081610225621055995', '超级管理员', '超级管理员', '0', 1, '', '2017-08-16 10:24:03', '2017-08-16 10:24:03');
+INSERT INTO mohress_training.tb_role_authority (role_id, authority_id) VALUES ('17081610225621055995', '17081610203221032567');
