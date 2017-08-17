@@ -45,4 +45,9 @@ public class TeacherServiceImpl implements TeacherService {
     public List<TblTeacher> query(TeacherQuery query) {
         return tblTeacherDao.queryTeacherList(query);
     }
+
+    @Override
+    public List<TblTeacher> queryByKeyword(TeacherQuery teacherQuery) {
+        return tblTeacherDao.queryTeacherByKeyword(teacherQuery);
+    }
 }

@@ -8,6 +8,9 @@ import lombok.Data;
  */
 @Data
 public class TeacherQuery {
+
+    private String keyword;
+
     private Integer pageSize;
 
     private Integer pageIndex;

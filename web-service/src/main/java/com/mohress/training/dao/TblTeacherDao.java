@@ -18,4 +18,6 @@ public interface TblTeacherDao {
     int updateStatus(String agencyId,int toStatus);
 
     List<TblTeacher> queryTeacherList(TeacherQuery query);
+
+    List<TblTeacher> queryTeacherByKeyword(TeacherQuery query);
 }

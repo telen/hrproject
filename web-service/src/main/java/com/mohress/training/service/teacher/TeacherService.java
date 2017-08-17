@@ -29,4 +29,6 @@ public interface TeacherService {
      * 查询
      */
     List<TblTeacher> query(TeacherQuery query);
+
+    List<TblTeacher> queryByKeyword(TeacherQuery teacherQuery);
 }

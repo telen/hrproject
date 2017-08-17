@@ -17,8 +17,28 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="JoinBaseResultMap" type="com.mohress.training.entity.TblTeacher" >
+    <id column="tt.id" property="id" jdbcType="INTEGER" />
+    <result column="tt.teacher_id" property="teacherId" jdbcType="VARCHAR" />
+    <result column="tt.agency_id" property="agencyId" jdbcType="VARCHAR" />
+    <result column="tt.id_number" property="idNumber" jdbcType="VARCHAR" />
+    <result column="tt.name" property="name" jdbcType="VARCHAR" />
+    <result column="tt.gender" property="gender" jdbcType="TINYINT" />
+    <result column="tt.nationality" property="nationality" jdbcType="VARCHAR" />
+    <result column="tt.birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="tt.address" property="address" jdbcType="VARCHAR" />
+    <result column="tt.mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="tt.education" property="education" jdbcType="VARCHAR" />
+    <result column="tt.status" property="status" jdbcType="TINYINT" />
+    <result column="tt.create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="tt.update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, teacher_id, agency_id, id_number, name, gender, nationality, birthday, address, 
+    mobile, education, status, create_time, update_time
+  </sql>
+  <sql id="Join_Base_Column_List" >
+    id, teacher_id, agency_id, id_number, name, gender, nationality, birthday, address,
     mobile, education, status, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -32,6 +52,16 @@
     <include refid="Base_Column_List" />
     from tbl_teacher
     order by create_time
+    limit #{pageIndex},#{pageSize}
+  </select>
+
+  <select id="queryTeacherByKeyword" resultMap="JoinBaseResultMap" parameterType="com.mohress.training.service.teacher.TeacherQuery" >
+    select
+      <include refid="Join_Base_Column_List" />
+    from tbl_teacher tt INNER JOIN tbl_agency ta ON
+    tt.agency_id = ta.agency_id
+    and ta.agency_name like '%#{keyword}%'
+    order by tt.create_time
     limit #{pageIndex},#{pageSize}
   </select>
 
