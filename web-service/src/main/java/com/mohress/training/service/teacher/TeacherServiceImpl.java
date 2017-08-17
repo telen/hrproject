@@ -3,6 +3,7 @@ package com.mohress.training.service.teacher;
 import com.google.common.base.Verify;
 import com.mohress.training.dao.TblTeacherDao;
 import com.mohress.training.entity.TblTeacher;
+import com.mohress.training.service.BaseManageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,15 +17,15 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class TeacherServiceImpl implements TeacherService {
+public class TeacherServiceImpl implements BaseManageService {
 
     private static final int DELETE_STATUS = 1;
     @Resource
     private TblTeacherDao tblTeacherDao;
 
     @Override
-    public void newModule(TblTeacher teacher) {
-        Verify.verify(tblTeacherDao.insertSelective(teacher) > 0, "新增机构SQL异常");
+    public <T> void newModule(T teacher) {
+        Verify.verify(tblTeacherDao.insertSelective((TblTeacher)teacher) > 0, "新增机构SQL异常");
 
     }
 
@@ -37,17 +38,18 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void update(TblTeacher teacher) {
-        Verify.verify(tblTeacherDao.updateByPrimaryKeySelective(teacher) > 0, "更新机构SQL异常");
+    public <T> void update(T teacher) {
+        Verify.verify(tblTeacherDao.updateByPrimaryKeySelective((TblTeacher)teacher) > 0, "更新机构SQL异常");
     }
 
     @Override
-    public List<TblTeacher> query(TeacherQuery query) {
-        return tblTeacherDao.queryTeacherList(query);
+    public <T, M> List<T> query(M m) {
+        return (List<T>)tblTeacherDao.queryTeacherList((TeacherQuery)m);
     }
 
     @Override
-    public List<TblTeacher> queryByKeyword(TeacherQuery teacherQuery) {
-        return tblTeacherDao.queryTeacherByKeyword(teacherQuery);
+    public <T, M> List<T> queryByKeyword(M m) {
+        return (List<T>)tblTeacherDao.queryTeacherByKeyword((TeacherQuery)m);
     }
+
 }

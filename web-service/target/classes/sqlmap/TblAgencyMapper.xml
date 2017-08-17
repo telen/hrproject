@@ -23,6 +23,7 @@
         select
         <include refid="Base_Column_List"/>
         from tbl_agency
+        where status = 0
         order by create_time
         limit #{pageIndex},#{pageSize}
     </select>
@@ -142,9 +143,46 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
+    <update id="updateByPrimaryAgenctIdSelective" parameterType="com.mohress.training.entity.agency.TblAgency">
+        update tbl_agency
+        <set>
+            <if test="agencyId != null">
+                agency_id = #{agencyId,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyName != null">
+                agency_name = #{agencyName,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyHead != null">
+                agency_head = #{agencyHead,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyMobile != null">
+                agency_mobile = #{agencyMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyMail != null">
+                agency_mail = #{agencyMail,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="superiorDepartment != null">
+                superior_department = #{superiorDepartment,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where agency_id = #{agencyId}
+    </update>
+
     <update id="updateStatus" parameterType="com.mohress.training.entity.agency.TblAgency">
         update tbl_agency
-        set status = #{toStatus,jdbcType=TINYINT},
-        where agencyId = #{agencyId}
+        set status = #{toStatus,jdbcType=TINYINT}
+        where agency_id = #{agencyId}
     </update>
 </mapper>

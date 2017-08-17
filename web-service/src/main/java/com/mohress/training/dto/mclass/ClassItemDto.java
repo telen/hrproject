@@ -1,4 +1,4 @@
-package com.mohress.training.dto.agency;
+package com.mohress.training.dto.mclass;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by qx.wang on 2017/8/15.
  */
 @Data
-public class AgencyItemDto implements Serializable {
+public class ClassItemDto implements Serializable {
 
     /**
      * 机构编码

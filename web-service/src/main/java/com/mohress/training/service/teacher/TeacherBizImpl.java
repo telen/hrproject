@@ -5,6 +5,7 @@ import com.mohress.training.dto.PageDto;
 import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.teacher.TeacherRequestDto;
 import com.mohress.training.entity.TblTeacher;
+import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.ModuleBiz;
 import com.mohress.training.util.Convert;
 import com.mohress.training.util.JsonUtil;
@@ -26,7 +27,7 @@ import java.util.List;
 public class TeacherBizImpl implements ModuleBiz {
 
     @Resource
-    private TeacherService teacherServiveImpl;
+    private BaseManageService teacherServiceImpl;
 
     @Override
     public void newModule(String o) {
@@ -37,13 +38,13 @@ public class TeacherBizImpl implements ModuleBiz {
         } catch (Exception e) {
             log.error("教师新增反序列化失败 {}", o, e);
         }
-        teacherServiveImpl.newModule(buildInsertTblTeacher(teacherRequestDto));
+        teacherServiceImpl.newModule(buildInsertTblTeacher(teacherRequestDto));
     }
 
     @Override
     public void delete(List<String> ids) {
         Preconditions.checkArgument(!CollectionUtils.isEmpty(ids));
-        teacherServiveImpl.delete(ids);
+        teacherServiceImpl.delete(ids);
     }
 
     @Override
@@ -55,12 +56,15 @@ public class TeacherBizImpl implements ModuleBiz {
         } catch (Exception e) {
             log.error("教师新增反序列化失败 {}", o, e);
         }
-        teacherServiveImpl.update(buildUpdateTblTeacher(teacherRequestDto));
+        teacherServiceImpl.update(buildUpdateTblTeacher(teacherRequestDto));
     }
 
     @Override
     public Object query(PageDto pageDto) {
-        List<TblTeacher> tblTeachers = teacherServiveImpl.query(buildTeacherQuery(pageDto));
+        Preconditions.checkNotNull(pageDto);
+        Preconditions.checkArgument(pageDto.getPage() > 0);
+        Preconditions.checkArgument(pageDto.getPageSize() > 0);
+        List<TblTeacher> tblTeachers = teacherServiceImpl.query(buildTeacherQuery(pageDto));
         return Convert.convertTeacher(tblTeachers);
     }
 
@@ -69,7 +73,7 @@ public class TeacherBizImpl implements ModuleBiz {
         Preconditions.checkNotNull(queryDto.getKeyword());
 
         //关联机构名称
-        List<TblTeacher> tblTeachers = teacherServiveImpl.queryByKeyword(buildTeacherQueryByKey(queryDto));
+        List<TblTeacher> tblTeachers = teacherServiceImpl.queryByKeyword(buildTeacherQueryByKey(queryDto));
         return Convert.convertTeacher(tblTeachers);
     }
 
