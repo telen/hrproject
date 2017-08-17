@@ -10,7 +10,23 @@
     <packaging>war</packaging>
     <name>web-app Maven Webapp</name>
     <url>http://maven.apache.org</url>
+<<<<<<< HEAD
     <dependencies>
+=======
+
+    <properties>
+        <profiles.dir>src/profiles</profiles.dir>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.mohress.training</groupId>
+            <artifactId>web-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+>>>>>>> 20170817-2-init
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -18,7 +34,56 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+<<<<<<< HEAD
     <build>
         <finalName>web-app</finalName>
     </build>
+=======
+
+    <build>
+        <finalName>mohress-training</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources.${deploy.type}</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>betam</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/betam</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <profile>
+            <id>betan</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/betan</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+    </profiles>
+>>>>>>> 20170817-2-init
 </project>
