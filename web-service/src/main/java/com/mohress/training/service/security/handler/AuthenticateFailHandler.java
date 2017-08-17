@@ -17,7 +17,6 @@ import static com.mohress.training.enums.ResultCode.FAIL;
 /**
  * 账号信息验证失败处理器
  *
- * Created by youtao.wan on 2017/8/16.
  */
 @Slf4j
 public class AuthenticateFailHandler implements AuthenticationEntryPoint {
