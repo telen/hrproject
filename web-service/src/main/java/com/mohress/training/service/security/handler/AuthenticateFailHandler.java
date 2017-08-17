@@ -1,5 +1,8 @@
 package com.mohress.training.service.security.handler;
 
+import com.mohress.training.dto.Response;
+import com.mohress.training.util.writer.JsonResponseWriter;
+import com.mohress.training.util.writer.Writer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -9,18 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.mohress.training.enums.ResultCode.FAIL;
+
 /**
- * 账号授权异常处理器
+ * 账号信息验证失败处理器
  *
- * Created by youtao.wan on 2017/8/16.
  */
 @Slf4j
-public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
-
-    private AuthenticationFailHandler handler = new AuthenticationFailHandler();
+public class AuthenticateFailHandler implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
-        handler.handle(request, response, e);
+
+        Writer writer = new JsonResponseWriter(response);
+        writer.write(new Response(FAIL.getCode(), "账号密码验证不通过"));
     }
 }

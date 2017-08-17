@@ -1,4 +1,4 @@
-package com.mohress.training.util;
+package com.mohress.training.util.serializer;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParser;

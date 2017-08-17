@@ -12,6 +12,8 @@
     <artifactId>web-service</artifactId>
 
 
+<<<<<<< HEAD
+=======
     <dependencies>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -126,4 +128,5 @@
         </dependency>
     </dependencies>
 
+>>>>>>> 20170817-2-init
 </project>

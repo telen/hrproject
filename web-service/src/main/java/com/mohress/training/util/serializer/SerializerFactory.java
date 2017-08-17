@@ -1,4 +1,4 @@
-package com.mohress.training.util;
+package com.mohress.training.util.serializer;
 
 /**
  * @author youtao.wan

@@ -10,6 +10,9 @@
     <packaging>war</packaging>
     <name>web-app Maven Webapp</name>
     <url>http://maven.apache.org</url>
+<<<<<<< HEAD
+    <dependencies>
+=======
 
     <properties>
         <profiles.dir>src/profiles</profiles.dir>
@@ -23,6 +26,7 @@
             <version>${project.version}</version>
         </dependency>
 
+>>>>>>> 20170817-2-init
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -30,6 +34,11 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+<<<<<<< HEAD
+    <build>
+        <finalName>web-app</finalName>
+    </build>
+=======
 
     <build>
         <finalName>mohress-training</finalName>
@@ -76,4 +85,5 @@
         </profile>
 
     </profiles>
+>>>>>>> 20170817-2-init
 </project>
