@@ -11,9 +11,6 @@
 
     <artifactId>web-service</artifactId>
 
-
-<<<<<<< HEAD
-=======
     <dependencies>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -127,6 +124,4 @@
             <artifactId>jackson-jr-all</artifactId>
         </dependency>
     </dependencies>
-
->>>>>>> 20170817-2-init
 </project>
