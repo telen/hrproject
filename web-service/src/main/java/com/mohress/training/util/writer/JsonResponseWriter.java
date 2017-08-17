@@ -33,7 +33,7 @@ public class JsonResponseWriter implements Writer {
             writer = response.getWriter();
             writer.append(json);
         }catch (IOException ie){
-            log.error("Http响应流写入数据IO异常。HttpServletResponse={}, data={}", response, data);
+            log.error("Http响应流写入数据IO异常。 data={}", data);
         }finally {
             if (writer != null){
                 writer.flush();

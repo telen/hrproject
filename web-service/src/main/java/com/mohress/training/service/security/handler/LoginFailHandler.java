@@ -25,6 +25,5 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 
         Writer writer = new JsonResponseWriter(httpServletResponse);
         writer.write(new Response<>(FAIL.getCode(), "密码错误"));
-
     }
 }
