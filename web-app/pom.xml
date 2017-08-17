@@ -74,11 +74,11 @@
         </profile>
 
         <profile>
-            <id>betan</id>
+            <id>qx.wang</id>
             <build>
                 <resources>
                     <resource>
-                        <directory>${profiles.dir}/betan</directory>
+                        <directory>${profiles.dir}/qx.wang</directory>
                     </resource>
                 </resources>
             </build>

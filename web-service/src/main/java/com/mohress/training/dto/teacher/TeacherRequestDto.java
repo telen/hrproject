@@ -1,16 +1,16 @@
-package com.mohress.training.entity;
+package com.mohress.training.dto.teacher;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 培训老师
- *
+ * 教师实体
+ * Created by qx.wang on 2017/8/15.
  */
 @Data
-public class TblTeacher {
-    private Integer id;
+public class TeacherRequestDto implements Serializable {
 
     /**
      * 教师编号
@@ -49,9 +49,5 @@ public class TblTeacher {
      * 1-已删除
      */
     private Integer status;
-
-    private Date createTime;
-
-    private Date updateTime;
 
 }

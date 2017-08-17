@@ -5,12 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 培训老师
- *
+ * 教师
+ * <p>
  * Created by youtao.wan on 2017/8/9.
  */
 @Slf4j
 @Controller
 @RequestMapping("api/teacher")
 public class TeacherController {
+
+
 }

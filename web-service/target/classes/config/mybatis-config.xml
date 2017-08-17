@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="cacheEnabled" value="true" />
+        <setting name="lazyLoadingEnabled" value="false" />
+        <setting name="aggressiveLazyLoading" value="false" />
+        <setting name="multipleResultSetsEnabled" value="true" />
+        <setting name="useColumnLabel" value="true" />
+        <setting name="useGeneratedKeys" value="false" />
+        <setting name="defaultExecutorType" value="SIMPLE" />
+        <setting name="defaultStatementTimeout" value="25000" />
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="TblAccount" type="com.mohress.training.entity.security.TblAccount"/>
+        <typeAlias alias="TblAccountRole" type="com.mohress.training.entity.security.TblAccountRole"/>
+        <typeAlias alias="TblAuthority" type="com.mohress.training.entity.security.TblAuthority"/>
+        <typeAlias alias="TblRole" type="com.mohress.training.entity.security.TblRole"/>
+        <typeAlias alias="TblRoleAuthority" type="com.mohress.training.entity.security.TblRoleAuthority"/>
+        <typeAlias alias="TblAuditFlow" type="com.mohress.training.entity.audit.TblAuditFlow"/>
+        <typeAlias alias="TblAuditMember" type="com.mohress.training.entity.audit.TblAuditMember"/>
+        <typeAlias alias="TblAuditNode" type="com.mohress.training.entity.audit.TblAuditNode"/>
+        <typeAlias alias="TblAuditProject" type="com.mohress.training.entity.audit.TblAuditProject"/>
+        <typeAlias alias="TblAuditRecord" type="com.mohress.training.entity.audit.TblAuditRecord"/>
+    </typeAliases>
+</configuration>
