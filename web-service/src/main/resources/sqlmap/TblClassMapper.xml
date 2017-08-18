@@ -14,12 +14,14 @@
     <result column="status" property="status" jdbcType="TINYINT" />
     <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
     <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="on_class_time" property="onClassTime" jdbcType="TIMESTAMP" />
+    <result column="off_class_time" property="offClassTime" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, course_id, class_id, classname, affiliated_profession, predicted_count, proposer, 
-    proposer_mobile, teach_plan_file_path, status, start_time, end_time, create_time, 
+    proposer_mobile, teach_plan_file_path, status, start_time, end_time, on_class_time, off_class_time, create_time,
     update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -79,6 +81,12 @@
       <if test="endTime != null" >
         end_time,
       </if>
+      <if test="onClassTime != null" >
+        on_class_time,
+      </if>
+      <if test="endTime != null" >
+        off_class_time,
+      </if>
       <if test="createTime != null" >
         create_time,
       </if>
@@ -122,6 +130,12 @@
       </if>
       <if test="endTime != null" >
         #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="onClassTime != null" >
+        #{onClassTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{offClassTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -167,6 +181,12 @@
       </if>
       <if test="endTime != null" >
         end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="onClassTime != null" >
+        on_class_time = #{onClassTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        off_class_time = #{offClassTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},

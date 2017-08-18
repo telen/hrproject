@@ -65,7 +65,11 @@ public class Convert {
             @Override
             public ClassItemDto apply(TblClass input) {
                 ClassItemDto dto = new ClassItemDto();
-                BeanUtils.copyProperties(input,dto);
+                BeanUtils.copyProperties(input,dto,"startTime","endTime","onClassTime","offClassTime");
+                dto.setStartTime(input.getStartTime().getTime());
+                dto.setEndTime(input.getEndTime().getTime());
+                dto.setOnClassTime(input.getOnClassTime().getTime());
+                dto.setOffClassTime(input.getOffClassTime().getTime());
                 return dto;
             }
         });
