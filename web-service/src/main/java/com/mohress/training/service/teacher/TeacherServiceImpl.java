@@ -20,6 +20,7 @@ import java.util.List;
 public class TeacherServiceImpl implements BaseManageService {
 
     private static final int DELETE_STATUS = 1;
+
     @Resource
     private TblTeacherDao tblTeacherDao;
 
@@ -39,7 +40,7 @@ public class TeacherServiceImpl implements BaseManageService {
 
     @Override
     public <T> void update(T teacher) {
-        Verify.verify(tblTeacherDao.updateByPrimaryKeySelective((TblTeacher)teacher) > 0, "更新机构SQL异常");
+        Verify.verify(tblTeacherDao.updateByTeacherIdSelective((TblTeacher)teacher) > 0, "更新机构SQL异常");
     }
 
     @Override

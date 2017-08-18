@@ -10,7 +10,12 @@ import java.io.Serializable;
  */
 @Data
 public class QueryDto implements Serializable{
+    /**
+     * 查询者
+     */
+    private String userId;
     private String keyword;
     private int page;
     private int pageSize;
+
 }

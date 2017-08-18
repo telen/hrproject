@@ -2,40 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d347a0e6-c215-48ef-8d7b-65cf788970a9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblClassDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblClassMemberDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/mclass/ClassItemDto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/mclass/ClassRequestDto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/mclass/TblClass.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/mclass/TblClassMember.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/BaseManageService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassBizImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassQuery.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassStudent.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/agency/AgencyListResponseDto.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/teacher/TeacherListResponseDto.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblClass.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherService.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/impl/AgencyBizImpl.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyBizImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/impl/AgencyServiceImpl.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyServiceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblSCRelationDao.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblStudentDao.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/student/StudentItemDto.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/student/StudentRequestDto.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblSCRelation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/SCRelationService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student/SCRelation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student/StudentBizImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student/StudentQuery.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student/StudentServiceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/BusiVerify.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Checker.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/src/main/webapp/WEB-INF/spring-mvc.xml" afterPath="$PROJECT_DIR$/web-app/src/main/webapp/WEB-INF/spring-mvc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/target/mohress-training/WEB-INF/spring-mvc.xml" afterPath="$PROJECT_DIR$/web-app/target/mohress-training/WEB-INF/spring-mvc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseManageController.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseManageController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/ClassController.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/ClassController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblAgencyDao.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblAgencyDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/PageDto.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/PageDto.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblTeacherDao.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblTeacherDao.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/QueryDto.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/QueryDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/agency/AgencyItemDto.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/agency/AgencyItemDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyQuery.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyQuery.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/teacher/TeacherItemDto.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/teacher/TeacherItemDto.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/teacher/TeacherRequestDto.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/teacher/TeacherRequestDto.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblStudent.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblStudent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/ModuleBiz.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/ModuleBiz.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyBizImpl.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyBizImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassBizImpl.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassBizImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherBizImpl.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherBizImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherQuery.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherQuery.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherServiceImpl.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/SequenceCreator.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/SequenceCreator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblAgencyMapper.xml" afterPath="$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblAgencyMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/target/classes/sqlmap/TblAgencyMapper.xml" afterPath="$PROJECT_DIR$/web-service/target/classes/sqlmap/TblAgencyMapper.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblTeacherMapper.xml" afterPath="$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblTeacherMapper.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/web-app/target/" />
     <ignored path="$PROJECT_DIR$/web-service/target/" />
@@ -53,11 +47,33 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ClassController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/ClassController.java">
+      <file leaf-file-name="TblTeacher.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblTeacher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+            <state relative-caret-position="75">
+              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TeacherRequestDto.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/teacher/TeacherRequestDto.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TeacherBizImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherBizImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -65,44 +81,60 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="spring-mvc.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-app/src/main/webapp/WEB-INF/spring-mvc.xml">
+      <file leaf-file-name="TeacherServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="40" lean-forward="false" selection-start-line="11" selection-start-column="40" selection-end-line="11" selection-end-column="40" />
+            <state relative-caret-position="317">
+              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AgencyBizImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyBizImpl.java">
+      <file leaf-file-name="TblTeacherDao.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblTeacherDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="47" column="27" lean-forward="false" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
+            <state relative-caret-position="135">
+              <caret line="13" column="23" lean-forward="false" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TblTeacherMapper.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblTeacherMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="68" column="10" lean-forward="false" selection-start-line="68" selection-start-column="10" selection-end-line="68" selection-end-column="10" />
               <folding>
-                <element signature="e#2607#2608#0" expanded="true" />
-                <element signature="e#2678#2679#0" expanded="true" />
+                <marker date="1502980534000" expanded="true" signature="2960:3067" ph="select from tbl_teacher" />
+                <marker date="1502980534000" expanded="true" signature="3211:3438" ph="select from tbl_teacher" />
+                <marker date="1502980534000" expanded="true" signature="3591:3935" ph="select from tbl_teacher" />
+                <marker date="1502980534000" expanded="true" signature="4037:4137" ph="update tbl_t... " />
+                <marker date="1502980534000" expanded="true" signature="6629:7946" ph="update tbl_t... " />
+                <marker date="1502980534000" expanded="true" signature="6629:7969" ph="update tbl_t... " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AgencyRequestDto.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/agency/AgencyRequestDto.java">
+      <file leaf-file-name="Convert.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="44" column="37" lean-forward="false" selection-start-line="44" selection-start-column="19" selection-end-line="44" selection-end-column="37" />
-              <folding />
+            <state relative-caret-position="320">
+              <caret line="48" column="25" lean-forward="false" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
+              <folding>
+                <element signature="e#1835#1836#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseController.java">
+      <file leaf-file-name="TeacherItemDto.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/teacher/TeacherItemDto.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="13" column="3" lean-forward="true" selection-start-line="13" selection-start-column="3" selection-end-line="13" selection-end-column="3" />
+            <state relative-caret-position="98">
+              <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -111,47 +143,18 @@
       <file leaf-file-name="BaseManageController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseManageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+            <state relative-caret-position="287">
+              <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TblAgencyDao.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblAgencyDao.java">
+      <file leaf-file-name="BaseController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="13" column="23" lean-forward="true" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TblAgencyMapper.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblAgencyMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="489">
-              <caret line="184" column="49" lean-forward="false" selection-start-line="184" selection-start-column="49" selection-end-line="184" selection-end-column="49" />
-              <folding>
-                <element signature="n#insert#0;n#mapper#0;n#!!top" expanded="false" />
-                <element signature="n#update#0;n#mapper#0;n#!!top" expanded="false" />
-                <marker date="1502957484000" expanded="true" signature="1501:1668" ph="select from tbl_agency" />
-                <marker date="1502957484000" expanded="true" signature="1788:1904" ph="select from tbl_agency" />
-                <marker date="1502957484000" expanded="true" signature="4489:5812" ph="update tbl_a... " />
-                <marker date="1502957484000" expanded="true" signature="5948:7267" ph="update tbl_a... " />
-                <marker date="1502957484000" expanded="true" signature="7383:7450" ph="update tbl_a... " />
-                <marker date="1502957484000" expanded="true" signature="7383:7488" ph="update tbl_a... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AgencyServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="44" column="13" lean-forward="true" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+            <state relative-caret-position="240">
+              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -172,7 +175,6 @@
       <find>NewAgencyRequestDto</find>
       <find>NewAgencyResponseDto</find>
       <find>CommonResponse</find>
-      <find>Teacher</find>
       <find>tblAgencyDao</find>
       <find>tblAgency</find>
       <find>com.TblAgency</find>
@@ -184,6 +186,14 @@
       <find>ClassQuery</find>
       <find>Preconditions.checkArgument</find>
       <find>private</find>
+      <find>selectByPrimaryKey</find>
+      <find>queryTeacherList</find>
+      <find>teacherServiceImpl</find>
+      <find>student</find>
+      <find>Teacher</find>
+      <find>机构</find>
+      <find>teacher</find>
+      <find>Preconditions.checkNotNull</find>
     </findStrings>
     <replaceStrings>
       <replace>AgencyRequestDto</replace>
@@ -198,6 +208,11 @@
       <replace>class</replace>
       <replace>Verify.verify</replace>
       <replace>public</replace>
+      <replace>studentServiceImpl</replace>
+      <replace>Student</replace>
+      <replace>学生</replace>
+      <replace>student</replace>
+      <replace>BusiVerify.verifyNotEmpty</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -211,43 +226,16 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web-service/src/main/resources/sql/teacher.sql" />
-        <option value="$PROJECT_DIR$/web-app/pom.xml" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseController.java" />
-        <option value="$PROJECT_DIR$/web-app/src/main/webapp/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblAgency.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/agency/TblAgency.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/LocalMachine.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/web-service/pom.xml" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/AgencyController.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherQuery.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherService.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblTeacherDao.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/TeacherController.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblTeacherMapper.xml" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/ModuleBiz.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/QueryDto.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/PageDto.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/teacher/TeacherListResponseDto.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/agency/AgencyItemDto.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblClass.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/mclass/TblClassMember.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/mclass/ClassBizImpl.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/mclass/AgencyItemDto.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/mclass/ClassItemDto.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/mclass/AgencyRequestDto.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassService.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/BaseManageService.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/SequenceCreator.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/impl/AgencyServiceImpl.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/impl/AgencyBizImpl.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherServiceImpl.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherBizImpl.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/mclass/ClassRequestDto.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassStudent.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassBizImpl.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblClassMemberDao.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/mclass/TblClass.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassServiceImpl.java" />
@@ -257,11 +245,38 @@
         <option value="$PROJECT_DIR$/web-service/src/main/resources/spring/mohress-training.xml" />
         <option value="$PROJECT_DIR$/web-app/src/main/webapp/WEB-INF/spring-mvc.xml" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/ClassController.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyBizImpl.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyServiceImpl.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblAgencyDao.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseManageController.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblAgencyMapper.xml" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblAgencyDao.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherQuery.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/PageDto.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/ModuleBiz.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyBizImpl.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherServiceImpl.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblTeacherDao.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassBizImpl.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student/TeacherBizImpl.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student/StudentQuery.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblStudent.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/student/StudentItemDto.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/SequenceCreator.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblSCRelation.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/student/StudentRequestDto.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student/SCRelation.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/BusiVerify.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/SCRelationService.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student/StudentBizImpl.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student/StudentServiceImpl.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblStudentDao.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblSCRelationDao.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/teacher/TeacherRequestDto.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Checker.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/QueryDto.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseManageController.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/teacher/TeacherItemDto.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherBizImpl.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblTeacherMapper.xml" />
       </list>
     </option>
   </component>
@@ -592,6 +607,86 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; 1.7 &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="training-parent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; 1.7 &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rt.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="training-parent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; 1.7 &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rt.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="training-parent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; 1.7 &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rt.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="training-parent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="hrproject" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -836,7 +931,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mclass" />
+              <option name="myItemId" value="student" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -870,41 +965,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agency" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-parent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hrproject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training" />
+              <option name="myItemId" value="exception" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -938,7 +999,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="entity" />
+              <option name="myItemId" value="enums" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -975,10 +1036,6 @@
               <option name="myItemId" value="entity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mclass" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1048,45 +1105,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mclass" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-parent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hrproject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dto" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agency" />
+              <option name="myItemId" value="teacher" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1155,6 +1174,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="training-parent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hrproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="training" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1274,6 +1323,7 @@
       <recent name="com.mohress.training.dto" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student" />
       <recent name="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/mclass" />
       <recent name="$PROJECT_DIR$/web-service/src/main/resources/sqlmap" />
       <recent name="$PROJECT_DIR$/web-app/src/profiles" />
@@ -1763,12 +1813,12 @@
       <updated>1502619605342</updated>
       <workItem from="1502619607270" duration="44707000" />
       <workItem from="1502854786079" duration="24686000" />
-      <workItem from="1502938624564" duration="10191000" />
+      <workItem from="1502938624564" duration="25315000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79584000" />
+    <option name="totallyTimeSpent" value="94708000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="0" width="1920" height="1080" extended-state="0" />
@@ -1786,7 +1836,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31300813" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3140244" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1830,10 +1880,10 @@
           <url>file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseController.java</url>
           <line>22</line>
           <properties />
-          <option name="timeStamp" value="32" />
+          <option name="timeStamp" value="46" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="33" />
+      <option name="time" value="47" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1842,353 +1892,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web-service/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblTeacherDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="19" column="37" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblTeacherMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="42" column="8" lean-forward="true" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
-          <folding>
-            <marker date="1502879185000" expanded="true" signature="2918:3025" ph="select from tbl_teacher" />
-            <marker date="1502879185000" expanded="true" signature="3168:3296" ph="select from tbl_teacher" />
-            <marker date="1502879185000" expanded="true" signature="3449:3693" ph="select from tbl_teacher" />
-            <marker date="1502879185000" expanded="true" signature="3795:3896" ph="update tbl_t... " />
-            <marker date="1502879185000" expanded="true" signature="6388:7732" ph="update tbl_t... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/TeacherController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/CipherUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="791">
-          <caret line="70" column="11" lean-forward="false" selection-start-line="70" selection-start-column="11" selection-end-line="70" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/QueryDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="14" column="25" lean-forward="false" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/PageDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="40" lean-forward="false" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.9.RELEASE/spring-web-4.3.9.RELEASE.jar!/org/springframework/web/bind/annotation/RequestParam.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.9.RELEASE/spring-web-4.3.9.RELEASE-sources.jar!/org/springframework/web/bind/annotation/RequestParam.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-450">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/agency/AgencyListResponseDto.java" />
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/Response.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="26" column="18" lean-forward="false" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/teacher/TeacherListResponseDto.java" />
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/Responses.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="26" lean-forward="true" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/mclass/TblClassMember.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/agency/AgencyItemDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="11" column="22" lean-forward="false" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/mclass/ClassItemDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="11" column="18" lean-forward="false" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/SequenceCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="31" column="15" lean-forward="false" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#825#826#0" expanded="false" />
-            <element signature="e#878#879#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/ModuleBiz.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyService.java" />
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassService.java" />
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="32" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/BaseManageService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="62" column="54" lean-forward="false" selection-start-line="62" selection-start-column="54" selection-end-line="62" selection-end-column="54" />
-          <folding>
-            <element signature="e#1443#1733#0" expanded="false" />
-            <element signature="e#1732#1733#0" expanded="false" />
-            <element signature="e#1950#2228#0" expanded="false" />
-            <element signature="e#2227#2228#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/mclass/ClassRequestDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="41" column="36" lean-forward="false" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassStudent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="48" lean-forward="false" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblClassMemberDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="51" lean-forward="false" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblTeacher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/AgencyController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="14" column="31" lean-forward="true" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/mclass/TblClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblClassDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="30" lean-forward="false" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="33" lean-forward="false" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="11" lean-forward="false" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
-          <folding>
-            <element signature="e#285#286#0" expanded="true" />
-            <element signature="e#325#326#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/src/main/webapp/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="31" column="20" lean-forward="true" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherBizImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="29" column="43" lean-forward="false" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="19" column="50" lean-forward="true" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassBizImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="65" column="18" lean-forward="false" selection-start-line="65" selection-start-column="18" selection-end-line="65" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2936#2952#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="59" column="27" lean-forward="false" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#835#836#0" expanded="true" />
-            <element signature="e#911#912#0" expanded="true" />
-            <element signature="e#1243#1244#0" expanded="true" />
-            <element signature="e#1328#1329#0" expanded="true" />
-            <element signature="e#1386#1387#0" expanded="true" />
-            <element signature="e#1463#1464#0" expanded="true" />
-            <element signature="e#1530#1531#0" expanded="true" />
-            <element signature="e#1610#1611#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/resources/spring/mohress-training.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/src/main/webapp/WEB-INF/spring-mvc.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="40" lean-forward="false" selection-start-line="11" selection-start-column="40" selection-end-line="11" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/ClassController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/agency/AgencyRequestDto.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -2205,29 +1908,353 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="43" column="13" lean-forward="false" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblAgencyMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="174" column="17" lean-forward="true" selection-start-line="174" selection-start-column="17" selection-end-line="174" selection-end-column="17" />
+          <folding>
+            <element signature="n#insert#0;n#mapper#0;n#!!top" expanded="false" />
+            <element signature="n#update#0;n#mapper#0;n#!!top" expanded="false" />
+            <marker date="1502957484000" expanded="true" signature="1501:1668" ph="select from tbl_agency" />
+            <marker date="1502957484000" expanded="true" signature="1788:1904" ph="select from tbl_agency" />
+            <marker date="1502957484000" expanded="true" signature="4489:5812" ph="update tbl_a... " />
+            <marker date="1502957484000" expanded="true" signature="5948:7267" ph="update tbl_a... " />
+            <marker date="1502957484000" expanded="true" signature="7383:7450" ph="update tbl_a... " />
+            <marker date="1502957484000" expanded="true" signature="7383:7488" ph="update tbl_a... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblAgencyDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="13" column="23" lean-forward="true" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+        <state relative-caret-position="255">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-app/src/main/webapp/WEB-INF/spring-mvc.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="54" lean-forward="true" selection-start-line="20" selection-start-column="54" selection-end-line="20" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/PageDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="11" lean-forward="false" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+          <folding>
+            <marker date="1502889899000" expanded="true" signature="164:171" ph="{...}" />
+            <marker date="1502889899000" expanded="true" signature="224:291" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyBizImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="47" column="27" lean-forward="false" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
+        <state relative-caret-position="602">
+          <caret line="77" column="49" lean-forward="false" selection-start-line="77" selection-start-column="49" selection-end-line="77" selection-end-column="49" />
           <folding>
-            <element signature="e#2607#2608#0" expanded="true" />
-            <element signature="e#2678#2679#0" expanded="true" />
+            <element signature="e#2609#2610#0" expanded="true" />
+            <element signature="e#2680#2681#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/ModuleBiz.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="44" column="13" lean-forward="true" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+        <state relative-caret-position="360">
+          <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/audit/AuditService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/audit/impl/AuditServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="31" column="16" lean-forward="false" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/audit/action/Action.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/audit/action/AbstractAuditAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="16" lean-forward="false" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/audit/action/RejectAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="38" column="19" lean-forward="false" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/security/AccountSecurityService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="29" column="13" lean-forward="false" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/security/listenter/LoginFailListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/security/listenter/LoginSuccessListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/security/listenter/AuthorizeSuccessListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/cache/AccountAuthorityCache.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="36" column="16" lean-forward="false" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassBizImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="36" column="33" lean-forward="false" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#3016#3032#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student/StudentQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/exception/BusinessException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="11" lean-forward="false" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/enums/ResultCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="12" lean-forward="false" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/SequenceCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="35" column="44" lean-forward="false" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
+          <folding>
+            <element signature="e#921#922#0" expanded="false" />
+            <element signature="e#974#975#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblSCRelation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblStudent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="29" lean-forward="true" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/student/StudentItemDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/student/StudentRequestDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="857">
+          <caret line="86" column="13" lean-forward="false" selection-start-line="86" selection-start-column="13" selection-end-line="86" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/BusiVerify.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="55" lean-forward="false" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/SCRelationService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="28" lean-forward="false" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student/StudentBizImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="42" column="49" lean-forward="true" selection-start-line="42" selection-start-column="49" selection-end-line="42" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblStudentDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="59" lean-forward="false" selection-start-line="20" selection-start-column="59" selection-end-line="20" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student/SCRelation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="26" lean-forward="false" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblSCRelationDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="7" lean-forward="false" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home/src.zip!/java/util/Date.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="161" column="11" lean-forward="false" selection-start-line="161" selection-start-column="11" selection-end-line="161" selection-end-column="11" />
+          <folding>
+            <element signature="e#6336#6337#0" expanded="false" />
+            <element signature="e#6384#6385#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/student/StudentServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="33" column="20" lean-forward="false" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
+          <folding>
+            <element signature="e#1580#1581#0" expanded="false" />
+            <element signature="e#1661#1662#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Checker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="18" column="55" lean-forward="false" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/QueryDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2240,35 +2267,95 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="48" column="25" lean-forward="false" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
+          <folding>
+            <element signature="e#1835#1836#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/teacher/TeacherItemDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseManageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+        <state relative-caret-position="287">
+          <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/teacher/TeacherRequestDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblTeacher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherBizImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="13" column="3" lean-forward="true" selection-start-line="13" selection-start-column="3" selection-end-line="13" selection-end-column="3" />
+        <state relative-caret-position="240">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblAgencyMapper.xml">
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblTeacherDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="184" column="49" lean-forward="false" selection-start-line="184" selection-start-column="49" selection-end-line="184" selection-end-column="49" />
+        <state relative-caret-position="135">
+          <caret line="13" column="23" lean-forward="false" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblTeacherMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="68" column="10" lean-forward="false" selection-start-line="68" selection-start-column="10" selection-end-line="68" selection-end-column="10" />
           <folding>
-            <element signature="n#insert#0;n#mapper#0;n#!!top" expanded="false" />
-            <element signature="n#update#0;n#mapper#0;n#!!top" expanded="false" />
-            <marker date="1502957484000" expanded="true" signature="1501:1668" ph="select from tbl_agency" />
-            <marker date="1502957484000" expanded="true" signature="1788:1904" ph="select from tbl_agency" />
-            <marker date="1502957484000" expanded="true" signature="4489:5812" ph="update tbl_a... " />
-            <marker date="1502957484000" expanded="true" signature="5948:7267" ph="update tbl_a... " />
-            <marker date="1502957484000" expanded="true" signature="7383:7450" ph="update tbl_a... " />
-            <marker date="1502957484000" expanded="true" signature="7383:7488" ph="update tbl_a... " />
+            <marker date="1502980534000" expanded="true" signature="2960:3067" ph="select from tbl_teacher" />
+            <marker date="1502980534000" expanded="true" signature="3211:3438" ph="select from tbl_teacher" />
+            <marker date="1502980534000" expanded="true" signature="3591:3935" ph="select from tbl_teacher" />
+            <marker date="1502980534000" expanded="true" signature="4037:4137" ph="update tbl_t... " />
+            <marker date="1502980534000" expanded="true" signature="6629:7946" ph="update tbl_t... " />
+            <marker date="1502980534000" expanded="true" signature="6629:7969" ph="update tbl_t... " />
           </folding>
         </state>
       </provider>

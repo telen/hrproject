@@ -5,7 +5,9 @@ import com.google.common.collect.Lists;
 import com.mohress.training.dto.agency.AgencyItemDto;
 import com.mohress.training.dto.mclass.ClassItemDto;
 import com.mohress.training.dto.mclass.ClassRequestDto;
+import com.mohress.training.dto.student.StudentItemDto;
 import com.mohress.training.dto.teacher.TeacherItemDto;
+import com.mohress.training.entity.TblStudent;
 import com.mohress.training.entity.TblTeacher;
 import com.mohress.training.entity.agency.TblAgency;
 import com.mohress.training.entity.mclass.TblClass;
@@ -66,5 +68,20 @@ public class Convert {
             }
         });
 
+    }
+
+    public static List<StudentItemDto> convertStudent(List<TblStudent> tblStudents) {
+        if(CollectionUtils.isEmpty(tblStudents)){
+            return null;
+        }
+
+        return Lists.transform(tblStudents, new Function<TblStudent, StudentItemDto>() {
+            @Override
+            public StudentItemDto apply(TblStudent input) {
+                StudentItemDto dto = new StudentItemDto();
+                BeanUtils.copyProperties(input,dto);
+                return dto;
+            }
+        });
     }
 }

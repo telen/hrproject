@@ -1,26 +1,20 @@
-package com.mohress.training.entity;
+package com.mohress.training.dto.student;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 培训学生
- *
+ * 学生实体
+ * Created by qx.wang on 2017/8/17.
  */
 @Data
-public class TblStudent {
-
-    private Integer id;
+public class StudentRequestDto implements Serializable {
 
     private String idNumber;
 
     private String studentName;
-
-    /**
-     * 系统生成ID
-     */
-    private String studentId;
 
     /**
      * 0-男
@@ -32,6 +26,9 @@ public class TblStudent {
 
     private Date birthday;
 
+    /**
+     * 身体状态
+     */
     private String physicalCondition;
 
     /**
@@ -85,4 +82,9 @@ public class TblStudent {
      * 户口性质
      */
     private String registeredProperty;
+
+    /**
+     * 报名所属班级
+     */
+    private String courseId;
 }

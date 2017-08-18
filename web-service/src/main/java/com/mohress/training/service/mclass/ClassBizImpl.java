@@ -2,7 +2,6 @@ package com.mohress.training.service.mclass;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import com.mohress.training.dto.PageDto;
 import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.mclass.ClassRequestDto;
 import com.mohress.training.entity.mclass.TblClass;
@@ -55,7 +54,7 @@ public class ClassBizImpl implements ModuleBiz {
         Preconditions.checkNotNull(o);
         ClassRequestDto classRequestDto = null;
         try {
-            classRequestDto = JsonUtil.getInstance().convertToBean(ClassRequestDto.class, String.valueOf(0));
+            classRequestDto = JsonUtil.getInstance().convertToBean(ClassRequestDto.class, String.valueOf(o));
         } catch (Exception e) {
             log.error("新建机构反序列化失败 {}", o, e);
         }
@@ -63,7 +62,7 @@ public class ClassBizImpl implements ModuleBiz {
     }
 
     @Override
-    public Object query(PageDto pageDto) {
+    public Object query(QueryDto pageDto) {
         Preconditions.checkNotNull(pageDto);
         Preconditions.checkArgument(pageDto.getPage() > 0);
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
@@ -72,7 +71,12 @@ public class ClassBizImpl implements ModuleBiz {
         return Convert.convertClass(tblClasses);
     }
 
-    private ClassQuery buildClassQuery(PageDto pageDto) {
+    @Override
+    public Object queryByKeyword(QueryDto queryDto) {
+        throw new RuntimeException("暂不支持");
+    }
+
+    private ClassQuery buildClassQuery(QueryDto pageDto) {
         return new ClassQuery(pageDto.getPageSize(), pageDto.getPage());
     }
 
@@ -93,11 +97,6 @@ public class ClassBizImpl implements ModuleBiz {
         }
 
         return new ClassStudent(tblClass, classMembers);
-    }
-
-    @Override
-    public Object queryByKeyword(QueryDto queryDto) {
-        throw new RuntimeException("暂不支持");
     }
 
     private TblClass buildUpdateTblClass(ClassRequestDto classRequestDto) {

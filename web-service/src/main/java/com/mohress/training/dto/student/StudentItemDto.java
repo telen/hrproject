@@ -1,26 +1,19 @@
-package com.mohress.training.entity;
+package com.mohress.training.dto.student;
 
 import lombok.Data;
 
 import java.util.Date;
 
 /**
- * 培训学生
- *
+ * 学生
+ * Created by qx.wang on 2017/8/17.
  */
 @Data
-public class TblStudent {
-
-    private Integer id;
+public class StudentItemDto {
 
     private String idNumber;
 
     private String studentName;
-
-    /**
-     * 系统生成ID
-     */
-    private String studentId;
 
     /**
      * 0-男
@@ -34,6 +27,10 @@ public class TblStudent {
 
     private String physicalCondition;
 
+    /**
+     * 系统生成ID
+     */
+    private String studentId;
     /**
      * 婚姻状况
      * 0-已婚

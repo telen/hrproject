@@ -1,7 +1,6 @@
 package com.mohress.training.controller;
 
 import com.google.common.collect.Maps;
-import com.mohress.training.dto.PageDto;
 import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.Response;
 import com.mohress.training.dto.Responses;
@@ -32,8 +31,12 @@ public class BaseManageController extends BaseController {
     @Resource
     private ModuleBiz agencyBizImpl;
 
+    @Resource
+    private ModuleBiz classBizImpl;
+
     @PostConstruct
     public void init() {
+        moduleMap.put("class", classBizImpl);
         moduleMap.put("agency", agencyBizImpl);
         moduleMap.put("teacher", teacherBizImpl);
     }
@@ -82,13 +85,16 @@ public class BaseManageController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "query")
-    public Response<Object> query(@PathVariable String module, PageDto pageDto) {
+    public Response<Object> query(@PathVariable String module, QueryDto pageDto) {
 //    public Response<Object> query(@CookieValue(name = "token") String encryptedName, @PathVariable String module, @RequestBody PageDto pageDto) {
-        if (pageDto == null || pageDto.getPage() == null) {
-            pageDto = new PageDto(1, 10);
+        if (pageDto == null || pageDto.getPage() <= 0) {
+            pageDto = new QueryDto();
+            pageDto.setPage(1);
+            pageDto.setPageSize(10);
         }
 //        String userId = CipherUtil.decryptName(encryptedName);
         String userId = null;
+        pageDto.setUserId(userId);
         log.info("userId-{}, 查询 {} ,查询条件 {}", userId, module, pageDto);
 
         Object dto = moduleMap.get(module).query(pageDto);
@@ -104,6 +110,7 @@ public class BaseManageController extends BaseController {
     public Response<Object> queryByAgency(@CookieValue(name = "token") String encryptedName,
                                           @PathVariable String module, @RequestBody QueryDto queryDto) {
         String userId = CipherUtil.decryptName(encryptedName);
+        queryDto.setUserId(userId);
         log.info("userId-{}, 查询 {}, 查询条件 {}", userId, module, queryDto);
 
         Object dto = moduleMap.get(module).queryByKeyword(queryDto);

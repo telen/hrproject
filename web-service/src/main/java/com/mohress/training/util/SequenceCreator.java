@@ -32,6 +32,10 @@ public class SequenceCreator {
         return getSequenceId(SequenceType.CL);
     }
 
+    public static String getStudentId() {
+        return getSequenceId(SequenceType.ST);
+    }
+
 
     static class Sequencer {
         private int sequence;
@@ -50,6 +54,6 @@ public class SequenceCreator {
     }
 
     enum SequenceType {
-        AG, TE, CL,
+        AG, TE, CL, ST,
     }
 }

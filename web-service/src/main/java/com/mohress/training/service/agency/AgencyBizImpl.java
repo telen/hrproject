@@ -61,7 +61,7 @@ public class AgencyBizImpl implements ModuleBiz {
     }
 
     @Override
-    public Object query(PageDto pageDto) {
+    public Object query(QueryDto pageDto) {
         Preconditions.checkNotNull(pageDto);
         Preconditions.checkArgument(pageDto.getPage() > 0);
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
@@ -75,7 +75,7 @@ public class AgencyBizImpl implements ModuleBiz {
         throw new RuntimeException("暂不支持");
     }
 
-    private AgencyQuery buildAgencyQuery(PageDto dto) {
+    private AgencyQuery buildAgencyQuery(QueryDto dto) {
         return new AgencyQuery(dto.getPageSize(),dto.getPage());
     }
 
