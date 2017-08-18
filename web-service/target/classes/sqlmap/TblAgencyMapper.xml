@@ -15,9 +15,9 @@
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, agency_id, agency_name, agency_head, agency_mobile, agency_mail, address, superior_department, 
-    status, create_time, update_time
-  </sql>
+        id, agency_id, agency_name, agency_head, agency_mobile, agency_mail, address, superior_department,
+        status, create_time, update_time
+    </sql>
     <select id="queryAgencyList" resultMap="BaseResultMap"
             parameterType="com.mohress.training.service.agency.AgencyQuery">
         select

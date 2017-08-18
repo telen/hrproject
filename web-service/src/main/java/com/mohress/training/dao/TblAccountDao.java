@@ -1,6 +1,7 @@
 package com.mohress.training.dao;
 
 import com.mohress.training.entity.security.TblAccount;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 
@@ -19,7 +20,7 @@ public interface TblAccountDao {
 
     int updateLocked(String account, boolean locked);
 
-    int updateLogin(String account, String loginIp, Date loginTime);
+    int updateLogin(@Param("account") String account, @Param("loginIp") String loginIp, @Param("loginTime") Date loginTime);
 
     TblAccount selectByUserId(String userId);
 

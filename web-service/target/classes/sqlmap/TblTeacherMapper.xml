@@ -42,7 +42,7 @@
     tt.mobile, tt.education, tt.status, tt.create_time, tt.update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from tbl_teacher
     where id = #{id,jdbcType=INTEGER}
@@ -64,19 +64,15 @@
     select
       <include refid="Join_Base_Column_List" />
     from tbl_teacher tt INNER JOIN tbl_agency ta ON
-    <if test="agencyId != null">
-       tt.agency_id = #{agencyId}
-    </if>
     tt.agency_id = ta.agency_id
     and ta.agency_name like '%#{keyword}%'
-    and tt.status = 0
     order by tt.create_time
     limit #{pageIndex},#{pageSize}
   </select>
 
   <update id="updateStatus" parameterType="com.mohress.training.entity.TblTeacher">
     update tbl_teacher
-    set status = #{toStatus,jdbcType=TINYINT}
+    set status = #{toStatus,jdbcType=TINYINT},
     where teacher_id = #{teacherId}
   </update>
 
@@ -171,8 +167,7 @@
       </if>
     </trim>
   </insert>
-
-  <update id="updateByTeacherIdSelective" parameterType="com.mohress.training.entity.TblTeacher" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.mohress.training.entity.TblTeacher" >
     update tbl_teacher
     <set >
       <if test="teacherId != null" >
@@ -215,6 +210,6 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where teacher_id=#{teacherId}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

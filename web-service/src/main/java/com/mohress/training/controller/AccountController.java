@@ -12,10 +12,14 @@ import com.mohress.training.util.RoleAuthority;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -33,10 +37,45 @@ public class AccountController {
     private AccountAuthorityCache cache;
 
     @ResponseBody
-    @RequestMapping(value = "login")
-    public Response<UserDto> login(){
-        String account = "";
+    @RequestMapping(value = "user")
+    public Response<UserDto> login(@CookieValue("token") String userId){
+        return null;
+    }
 
+    @ResponseBody
+    @RequestMapping(value = "login")
+    public Response login(HttpServletRequest request, HttpServletResponse response){
+
+        // 1.获取账号名
+        String account = (String) request.getAttribute("userName");
+
+        // 2.查询用户信息
+        UserDto userDto = getAccountAuthority(account);
+
+        // 3.添加cookie
+        Cookie cookie = new Cookie("token", userDto.getUserId());
+        cookie.setPath("/");
+        cookie.setMaxAge(86400);
+        response.addCookie(cookie);
+
+        // 4.数据返回
+        return new Response<>(ResultCode.SUCCESS.getCode(), "用户登录成功", userDto);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "logout")
+    public Response logout(){
+        return new Response(ResultCode.SUCCESS.getCode(), "退出登录成功");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "reset")
+    public Response resetPassword(){
+        return new Response(ResultCode.SUCCESS.getCode(), "成功");
+    }
+
+
+    private UserDto getAccountAuthority(String account){
         // 1.缓存获取用户及权限信息
         AccountAuthority accountAuthority = cache.getUnchecked(account);
 
@@ -65,12 +104,7 @@ public class AccountController {
 
         user.setUserId(accountAuthority.getAccount().getUserId());
         user.setUserName(accountAuthority.getAccount().getUserName());
-        return new Response<UserDto>(ResultCode.SUCCESS.getCode(), "用户登录成功", user);
-    }
 
-    @ResponseBody
-    @RequestMapping(value = "reset")
-    public Response resetPassword(){
-        return null;
+        return user;
     }
 }
