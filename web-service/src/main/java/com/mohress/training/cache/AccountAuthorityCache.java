@@ -22,7 +22,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by youtao.wan on 2017/8/10.
+ * 账号权限缓存
+ *
  */
 @Slf4j
 @Component

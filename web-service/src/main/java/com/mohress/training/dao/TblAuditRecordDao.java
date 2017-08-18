@@ -1,6 +1,8 @@
 package com.mohress.training.dao;
 
 import com.mohress.training.entity.audit.TblAuditRecord;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.security.access.method.P;
 
 import java.util.List;
 
@@ -13,5 +15,5 @@ public interface TblAuditRecordDao {
 
     int insert(TblAuditRecord record);
 
-    List<TblAuditRecord> selectByFlowIdAndAuditor(String flowId, String auditor);
+    List<TblAuditRecord> selectByFlowIdAndAuditor(@Param("flowId") String flowId, @Param("auditor") String auditor);
 }
