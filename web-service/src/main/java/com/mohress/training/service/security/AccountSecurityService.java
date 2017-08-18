@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.mohress.training.cache.AccountAuthorityCache;
 import com.mohress.training.util.AccountAuthority;
+import com.mohress.training.util.AuthorityAction;
 import com.mohress.training.util.RoleAuthority;
 import com.mohress.training.entity.security.TblAccount;
 import com.mohress.training.entity.security.TblAuthority;
@@ -65,12 +66,14 @@ public class AccountSecurityService implements UserDetailsService{
 
         List<GrantedAuthority> authorityList = Lists.newArrayList();
         for (RoleAuthority it: roleAuthoritySet){
-            if (CollectionUtils.isEmpty(it.getAuthoritySet())){
+            if (CollectionUtils.isEmpty(it.getAuthorityAction())){
                 continue;
             }
 
-            for (TblAuthority authority : it.getAuthoritySet()){
-                authorityList.add(new SimpleGrantedAuthority(authority.getAuthorityName()));
+            for (AuthorityAction authorityAction : it.getAuthorityAction()){
+                if (authorityAction.getAction() != null){
+                    authorityList.add(new SimpleGrantedAuthority(authorityAction.getAction().getActionName()));
+                }
             }
         }
         return authorityList;

@@ -20,6 +20,7 @@
         <typeAlias alias="TblAuthority" type="com.mohress.training.entity.security.TblAuthority"/>
         <typeAlias alias="TblRole" type="com.mohress.training.entity.security.TblRole"/>
         <typeAlias alias="TblRoleAuthority" type="com.mohress.training.entity.security.TblRoleAuthority"/>
+        <typeAlias alias="TblAction" type="com.mohress.training.entity.security.TblAction"/>
         <typeAlias alias="TblAuditFlow" type="com.mohress.training.entity.audit.TblAuditFlow"/>
         <typeAlias alias="TblAuditMember" type="com.mohress.training.entity.audit.TblAuditMember"/>
         <typeAlias alias="TblAuditNode" type="com.mohress.training.entity.audit.TblAuditNode"/>

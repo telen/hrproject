@@ -1,6 +1,5 @@
 package com.mohress.training.util;
 
-import com.mohress.training.entity.security.TblAuthority;
 import com.mohress.training.entity.security.TblRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,5 +16,5 @@ public class RoleAuthority {
 
     private TblRole role;
 
-    private Set<TblAuthority> authoritySet;
+    private Set<AuthorityAction> authorityAction;
 }
