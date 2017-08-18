@@ -3,6 +3,7 @@ package com.mohress.training.dao;
 
 import com.mohress.training.entity.TblTeacher;
 import com.mohress.training.service.teacher.TeacherQuery;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,9 +14,9 @@ import java.util.List;
 public interface TblTeacherDao {
     int insertSelective(TblTeacher tblTeacher);
 
-    int updateByPrimaryKeySelective(TblTeacher tblTeacher);
+    int updateByTeacherIdSelective(TblTeacher tblTeacher);
 
-    int updateStatus(String agencyId,int toStatus);
+    int updateStatus(@Param("teacherId") String teacherId, @Param("toStatus") int toStatus);
 
     List<TblTeacher> queryTeacherList(TeacherQuery query);
 

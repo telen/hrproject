@@ -20,4 +20,6 @@ public interface TblAgencyDao {
     int updateStatus(@Param("agencyId") String agencyId, @Param("toStatus") int toStatus);
 
     List<TblAgency> queryAgencyList(AgencyQuery query);
+
+    int updateByPrimaryAgencyIdSelective(TblAgency tblAgency);
 }

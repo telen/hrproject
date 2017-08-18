@@ -33,7 +33,10 @@ public class TeacherRequestDto implements Serializable {
 
     private String nationality;
 
-    private Date birthday;
+    /**
+     * 生日
+     */
+    private Long birthday;
 
     /**
      * 住址

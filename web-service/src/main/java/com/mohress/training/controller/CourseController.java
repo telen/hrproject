@@ -18,28 +18,4 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("api/course/")
 public class CourseController {
 
-    @ResponseBody
-    @RequestMapping(value = "add", method = RequestMethod.POST)
-    public Response addCourse(){
-        return null;
-    }
-
-
-    @ResponseBody
-    @RequestMapping(value = "update", method = RequestMethod.POST)
-    public Response updateCourse(){
-        return null;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "delete")
-    public Response deleteCourse(){
-        return null;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "query")
-    public Response<CourseDto> queryCourse(){
-        return null;
-    }
 }
