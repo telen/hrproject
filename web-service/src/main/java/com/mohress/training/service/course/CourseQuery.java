@@ -1,4 +1,4 @@
-package com.mohress.training.service.teacher;
+package com.mohress.training.service.course;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import lombok.Data;
  * Created by qx.wang on 2017/8/15.
  */
 @Data
-public class TeacherQuery {
+public class CourseQuery {
 
     private String agencyId;
 
@@ -16,7 +16,4 @@ public class TeacherQuery {
     private Integer pageSize;
 
     private Integer pageIndex;
-
-    private String teacherId;
-
 }

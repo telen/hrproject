@@ -64,7 +64,7 @@ public class ClassBizImpl implements ModuleBiz {
     @Override
     public Object query(QueryDto pageDto) {
         Preconditions.checkNotNull(pageDto);
-        Preconditions.checkArgument(pageDto.getPage() > 0);
+        Preconditions.checkArgument(pageDto.getPage() >= 0);
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
         List<TblClass> tblClasses = classServiceImpl.query(buildClassQuery(pageDto));
 

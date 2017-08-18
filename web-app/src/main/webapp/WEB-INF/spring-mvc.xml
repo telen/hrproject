@@ -9,7 +9,6 @@
 
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler/>
-    <aop:config proxy-target-class="true"> </aop:config>
 
     <context:component-scan base-package="com.mohress.training.controller" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>

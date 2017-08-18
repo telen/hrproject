@@ -2,6 +2,7 @@ package com.mohress.training.util;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+import com.mohress.training.dto.course.CourseRequestDto;
 import com.mohress.training.dto.student.StudentRequestDto;
 import com.mohress.training.dto.teacher.TeacherRequestDto;
 
@@ -40,5 +41,14 @@ public class Checker {
         BusiVerify.verifyNotEmpty(studentRequestDto.getPhysicalCondition(), "健康状况为空");
         BusiVerify.verifyNotEmpty(studentRequestDto.getPoliticalOutlook(), "政治面貌为空");
         BusiVerify.verifyNotEmpty(studentRequestDto.getCourseId(), "课程ID为空");
+    }
+
+    public static void checkNewCourse(CourseRequestDto courseRequestDto) {
+        BusiVerify.verify(courseRequestDto != null,"课程为空");
+        BusiVerify.verify(!Strings.isNullOrEmpty(courseRequestDto.getCourseBrief()),"课程描述为空");
+        BusiVerify.verify(!Strings.isNullOrEmpty(courseRequestDto.getProfession()),"所属专业为空");
+        BusiVerify.verify(!Strings.isNullOrEmpty(courseRequestDto.getTeacherId()),"教师名称为空");
+        BusiVerify.verify(!Strings.isNullOrEmpty(courseRequestDto.getTeachingMaterial()),"所用教材为空");
+        BusiVerify.verify(courseRequestDto.getPeriod() != null,"课程描述为空");
     }
 }

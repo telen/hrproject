@@ -15,7 +15,7 @@ public class QueryDto implements Serializable{
      */
     private String userId;
     private String keyword;
-    private int page;
-    private int pageSize;
+    private Integer page;
+    private Integer pageSize;
 
 }

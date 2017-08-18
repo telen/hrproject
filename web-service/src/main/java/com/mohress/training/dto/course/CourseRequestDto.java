@@ -1,17 +1,16 @@
-package com.mohress.training.entity;
+package com.mohress.training.dto.course;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 培训课程
- *
+ * 课程
+ * Created by qx.wang on 2017/8/18.
  */
 @Data
-public class TblCourse {
-    private Integer id;
-
+public class CourseRequestDto implements Serializable {
     private String courseId;
 
     private String courseName;
@@ -27,12 +26,20 @@ public class TblCourse {
     private Integer period;
 
     /**
+     * 一个课程只有一个教室，将其关系存于课程中
+     */
+    private String teacherId;
+
+    /**
      * 所用教材
      */
     private String teachingMaterial;
 
     private String courseBrief;
 
+    /**
+     * 前端不需要传，后端解析登陆用户
+     */
     private String agencyId;
 
     /**
@@ -55,19 +62,4 @@ public class TblCourse {
      */
     private String trainingJobs;
 
-    /**
-     * 状态
-     * 0-正常
-     * 1-已删除
-     */
-    private Integer status;
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    /**
-     * 一个课程只有一个教室，将其关系存于课程中
-     */
-    private String teacherId;
 }

@@ -12,6 +12,9 @@ import java.util.List;
  */
 @Data
 public class ClassRequestDto implements Serializable {
+
+    private String classId;
+
     private String courseId;
 
     private String className;

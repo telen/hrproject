@@ -21,8 +21,4 @@ public class ClassQuery {
         this.pageIndex = pageIndex;
     }
 
-    public ClassQuery(String classId, String agencyId) {
-        this.classId = classId;
-        this.agencyId = agencyId;
-    }
 }

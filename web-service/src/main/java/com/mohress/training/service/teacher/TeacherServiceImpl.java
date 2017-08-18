@@ -26,7 +26,7 @@ public class TeacherServiceImpl implements BaseManageService {
 
     @Override
     public <T> void newModule(T teacher) {
-        Verify.verify(tblTeacherDao.insertSelective((TblTeacher)teacher) > 0, "新增机构SQL异常");
+        Verify.verify(tblTeacherDao.insertSelective((TblTeacher)teacher) > 0, "新增教师SQL异常");
 
     }
 
@@ -34,13 +34,13 @@ public class TeacherServiceImpl implements BaseManageService {
     @Transactional
     public void delete(List<String> ids) {
         for (String id : ids) {
-            Verify.verify(tblTeacherDao.updateStatus(id, DELETE_STATUS) > 0, "删除机构SQL异常");
+            Verify.verify(tblTeacherDao.updateStatus(id, DELETE_STATUS) > 0, "删除教师SQL异常");
         }
     }
 
     @Override
     public <T> void update(T teacher) {
-        Verify.verify(tblTeacherDao.updateByTeacherIdSelective((TblTeacher)teacher) > 0, "更新机构SQL异常");
+        Verify.verify(tblTeacherDao.updateByTeacherIdSelective((TblTeacher)teacher) > 0, "更新教师SQL异常");
     }
 
     @Override

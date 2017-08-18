@@ -34,11 +34,19 @@ public class BaseManageController extends BaseController {
     @Resource
     private ModuleBiz classBizImpl;
 
+    @Resource
+    private ModuleBiz studentBizImpl;
+
+    @Resource
+    private ModuleBiz courseBizImpl;
+
     @PostConstruct
     public void init() {
         moduleMap.put("class", classBizImpl);
         moduleMap.put("agency", agencyBizImpl);
         moduleMap.put("teacher", teacherBizImpl);
+        moduleMap.put("student", studentBizImpl);
+        moduleMap.put("course", courseBizImpl);
     }
 
     @ResponseBody
@@ -87,10 +95,12 @@ public class BaseManageController extends BaseController {
     @RequestMapping(value = "query")
     public Response<Object> query(@PathVariable String module, QueryDto pageDto) {
 //    public Response<Object> query(@CookieValue(name = "token") String encryptedName, @PathVariable String module, @RequestBody PageDto pageDto) {
-        if (pageDto == null || pageDto.getPage() <= 0) {
+        if (pageDto == null || pageDto.getPage() == null || pageDto.getPage() < 0) {
             pageDto = new QueryDto();
-            pageDto.setPage(1);
+            pageDto.setPage(0);
             pageDto.setPageSize(10);
+        } else {
+            pageDto.setPage(pageDto.getPage() - 1);
         }
 //        String userId = CipherUtil.decryptName(encryptedName);
         String userId = null;

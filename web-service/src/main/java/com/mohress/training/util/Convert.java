@@ -3,10 +3,12 @@ package com.mohress.training.util;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.mohress.training.dto.agency.AgencyItemDto;
+import com.mohress.training.dto.course.CourseItemDto;
 import com.mohress.training.dto.mclass.ClassItemDto;
 import com.mohress.training.dto.mclass.ClassRequestDto;
 import com.mohress.training.dto.student.StudentItemDto;
 import com.mohress.training.dto.teacher.TeacherItemDto;
+import com.mohress.training.entity.TblCourse;
 import com.mohress.training.entity.TblStudent;
 import com.mohress.training.entity.TblTeacher;
 import com.mohress.training.entity.agency.TblAgency;
@@ -79,6 +81,21 @@ public class Convert {
             @Override
             public StudentItemDto apply(TblStudent input) {
                 StudentItemDto dto = new StudentItemDto();
+                BeanUtils.copyProperties(input,dto);
+                return dto;
+            }
+        });
+    }
+
+    public static List<CourseItemDto> convertCourse(List<TblCourse> tblCourses) {
+        if(CollectionUtils.isEmpty(tblCourses)){
+            return null;
+        }
+
+        return Lists.transform(tblCourses, new Function<TblCourse, CourseItemDto>() {
+            @Override
+            public CourseItemDto apply(TblCourse input) {
+                CourseItemDto dto = new CourseItemDto();
                 BeanUtils.copyProperties(input,dto);
                 return dto;
             }

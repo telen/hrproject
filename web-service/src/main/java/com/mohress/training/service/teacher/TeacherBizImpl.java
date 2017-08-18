@@ -65,7 +65,7 @@ public class TeacherBizImpl implements ModuleBiz {
     @Override
     public Object query(QueryDto pageDto) {
         Preconditions.checkNotNull(pageDto);
-        Preconditions.checkArgument(pageDto.getPage() > 0);
+        Preconditions.checkArgument(pageDto.getPage() >= 0);
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
 //        Preconditions.checkArgument(pageDto.getUserId() != null);
 

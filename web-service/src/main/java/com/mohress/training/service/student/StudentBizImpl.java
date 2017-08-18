@@ -32,9 +32,6 @@ public class StudentBizImpl implements ModuleBiz {
     @Resource
     private BaseManageService studentServiceImpl;
 
-    @Resource
-    private SCRelationService scRelationService;
-
     @Override
     public void newModule(String o) {
         Preconditions.checkArgument(o != null);
@@ -70,7 +67,7 @@ public class StudentBizImpl implements ModuleBiz {
     @Override
     public Object query(QueryDto pageDto) {
         Preconditions.checkNotNull(pageDto);
-        Preconditions.checkArgument(pageDto.getPage() > 0);
+        Preconditions.checkArgument(pageDto.getPage() >= 0);
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
         Preconditions.checkArgument(pageDto.getUserId() != null);
 
@@ -97,8 +94,6 @@ public class StudentBizImpl implements ModuleBiz {
 
     private StudentQuery buildStudentQueryByKey(QueryDto dto) {
         StudentQuery query = new StudentQuery();
-        //todo 设置查询者的agency
-//        query.setAgencyId();
         query.setKeyword(dto.getKeyword());
         query.setPageIndex(dto.getPage());
         query.setPageSize(dto.getPageSize());
@@ -107,8 +102,6 @@ public class StudentBizImpl implements ModuleBiz {
 
     private StudentQuery buildStudentQuery(QueryDto dto) {
         StudentQuery query = new StudentQuery();
-        //todo 设置查询者的agency
-//        query.setAgencyId();
         query.setPageIndex(dto.getPage());
         query.setPageSize(dto.getPageSize());
         return query;
