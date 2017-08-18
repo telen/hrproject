@@ -34,8 +34,8 @@ public class AccountController {
     private AccountAuthorityCache cache;
 
     @ResponseBody
-    @RequestMapping(value = "user")
-    public Response<UserDto> login(@CookieValue("token") String userId){
+    @RequestMapping
+    public Response<UserDto> user(@CookieValue("token") String userId){
 
         UserDto userDto = getAccountAuthority("root");
 
