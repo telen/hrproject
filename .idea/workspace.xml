@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca650c3d-9ae5-4fc5-8d8b-9b8dd015c18e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_3_8_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/web_app_war.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/web_app_war.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/web_app_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/web_app_war_exploded.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/web-app.iml" afterPath="$PROJECT_DIR$/web-app/web-app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/web-service.iml" afterPath="$PROJECT_DIR$/web-service/web-service.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/web-app/target/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -328,12 +324,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1503023124731</updated>
-      <workItem from="1503023126336" duration="136000" />
+      <workItem from="1503023126336" duration="158000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="136000" />
+    <option name="totallyTimeSpent" value="158000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="0" width="1920" height="1080" extended-state="0" />
