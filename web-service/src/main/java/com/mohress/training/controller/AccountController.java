@@ -24,10 +24,10 @@ public class AccountController {
     @Resource
     private AccountAuthorityCache cache;
 
-    @ResponseBody
-    @RequestMapping
-    public Response<UserDto> user(@CookieValue("token") String userId){
 
+    @ResponseBody
+    @RequestMapping("/query")
+    public Response<UserDto> user(@CookieValue("token") String userId){
 
         return new Response<>(ResultCode.SUCCESS.getCode(), "成功", null);
     }
