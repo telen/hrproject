@@ -30,34 +30,27 @@ public class AuditServiceImpl implements AuditService{
     private TblAuditNodeDao auditNodeDao;
 
     public void audit(AuditAction action) {
-        // 1.校验审核流程
-        verifyAuditFlow(action);
 
-        // 2.校验审核权限
-        verifyAuthority(action);
+        // 1.执行校验
+        verify(action);
 
-        // 3.执行审核动作
+        // 2.执行审核动作
         action.execute();
     }
 
     /**
-     * 校验审核流程
-     *
-     * @param action
-     */
-    private void verifyAuditFlow(AuditAction action){
-        if (action.getAuditFlow() == null){
-            throw new BusinessException(ResultCode.AUDIT_FAIL, "审核流程不存在");
-        }
-    }
-
-    /**
-     * 校验用户是否具备审核权限
+     * 审核校验
      *
      * @param auditAction
      */
-    private void verifyAuthority(AuditAction auditAction){
+    private void verify(AuditAction auditAction){
         TblAuditFlow auditFlow = auditAction.getAuditFlow();
+
+        // 判断审核流程是否存在
+        if (auditFlow == null){
+            throw new BusinessException(ResultCode.AUDIT_FAIL, "审核流程不存在");
+        }
+
         TblAuditMember auditMember = auditMemberDao.selectByNodeIdAndUserId(auditFlow.getNodeId(), auditAction.getAuditor());
 
         // 判断审核人是否拥有当前节点下的审核权限
