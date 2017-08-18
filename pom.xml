@@ -13,9 +13,6 @@
         <module>web-app</module>
     </modules>
 
-<<<<<<< HEAD
-
-=======
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.security.version>4.2.3.RELEASE</spring.security.version>
@@ -212,5 +209,4 @@
             </plugin>
         </plugins>
     </build>
->>>>>>> 20170817-2-init
 </project>

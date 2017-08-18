@@ -23,6 +23,7 @@ public class AuthenticateFailHandler implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
+        log.error("账号验证失败。", e);
 
         Writer writer = new JsonResponseWriter(response);
         writer.write(new Response(FAIL.getCode(), "账号密码验证不通过"));

@@ -8,11 +8,9 @@
     <http auto-config="true" entry-point-ref="authenticateFailHandler">
         <custom-filter ref="resourceAccessSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
 
-        <form-login login-processing-url="/api/user/login" authentication-failure-handler-ref="loginFailHandler" authentication-success-handler-ref="loginSuccessHandler"/>
+        <form-login login-processing-url="/api/user/login" authentication-success-handler-ref="loginSuccessHandler" authentication-failure-handler-ref="loginFailHandler"/>
 
-        <logout delete-cookies="token"/>
-
-        <!--<remember-me key="ptoken" token-validity-seconds="86400" data-source-ref="dataSource"/>-->
+        <logout logout-url="/api/user/logout" delete-cookies="token"/>
 
         <!--同一个账号最多只能同时在线一个-->
         <session-management>
@@ -73,4 +71,5 @@
 
     <!--账号登录成功处理器-->
     <b:bean id="loginSuccessHandler" class="com.mohress.training.service.security.handler.LoginSuccessHandler"/>
+
 </b:beans>
