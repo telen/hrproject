@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca650c3d-9ae5-4fc5-8d8b-9b8dd015c18e" name="Default" comment="" />
+    <list default="true" id="ca650c3d-9ae5-4fc5-8d8b-9b8dd015c18e" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblAttendanceDao.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/attendance/AttendanceItemDto.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/attendance/AttendanceRequestDto.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/attendance/AttendanceBizImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/attendance/AttendanceQuery.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/attendance/AttendanceServiceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/resources/sql/attendance.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblAttendanceMapper.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/attendence/TblAttendanceRecord.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/attendence/TblAttendance.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/attendance/TblAttendance.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseManageController.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseManageController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/SequenceCreator.java" afterPath="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/SequenceCreator.java" />
+    </list>
     <ignored path="$PROJECT_DIR$/web-app/target/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/web-service/target/" />
@@ -18,43 +33,116 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TblClassMember.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/mclass/TblClassMember.java">
+      <file leaf-file-name="ClassServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state relative-caret-position="660">
+              <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="61" selection-end-column="5" />
               <folding>
-                <element signature="imports" expanded="false" />
+                <element signature="e#1570#1571#0" expanded="true" />
+                <element signature="e#1650#1651#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseManageController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseManageController.java">
+      <file leaf-file-name="AttendanceBizImpl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/attendance/AttendanceBizImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+            <state relative-caret-position="677">
+              <caret line="81" column="27" lean-forward="true" selection-start-line="81" selection-start-column="27" selection-end-line="81" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1573#1574#0" expanded="true" />
+                <element signature="e#1622#1623#0" expanded="true" />
+                <element signature="e#1672#1673#0" expanded="true" />
+                <element signature="e#1721#1722#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AttendanceServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/attendance/AttendanceServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="525">
+              <caret line="35" column="28" lean-forward="false" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1047#1048#0" expanded="true" />
+                <element signature="e#1097#1098#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TblAttendanceDao.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblAttendanceDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="46" lean-forward="false" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AttendanceRequestDto.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/attendance/AttendanceRequestDto.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="600">
+              <caret line="40" column="32" lean-forward="false" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Convert.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="647">
+              <caret line="109" column="45" lean-forward="false" selection-start-line="109" selection-start-column="45" selection-end-line="109" selection-end-column="45" />
+              <folding>
+                <element signature="e#4075#4383#0" expanded="true" />
+                <element signature="e#4382#4383#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClassQuery.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassQuery.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TblAttendanceRecord.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/attendence/TblAttendanceRecord.java">
+      <file leaf-file-name="TblAttendanceMapper.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblAttendanceMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="18" column="36" lean-forward="false" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
-              <folding />
+            <state relative-caret-position="300">
+              <caret line="35" column="38" lean-forward="true" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+              <folding>
+                <marker date="1503205071000" expanded="true" signature="1423:1543" ph="select from tbl_attendance" />
+                <marker date="1503205071000" expanded="true" signature="1702:1798" ph="select from tbl_attendance" />
+                <marker date="1503205071000" expanded="true" signature="1702:2013" ph="select from tbl_attendance" />
+                <marker date="1503205071000" expanded="true" signature="4552:5828" ph="update tbl_a... " />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TblAttendance.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/attendence/TblAttendance.java">
+      <file leaf-file-name="AgencyServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="645">
+              <caret line="54" column="5" lean-forward="true" selection-start-line="20" selection-start-column="4" selection-end-line="54" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -65,6 +153,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -79,6 +168,9 @@
       <find>pageDto.getPage() &gt; 0</find>
       <find>机构</find>
       <find>selectByPage</find>
+      <find>Agency</find>
+      <find>agency</find>
+      <find>com.TblAttendance</find>
     </findStrings>
     <replaceStrings>
       <replace>course</replace>
@@ -87,6 +179,9 @@
       <replace>com.mohress.training.entity.mclass.TblClass</replace>
       <replace>pageDto.getPage() &gt;= 0</replace>
       <replace>教师</replace>
+      <replace>Attendance</replace>
+      <replace>attendance</replace>
+      <replace>com.mohress.training.entity.attendance.TblAttendance</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -105,7 +200,6 @@
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/course/CourseRequestDto.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/course/CourseQuery.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Checker.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/SequenceCreator.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/course/CourseServiceImpl.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblCourseDao.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblCourse.java" />
@@ -117,7 +211,6 @@
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherBizImpl.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/course/CourseItemDto.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblCourseMapper.xml" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseManageController.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/teacher/TeacherServiceImpl.java" />
         <option value="$PROJECT_DIR$/web-app/src/main/webapp/WEB-INF/spring-mvc.xml" />
         <option value="$PROJECT_DIR$/web-service/src/main/resources/spring/mohress-training.xml" />
@@ -126,18 +219,30 @@
         <option value="$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblTeacherMapper.xml" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassQuery.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/TblAttendence.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassServiceImpl.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/mclass/ClassRequestDto.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/resources/sql/class.sql" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/mclass/TblClass.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblClassMapper.xml" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/mclass/ClassItemDto.java" />
-        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassBizImpl.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/attendence/TblAttendenceRecord.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/attendence/TblAttendence.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/attendence/TblAttendanceRecord.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseManageController.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/AttendanceBizImpl.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/SequenceCreator.java" />
         <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/attendence/TblAttendance.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/attendance/AttendanceItemDto.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/attendance/AttendanceRequestDto.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassServiceImpl.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/attendance/AttendanceBizImpl.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/resources/sql/attendance.sql" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/attendance/TblAttendanceQuery.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/attendance/AttendanceServiceImpl.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblAttendanceDao.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/attendance/AttendanceQuery.java" />
+        <option value="$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblAttendanceMapper.xml" />
       </list>
     </option>
   </component>
@@ -1213,6 +1318,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="attendance" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hrproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="training" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="agency" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -1333,7 +1472,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="attendence" />
+              <option name="myItemId" value="attendance" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1397,7 +1536,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mclass" />
+              <option name="myItemId" value="attendance" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1570,6 +1709,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
     <property name="FullScreen" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
+    <property name="SearchEverywhereHistoryKey" value="Quer&#9;PSI&#9;JAVA://com.mohress.training.dto.QueryDto" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -2045,6 +2185,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="ca650c3d-9ae5-4fc5-8d8b-9b8dd015c18e" name="Default" comment="" />
@@ -2053,16 +2196,16 @@
       <option name="presentableId" value="Default" />
       <updated>1503023124731</updated>
       <workItem from="1503023126336" duration="158000" />
-      <workItem from="1503023462871" duration="21531000" />
+      <workItem from="1503023462871" duration="25931000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21689000" />
+    <option name="totallyTimeSpent" value="26089000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="0" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2136,94 +2279,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/audit/impl/AuditServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-156">
-          <caret line="31" column="16" lean-forward="false" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/serializer/JacksonSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/serializer/SerializerFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/serializer/Serializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="15" lean-forward="false" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/writer/JsonResponseWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="28" column="60" lean-forward="false" selection-start-line="28" selection-start-column="60" selection-end-line="28" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/audit/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/4.2.3.RELEASE/spring-security-core-4.2.3.RELEASE.jar!/org/springframework/security/access/intercept/AbstractSecurityInterceptor.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="104" column="37" lean-forward="false" selection-start-line="104" selection-start-column="37" selection-end-line="104" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/4.2.3.RELEASE/spring-security-core-4.2.3.RELEASE.jar!/org/springframework/security/access/AccessDecisionManager.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="14" column="9" lean-forward="false" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/4.2.3.RELEASE/spring-security-core-4.2.3.RELEASE.jar!/org/springframework/security/access/AccessDecisionVoter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/security/handler/AuthenticateFailHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/security/handler/AuthorizeFailHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -2344,22 +2399,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyBizImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="47" column="38" lean-forward="true" selection-start-line="47" selection-start-column="38" selection-end-line="47" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/AttendanceController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -2424,28 +2463,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="67" column="101" lean-forward="false" selection-start-line="67" selection-start-column="51" selection-end-line="67" selection-end-column="101" />
-          <folding>
-            <element signature="e#2153#2752#0" expanded="true" />
-            <element signature="e#2751#2752#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/SequenceCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="30" column="25" lean-forward="false" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
-          <folding>
-            <element signature="e#825#826#0" expanded="false" />
-            <element signature="e#878#879#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.9.RELEASE/spring-web-4.3.9.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
@@ -2484,19 +2501,6 @@
             <marker date="1503049844000" expanded="true" signature="7068:7143" ph="update tbl_c... " />
             <marker date="1503049844000" expanded="true" signature="7194:7273" ph="update tbl_c... " />
             <marker date="1503049844000" expanded="true" signature="7194:7298" ph="update tbl_c... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="46" column="27" lean-forward="false" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
-          <folding>
-            <element signature="e#835#836#0" expanded="true" />
-            <element signature="e#931#932#0" expanded="true" />
-            <element signature="e#1426#1427#0" expanded="true" />
-            <element signature="e#1503#1504#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2543,10 +2547,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/attendence/TblAttendance.java">
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseManageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="446">
+          <caret line="52" column="49" lean-forward="false" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyBizImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="797">
+          <caret line="92" column="5" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="92" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -2559,11 +2571,161 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/controller/BaseManageController.java">
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/QueryDto.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+        <state relative-caret-position="150">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="18" selection-end-column="29" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/SequenceCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="43" column="44" lean-forward="false" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
+          <folding>
+            <element signature="e#1115#1116#0" expanded="true" />
+            <element signature="e#1168#1169#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/attendance/AttendanceItemDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/util/Convert.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="647">
+          <caret line="109" column="45" lean-forward="false" selection-start-line="109" selection-start-column="45" selection-end-line="109" selection-end-column="45" />
+          <folding>
+            <element signature="e#4075#4383#0" expanded="true" />
+            <element signature="e#4382#4383#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/agency/AgencyServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="54" column="5" lean-forward="true" selection-start-line="20" selection-start-column="4" selection-end-line="54" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="61" selection-end-column="5" />
+          <folding>
+            <element signature="e#1570#1571#0" expanded="true" />
+            <element signature="e#1650#1651#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/resources/sql/attendance.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="57" lean-forward="false" selection-start-line="18" selection-start-column="57" selection-end-line="18" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/entity/attendance/TblAttendance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="11" column="16" lean-forward="true" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/mclass/ClassQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/attendance/AttendanceServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="28" lean-forward="false" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1047#1048#0" expanded="true" />
+            <element signature="e#1097#1098#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/attendance/TblAttendanceQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dao/TblAttendanceDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="46" lean-forward="false" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/dto/attendance/AttendanceRequestDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="32" lean-forward="false" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/resources/sqlmap/TblAttendanceMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="35" column="38" lean-forward="true" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+          <folding>
+            <marker date="1503205071000" expanded="true" signature="1423:1543" ph="select from tbl_attendance" />
+            <marker date="1503205071000" expanded="true" signature="1702:1798" ph="select from tbl_attendance" />
+            <marker date="1503205071000" expanded="true" signature="1702:2013" ph="select from tbl_attendance" />
+            <marker date="1503205071000" expanded="true" signature="4552:5828" ph="update tbl_a... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/attendance/AttendanceQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="28" lean-forward="false" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-service/src/main/java/com/mohress/training/service/attendance/AttendanceBizImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="677">
+          <caret line="81" column="27" lean-forward="true" selection-start-line="81" selection-start-column="27" selection-end-line="81" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1573#1574#0" expanded="true" />
+            <element signature="e#1622#1623#0" expanded="true" />
+            <element signature="e#1672#1673#0" expanded="true" />
+            <element signature="e#1721#1722#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

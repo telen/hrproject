@@ -3,15 +3,16 @@ package com.mohress.training.util;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.mohress.training.dto.agency.AgencyItemDto;
+import com.mohress.training.dto.attendance.AttendanceItemDto;
 import com.mohress.training.dto.course.CourseItemDto;
 import com.mohress.training.dto.mclass.ClassItemDto;
-import com.mohress.training.dto.mclass.ClassRequestDto;
 import com.mohress.training.dto.student.StudentItemDto;
 import com.mohress.training.dto.teacher.TeacherItemDto;
 import com.mohress.training.entity.TblCourse;
 import com.mohress.training.entity.TblStudent;
 import com.mohress.training.entity.TblTeacher;
 import com.mohress.training.entity.agency.TblAgency;
+import com.mohress.training.entity.attendance.TblAttendance;
 import com.mohress.training.entity.mclass.TblClass;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
@@ -100,6 +101,21 @@ public class Convert {
             @Override
             public CourseItemDto apply(TblCourse input) {
                 CourseItemDto dto = new CourseItemDto();
+                BeanUtils.copyProperties(input,dto);
+                return dto;
+            }
+        });
+    }
+
+    public static List<AttendanceItemDto> convertAttendance(List<TblAttendance> tblAgencies) {
+        if(CollectionUtils.isEmpty(tblAgencies)){
+            return null;
+        }
+
+        return Lists.transform(tblAgencies, new Function<TblAttendance, AttendanceItemDto>() {
+            @Override
+            public AttendanceItemDto apply(TblAttendance input) {
+                AttendanceItemDto dto = new AttendanceItemDto();
                 BeanUtils.copyProperties(input,dto);
                 return dto;
             }
