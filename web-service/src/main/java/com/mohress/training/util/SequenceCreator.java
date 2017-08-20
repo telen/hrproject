@@ -40,6 +40,10 @@ public class SequenceCreator {
         return getSequenceId(SequenceType.CI);
     }
 
+    public static String getAttendanceId() {
+        return getSequenceId(SequenceType.AT);
+    }
+
 
     static class Sequencer {
         private int sequence;
@@ -58,6 +62,6 @@ public class SequenceCreator {
     }
 
     enum SequenceType {
-        AG, TE, CL, ST, CI,
+        AG, TE, CL, ST, CI, AT,
     }
 }

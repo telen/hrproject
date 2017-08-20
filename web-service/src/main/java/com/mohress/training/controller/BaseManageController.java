@@ -40,6 +40,9 @@ public class BaseManageController extends BaseController {
     @Resource
     private ModuleBiz courseBizImpl;
 
+    @Resource
+    private ModuleBiz attendanceBizImpl;
+
     @PostConstruct
     public void init() {
         moduleMap.put("class", classBizImpl);
@@ -47,6 +50,7 @@ public class BaseManageController extends BaseController {
         moduleMap.put("teacher", teacherBizImpl);
         moduleMap.put("student", studentBizImpl);
         moduleMap.put("course", courseBizImpl);
+        moduleMap.put("course", attendanceBizImpl);
     }
 
     @ResponseBody
