@@ -51,7 +51,7 @@
 
     <!--自定义权限前缀符号-->
     <b:bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
-        <b:property name="rolePrefix" value="AUTH_"/>
+        <b:property name="rolePrefix" value="ACTION_"/>
     </b:bean>
 
     <!--资源访问安全拦截器-->

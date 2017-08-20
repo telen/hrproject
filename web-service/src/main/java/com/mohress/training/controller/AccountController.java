@@ -2,7 +2,7 @@ package com.mohress.training.controller;
 
 import com.google.common.collect.Lists;
 import com.mohress.training.dto.Response;
-import com.mohress.training.dto.UserDto;
+import com.mohress.training.dto.security.UserDto;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.service.security.AccountManager;
 import com.mohress.training.util.AccountAuthority;
@@ -29,7 +29,6 @@ public class AccountController {
 
     @Resource
     private AccountManager accountManager;
-
 
     @ResponseBody
     @RequestMapping("/query")
