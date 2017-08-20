@@ -22,7 +22,7 @@ import java.util.Map;
 @Slf4j
 @Controller
 @RequestMapping("api/{module}")
-public class BaseManageController extends BaseController {
+public class BaseManageController {
 
     private static final Map<String, ModuleBiz> moduleMap = Maps.newHashMap();
     @Resource

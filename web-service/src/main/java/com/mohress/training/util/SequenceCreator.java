@@ -66,6 +66,6 @@ public class SequenceCreator {
     }
 
     enum SequenceType {
-        AG, TE, CL, ST, CI, AT,
+        AG, TE, AR, CL, ST, CI, AT,
     }
 }
