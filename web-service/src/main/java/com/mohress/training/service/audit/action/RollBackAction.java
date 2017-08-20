@@ -11,6 +11,7 @@ import com.mohress.training.entity.audit.TblAuditProject;
 import com.mohress.training.entity.audit.TblAuditRecord;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
+import com.mohress.training.util.SequenceCreator;
 import com.mohress.training.util.SpringContextHelper;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,7 +59,7 @@ public class RollBackAction extends AbstractAuditAction {
 
         // 审核记录存档
         TblAuditRecord auditRecord = new TblAuditRecord();
-        auditRecord.setRecordId("");
+        auditRecord.setRecordId(SequenceCreator.getAuditRecordId());
         auditRecord.setFlowId(flowId);
         auditRecord.setNodeId(auditFlow.getNodeId());
         auditRecord.setAction(ACTION_ID);

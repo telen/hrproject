@@ -8,6 +8,7 @@ import com.mohress.training.entity.audit.TblAuditNode;
 import com.mohress.training.entity.audit.TblAuditRecord;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
+import com.mohress.training.util.SequenceCreator;
 import com.mohress.training.util.SpringContextHelper;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,7 +46,7 @@ public class PassAction extends AbstractAuditAction {
         // 记录存档
         TblAuditRecord auditRecord = new TblAuditRecord();
         auditRecord.setAction(ACTION_ID);
-        auditRecord.setRecordId("");
+        auditRecord.setRecordId(SequenceCreator.getAuditRecordId());
         auditRecord.setAuditor(getAuditor());
         auditRecord.setAuditResult(getAuditResult());
         auditRecord.setFlowId(auditFlow.getFlowId());

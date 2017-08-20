@@ -1,8 +1,10 @@
 package com.mohress.training.service.security;
 
 import com.google.common.collect.Sets;
-import com.mohress.training.dao.TblAuthorityDao;
-import com.mohress.training.entity.security.TblAuthority;
+import com.mohress.training.dao.TblActionDao;
+import com.mohress.training.dao.TblActionDao;
+import com.mohress.training.entity.security.TblAction;
+import com.mohress.training.entity.security.TblAction;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -23,37 +25,30 @@ public class ResourceAuthorityLoadingService implements FilterInvocationSecurity
     private AntPathMatcher pathMatcher = new AntPathMatcher();
 
     @Resource
-    private TblAuthorityDao tblAuthorityDao;
+    private TblActionDao tblActionDao;
 
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
 
         String url = ((FilterInvocation) o).getRequestUrl();
-        int index = url.indexOf("?");
-        if (index != -1){
-            url = url.substring(0, index);
-        }
 
         Set<ConfigAttribute> configAttributeSet = Sets.newHashSet();
-        List<TblAuthority> authorityList = tblAuthorityDao.selectAll();
-        for (TblAuthority it: authorityList){
-            if (!it.isEnable()){
-                continue;
-            }
+        List<TblAction> authorityList = tblActionDao.selectAll();
+        for (TblAction it: authorityList){
+
             if (pathMatcher.match(it.getResourcePath(), url)){
-                configAttributeSet.add(new SecurityConfig(it.getAuthorityName()));
+                configAttributeSet.add(new SecurityConfig(it.getActionName()));
             }
         }
         return configAttributeSet;
     }
 
     public Collection<ConfigAttribute> getAllConfigAttributes() {
-        List<TblAuthority> authorityList = tblAuthorityDao.selectAll();
+        List<TblAction> authorityList = tblActionDao.selectAll();
 
         Set<ConfigAttribute> configAttributeSet = Sets.newHashSet();
-        for (TblAuthority it : authorityList){
-            if (it.isEnable()){
-                configAttributeSet.add(new SecurityConfig(it.getAuthorityName()));
-            }
+        for (TblAction it : authorityList){
+            configAttributeSet.add(new SecurityConfig(it.getActionName()));
+
         }
         return configAttributeSet;
     }

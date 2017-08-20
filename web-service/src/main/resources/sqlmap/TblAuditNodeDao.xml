@@ -17,14 +17,14 @@
     <select id="selectByParentNodeId" resultMap="resultMap">
         SELECT
         <include refid="columnList"/>
-        FROM tb_audit_role
+        FROM tb_audit_node
         WHERE previous_node = #{parentNodeId}
     </select>
 
     <select id="selectByNodeId" resultMap="resultMap">
         SELECT
         <include refid="columnList"/>
-        FROM tb_audit_role
+        FROM tb_audit_node
         WHERE node_id = #{nodeId}
     </select>
 </mapper>

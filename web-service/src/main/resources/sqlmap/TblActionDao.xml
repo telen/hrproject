@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mohress.training.dao.TblActionDao">
+    <resultMap id="resultMap" type="TblAction">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="action_id" property="actionId" jdbcType="VARCHAR"/>
+        <result column="action_name" property="actionName" jdbcType="VARCHAR"/>
+        <result column="action_desc" property="actionDesc" jdbcType="VARCHAR"/>
+        <result column="resource_path" property="resourcePath" jdbcType="VARCHAR"/>
+        <result column="authority_id" property="authorityId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="columnList">
+        id, action_id, action_name, action_desc, resource_path, authority_id
+    </sql>
+
+    <insert id="insert" parameterType="TblAuthority">
+        INSERT INTO tb_action
+        (action_id, action_name, action_desc, resource_path, authority_id)
+        VALUE
+        (#{actionId}, #{actionName}, #{actionDesc}, #{resourcePath}, #{authorityId})
+    </insert>
+
+    <select id="selectByAuthorityId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_action
+        WHERE authority_id = #{authorityId}
+    </select>
+
+    <select id="selectAll" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_action
+    </select>
+</mapper>

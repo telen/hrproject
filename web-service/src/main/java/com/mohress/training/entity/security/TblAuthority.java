@@ -22,6 +22,11 @@ public class TblAuthority {
     private String authorityId;
 
     /**
+     * 权限类型
+     */
+    private String authorityType;
+
+    /**
      * 权限名称
      */
     private String authorityName;
@@ -32,9 +37,19 @@ public class TblAuthority {
     private String authorityDesc;
 
     /**
-     * 资源路径
+     * 权限路径
      */
-    private String resourcePath;
+    private String authorityRoute;
+
+    /**
+     * 权限图标
+     */
+    private String authorityIcon;
+
+    /**
+     * 父级权限
+     */
+    private String parentAuthorityId;
 
     /**
      * 权限开关

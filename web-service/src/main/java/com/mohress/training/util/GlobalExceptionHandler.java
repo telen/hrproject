@@ -80,7 +80,7 @@ public class GlobalExceptionHandler {
             builder.append(it.getKey());
             builder.append("=");
             JOINER.appendTo(builder, it.getValue());
-            builder.append(",");
+            builder.append("&");
         }
         String requestBody = builder.toString();
         return Strings.isNullOrEmpty(requestBody) ? "" : requestBody.substring(0, requestBody.length()-1);

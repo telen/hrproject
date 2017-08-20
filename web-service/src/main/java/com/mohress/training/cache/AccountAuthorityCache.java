@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.mohress.training.dao.*;
 import com.mohress.training.util.AccountAuthority;
+import com.mohress.training.util.AuthorityAction;
 import com.mohress.training.util.RoleAuthority;
 import com.mohress.training.entity.security.*;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by youtao.wan on 2017/8/10.
+ * 账号权限缓存
+ *
  */
 @Slf4j
 @Component
@@ -43,6 +45,9 @@ public class AccountAuthorityCache extends ForwardingLoadingCache<String, Accoun
 
     @Resource
     private TblAuthorityDao tblAuthorityDao;
+
+    @Resource
+    private TblActionDao tblActionDao;
 
     public AccountAuthorityCache() {
         cache = CacheBuilder.newBuilder()
@@ -104,7 +109,7 @@ public class AccountAuthorityCache extends ForwardingLoadingCache<String, Accoun
         }
 
         // 1.加载角色本身权限
-        Set<TblAuthority> authoritySet = Sets.newHashSet(loadAuthority(roleId));
+        Set<AuthorityAction> authoritySet = Sets.newHashSet(loadAuthority(roleId));
         // 2.加载子角色权限
         authoritySet.addAll(loadChildRoleAuthority(role));
         return new RoleAuthority(role, authoritySet);
@@ -116,8 +121,8 @@ public class AccountAuthorityCache extends ForwardingLoadingCache<String, Accoun
      * @param parentRole
      * @return
      */
-    private Set<TblAuthority> loadChildRoleAuthority(TblRole parentRole){
-        Set<TblAuthority> childRoleAuthority = Sets.newHashSet();
+    private Set<AuthorityAction> loadChildRoleAuthority(TblRole parentRole){
+        Set<AuthorityAction> childRoleAuthority = Sets.newHashSet();
 
         List<TblRole> childRoleList = tblRoleDao.selectByParentRoleId(parentRole.getRoleId());
         for (TblRole childRole : childRoleList){
@@ -135,18 +140,23 @@ public class AccountAuthorityCache extends ForwardingLoadingCache<String, Accoun
      * @param roleId
      * @return
      */
-    private Set<TblAuthority> loadAuthority(String roleId){
+    private Set<AuthorityAction> loadAuthority(String roleId){
         List<TblRoleAuthority> roleAuthorityList = tblRoleAuthorityDao.selectByRoleId(roleId);
         if (CollectionUtils.isEmpty(roleAuthorityList)){
             return ImmutableSet.of();
         }
 
-        Set<TblAuthority> authoritySet = Sets.newHashSet();
+        Set<AuthorityAction> authoritySet = Sets.newHashSet();
         for (TblRoleAuthority it: roleAuthorityList){
-            TblAuthority authority = tblAuthorityDao.selectByAuthorityId(it.getAuthorityId());
-            if (isEnable(authority)){
-                authoritySet.add(authority);
+            // 判断权限是否可用
+            TblAuthority tblAuthority = tblAuthorityDao.selectByAuthorityId(it.getAuthorityId());
+            if (!isEnable(tblAuthority)){
+                continue;
             }
+
+            // 加载与权限关联的动作信息
+            TblAction tblAction = tblActionDao.selectByAuthorityId(tblAuthority.getAuthorityId());
+            authoritySet.add(new AuthorityAction(tblAuthority, tblAction));
         }
         return authoritySet;
     }

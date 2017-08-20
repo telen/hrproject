@@ -8,6 +8,7 @@ import com.mohress.training.entity.audit.TblAuditRecord;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
 import com.mohress.training.util.DateUtil;
+import com.mohress.training.util.SequenceCreator;
 import com.mohress.training.util.SpringContextHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +52,8 @@ public class RetractAction extends AbstractAuditAction {
             throw new BusinessException(ResultCode.AUDIT_FAIL, "超过5分钟撤销时限，不能撤销");
         }
 
+        String currentNodeId = auditFlow.getNodeId();
+
         // 4.分析审核人执行操作
         switch (auditHistoryRecord.getAction()){
             case 3:
@@ -68,11 +71,11 @@ public class RetractAction extends AbstractAuditAction {
         // 5.操作记录入库存档
         TblAuditRecord auditRecord = new TblAuditRecord();
         auditRecord.setAction(ACTION_ID);
-        auditRecord.setRecordId("");
+        auditRecord.setRecordId(SequenceCreator.getAuditRecordId());
         auditRecord.setAuditor(getAuditor());
         auditRecord.setAuditResult(getAuditResult());
         auditRecord.setFlowId(auditFlow.getFlowId());
-        auditRecord.setNodeId(auditFlow.getNodeId());
+        auditRecord.setNodeId(currentNodeId);
         auditRecord.setCreateTime(new Date());
         auditRecord.setUpdateTime(new Date());
 
@@ -97,7 +100,7 @@ public class RetractAction extends AbstractAuditAction {
     private TblAuditRecord select(List<TblAuditRecord> auditHistoryRecordList){
         Collections.sort(auditHistoryRecordList, new Comparator<TblAuditRecord>() {
             public int compare(TblAuditRecord o1, TblAuditRecord o2) {
-                return o1.getId() - o2.getId();
+                return o2.getId() - o1.getId();
             }
         });
         return auditHistoryRecordList.get(0);
