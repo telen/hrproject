@@ -3,6 +3,7 @@ package com.mohress.training.service.mclass;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.mohress.training.dto.QueryDto;
+import com.mohress.training.dto.mclass.ClassItemDto;
 import com.mohress.training.dto.mclass.ClassRequestDto;
 import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.entity.mclass.TblClassMember;
@@ -18,6 +19,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,7 +60,7 @@ public class ClassBizImpl implements ModuleBiz {
         } catch (Exception e) {
             log.error("新建机构反序列化失败 {}", o, e);
         }
-        classServiceImpl.update(buildUpdateTblClass(classRequestDto));
+        classServiceImpl.update(buildClass(classRequestDto));
     }
 
     @Override
@@ -68,7 +70,9 @@ public class ClassBizImpl implements ModuleBiz {
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
         List<TblClass> tblClasses = classServiceImpl.query(buildClassQuery(pageDto));
 
-        return Convert.convertClass(tblClasses);
+        List<ClassItemDto> classItemDtos = Convert.convertClass(tblClasses);
+
+        return classItemDtos;
     }
 
     @Override
@@ -82,7 +86,11 @@ public class ClassBizImpl implements ModuleBiz {
 
     private ClassStudent buildClass(ClassRequestDto classRequestDto) {
         TblClass tblClass = new TblClass();
-        BeanUtils.copyProperties(classRequestDto, tblClass);
+        BeanUtils.copyProperties(classRequestDto, tblClass, "startTime", "endTime", "onClassTime", "offClassTime");
+        tblClass.setStartTime(new Date(classRequestDto.getStartTime()));
+        tblClass.setEndTime(new Date(classRequestDto.getEndTime()));
+        tblClass.setOnClassTime(new Date(classRequestDto.getOnClassTime()));
+        tblClass.setOffClassTime(new Date(classRequestDto.getOffClassTime()));
         tblClass.setClassId(SequenceCreator.getClassId());
 
         if (classRequestDto.getStudentIds() == null) {

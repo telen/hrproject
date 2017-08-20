@@ -15,7 +15,7 @@ public class TblClass {
 
     private String classId;
 
-    private String className;
+    private String classname;
 
     /**
      * 所属专业
@@ -32,6 +32,16 @@ public class TblClass {
     private Date endTime;
 
     /**
+     * 班级上课时间
+     */
+    private Date onClassTime;
+
+    /**
+     * 班级下课时间
+     */
+    private Date offClassTime;
+
+    /**
      * 申请人
      */
     private String proposer;
@@ -39,6 +49,8 @@ public class TblClass {
     private String proposerMobile;
 
     private String teachPlanFilePath;
+
+    private Integer status;
 
     private Date createTime;
 

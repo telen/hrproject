@@ -12,6 +12,8 @@ create table tbl_class(
   status TINYINT NOT NULL DEFAULT 0 COMMENT '状态 0-正常，1-已删除',
   start_time DATETIME NOT NULL DEFAULT '1970-01-01 08:00:00' COMMENT '开始时间',
   end_time DATETIME NOT NULL DEFAULT '1970-01-01 08:00:00' COMMENT '结束时间',
+  on_class_time TIME NOT NULL DEFAULT '00:00:00' COMMENT '课程上课时间',
+  off_class_time TIME NOT NULL DEFAULT '00:00:00' COMMENT '课程下课时间',
   create_time DATETIME NOT NULL DEFAULT current_timestamp COMMENT '创建时间',
   update_time DATETIME NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp,
 

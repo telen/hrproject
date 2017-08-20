@@ -3,6 +3,7 @@ package com.mohress.training.dto.mclass;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 查询列表中单体
@@ -11,37 +12,44 @@ import java.io.Serializable;
 @Data
 public class ClassItemDto implements Serializable {
 
-    /**
-     * 机构编码
-     */
-    private String agencyId;
+    private String classId;
 
-    private String agencyName;
+    private String courseId;
 
-    /**
-     * 负责人
-     */
-    private String agencyHead;
+    private String classname;
 
     /**
-     * 负责人联系方式
+     * 所属专业
      */
-    private String agencyMobile;
-
-    private String agencyEmail;
+    private String affiliatedProfession;
 
     /**
-     * 机构地址
+     * 预计人数
      */
-    private String address;
+    private Integer predictedCount;
+
+    private Long startTime;
+
+    private Long endTime;
 
     /**
-     * 教职工数量
+     * 班级上课时间
      */
-    private Integer employeesCount;
+    private Long onClassTime;
 
     /**
-     * 上级管理部门
+     * 班级下课时间
      */
-    private String superiorDepartment;
+    private Long offClassTime;
+
+    /**
+     * 申请人
+     */
+    private String proposer;
+
+    private String proposerMobile;
+
+    private String teachPlanFilePath;
+
+    private List<String> studentIds;
 }

@@ -29,7 +29,7 @@ public class ClassServiceImpl implements BaseManageService {
 
     @Override
     public <T> void newModule(T t) {
-        Verify.verify(tblClassDao.insertSelective((TblClass) t) > 0);
+        Verify.verify(tblClassDao.insertSelective(((ClassStudent) t).getTblClass()) > 0);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ClassServiceImpl implements BaseManageService {
 
     @Override
     public <T> void update(T t) {
-        Verify.verify(tblClassDao.updateSelectiveByClassId((TblClass) t) > 0);
+        Verify.verify(tblClassDao.updateSelectiveByClassId(((ClassStudent) t).getTblClass()) > 0);
     }
 
     @Override

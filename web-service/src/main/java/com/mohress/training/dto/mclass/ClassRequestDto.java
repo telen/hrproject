@@ -17,7 +17,7 @@ public class ClassRequestDto implements Serializable {
 
     private String courseId;
 
-    private String className;
+    private String classname;
 
     /**
      * 所属专业
@@ -29,9 +29,19 @@ public class ClassRequestDto implements Serializable {
      */
     private Integer predictedCount;
 
-    private Date startTime;
+    private Long startTime;
 
-    private Date endTime;
+    private Long endTime;
+
+    /**
+     * 班级上课时间
+     */
+    private Long onClassTime;
+
+    /**
+     * 班级下课时间
+     */
+    private Long offClassTime;
 
     /**
      * 申请人
