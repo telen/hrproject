@@ -3,13 +3,11 @@ package com.mohress.training.service.security;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.mohress.training.cache.AccountAuthorityCache;
+import com.mohress.training.entity.security.TblAccount;
 import com.mohress.training.util.AccountAuthority;
 import com.mohress.training.util.AuthorityAction;
-import com.mohress.training.util.RoleAuthority;
-import com.mohress.training.entity.security.TblAccount;
-import com.mohress.training.entity.security.TblAuthority;
 import com.mohress.training.util.DateUtil;
+import com.mohress.training.util.RoleAuthority;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,19 +29,15 @@ import java.util.Set;
 public class AccountSecurityService implements UserDetailsService{
 
     @Resource
-    private AccountAuthorityCache cache;
+    private AccountManager accountManager;
 
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         if (Strings.isNullOrEmpty(s)){
             throw new UsernameNotFoundException("登录账号为空");
         }
 
-        AccountAuthority accountAuthority;
-        try {
-            accountAuthority = cache.get(s);
-        } catch (Exception e) {
-            throw new UsernameNotFoundException("加载账号信息失败，请稍后重试");
-        }
+        AccountAuthority accountAuthority = accountManager.queryAccountAuthorityByAccount(s);
+
         if(accountAuthority == null){
             throw new UsernameNotFoundException(s + "不存在");
         }

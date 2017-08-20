@@ -12,4 +12,6 @@ public interface TblAuthorityDao {
     int insert(TblAuthority tblAuthority);
 
     TblAuthority selectByAuthorityId(String authorityId);
+
+    List<TblAuthority> selectAll();
 }

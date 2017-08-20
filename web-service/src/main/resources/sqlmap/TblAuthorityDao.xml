@@ -32,4 +32,11 @@
         FROM tb_authority
         WHERE authority_id = #{authorityId}
     </select>
+
+    <select id="selectAll" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_authority
+        WHERE enable = 1
+    </select>
 </mapper>
