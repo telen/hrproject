@@ -30,10 +30,6 @@ public class ResourceAuthorityLoadingService implements FilterInvocationSecurity
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
 
         String url = ((FilterInvocation) o).getRequestUrl();
-        int index = url.indexOf("?");
-        if (index != -1){
-            url = url.substring(0, index);
-        }
 
         Set<ConfigAttribute> configAttributeSet = Sets.newHashSet();
         List<TblAction> authorityList = tblActionDao.selectAll();

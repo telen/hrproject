@@ -1,6 +1,5 @@
 package com.mohress.training.service.security;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.mohress.training.dao.TblAuthorityDao;
 import com.mohress.training.dto.SecurityDto;
@@ -30,7 +29,9 @@ public class SecurityServiceImpl implements SecurityService{
             securityDto.setRoute(authority.getAuthorityRoute());
             securityDto.setIcon(authority.getAuthorityIcon());
             securityDto.setBpid(authority.getParentAuthorityId());
-            securityDto.setMpid(authority.getParentAuthorityId());
+            if ("page".equals(authority.getAuthorityType())){
+                securityDto.setMpid(authority.getParentAuthorityId());
+            }
             securityDtoList.add(securityDto);
         }
         return securityDtoList;
