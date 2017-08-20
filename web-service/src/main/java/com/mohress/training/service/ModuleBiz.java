@@ -25,7 +25,7 @@ public interface ModuleBiz {
      */
     void update(String o);
 
-    Object query(PageDto pageDto);
+    Object query(QueryDto pageDto);
 
     Object queryByKeyword(QueryDto queryDto);
 }

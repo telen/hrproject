@@ -1,11 +1,12 @@
 package com.mohress.training.service.teacher;
 
 import com.google.common.base.Preconditions;
-import com.mohress.training.dto.PageDto;
 import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.teacher.TeacherRequestDto;
 import com.mohress.training.entity.TblTeacher;
+import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.ModuleBiz;
+import com.mohress.training.util.Checker;
 import com.mohress.training.util.Convert;
 import com.mohress.training.util.JsonUtil;
 import com.mohress.training.util.SequenceCreator;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ import java.util.List;
 public class TeacherBizImpl implements ModuleBiz {
 
     @Resource
-    private TeacherService teacherServiveImpl;
+    private BaseManageService teacherServiceImpl;
 
     @Override
     public void newModule(String o) {
@@ -37,13 +39,15 @@ public class TeacherBizImpl implements ModuleBiz {
         } catch (Exception e) {
             log.error("教师新增反序列化失败 {}", o, e);
         }
-        teacherServiveImpl.newModule(buildInsertTblTeacher(teacherRequestDto));
+
+        Checker.checkNewTeacher(teacherRequestDto);
+        teacherServiceImpl.newModule(buildInsertTblTeacher(teacherRequestDto));
     }
 
     @Override
     public void delete(List<String> ids) {
         Preconditions.checkArgument(!CollectionUtils.isEmpty(ids));
-        teacherServiveImpl.delete(ids);
+        teacherServiceImpl.delete(ids);
     }
 
     @Override
@@ -51,16 +55,21 @@ public class TeacherBizImpl implements ModuleBiz {
         Preconditions.checkArgument(o != null);
         TeacherRequestDto teacherRequestDto = null;
         try {
-            teacherRequestDto = JsonUtil.getInstance().convertToBean(TeacherRequestDto.class, String.valueOf(0));
+            teacherRequestDto = JsonUtil.getInstance().convertToBean(TeacherRequestDto.class, String.valueOf(o));
         } catch (Exception e) {
             log.error("教师新增反序列化失败 {}", o, e);
         }
-        teacherServiveImpl.update(buildUpdateTblTeacher(teacherRequestDto));
+        teacherServiceImpl.update(buildUpdateTblTeacher(teacherRequestDto));
     }
 
     @Override
-    public Object query(PageDto pageDto) {
-        List<TblTeacher> tblTeachers = teacherServiveImpl.query(buildTeacherQuery(pageDto));
+    public Object query(QueryDto pageDto) {
+        Preconditions.checkNotNull(pageDto);
+        Preconditions.checkArgument(pageDto.getPage() >= 0);
+        Preconditions.checkArgument(pageDto.getPageSize() > 0);
+//        Preconditions.checkArgument(pageDto.getUserId() != null);
+
+        List<TblTeacher> tblTeachers = teacherServiceImpl.query(buildTeacherQuery(pageDto));
         return Convert.convertTeacher(tblTeachers);
     }
 
@@ -69,20 +78,24 @@ public class TeacherBizImpl implements ModuleBiz {
         Preconditions.checkNotNull(queryDto.getKeyword());
 
         //关联机构名称
-        List<TblTeacher> tblTeachers = teacherServiveImpl.queryByKeyword(buildTeacherQueryByKey(queryDto));
+        List<TblTeacher> tblTeachers = teacherServiceImpl.queryByKeyword(buildTeacherQueryByKey(queryDto));
         return Convert.convertTeacher(tblTeachers);
     }
 
     private TeacherQuery buildTeacherQueryByKey(QueryDto dto) {
         TeacherQuery query = new TeacherQuery();
+        //todo 设置查询者的agency
+//        query.setAgencyId();
         query.setKeyword(dto.getKeyword());
         query.setPageIndex(dto.getPage());
         query.setPageSize(dto.getPageSize());
         return query;
     }
 
-    private TeacherQuery buildTeacherQuery(PageDto dto) {
+    private TeacherQuery buildTeacherQuery(QueryDto dto) {
         TeacherQuery query = new TeacherQuery();
+        //todo 设置查询者的agency
+//        query.setAgencyId();
         query.setPageIndex(dto.getPage());
         query.setPageSize(dto.getPageSize());
         return query;
@@ -90,7 +103,8 @@ public class TeacherBizImpl implements ModuleBiz {
 
     private TblTeacher buildInsertTblTeacher(TeacherRequestDto teacherRequestDto) {
         TblTeacher teacher = new TblTeacher();
-        BeanUtils.copyProperties(teacherRequestDto, teacher);
+        BeanUtils.copyProperties(teacherRequestDto, teacher, "birthday");
+        teacher.setBirthday(new Date(teacherRequestDto.getBirthday()));
         teacher.setTeacherId(SequenceCreator.getTeacherId());
         return teacher;
     }
@@ -98,6 +112,7 @@ public class TeacherBizImpl implements ModuleBiz {
     private TblTeacher buildUpdateTblTeacher(TeacherRequestDto teacherRequestDto) {
         TblTeacher teacher = new TblTeacher();
         BeanUtils.copyProperties(teacherRequestDto, teacher);
+        teacher.setBirthday(new Date(teacherRequestDto.getBirthday()));
         return teacher;
     }
 

@@ -38,8 +38,8 @@
     mobile, education, status, create_time, update_time
   </sql>
   <sql id="Join_Base_Column_List" >
-    id, teacher_id, agency_id, id_number, name, gender, nationality, birthday, address,
-    mobile, education, status, create_time, update_time
+    tt.id, tt.teacher_id, tt.agency_id, tt.id_number, tt.name, tt.gender, tt.nationality, tt.birthday, tt.address,
+    tt.mobile, tt.education, tt.status, tt.create_time, tt.update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -47,10 +47,18 @@
     from tbl_teacher
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <select id="queryTeacherList" resultMap="BaseResultMap" parameterType="com.mohress.training.service.teacher.TeacherQuery" >
     select
     <include refid="Base_Column_List" />
     from tbl_teacher
+    where status = 0
+    <if test="agencyId != null">
+      and agency_id = #{agencyId},
+    </if>
+    <if test="teacherId != null">
+      and teacher_id = #{teacherId},
+    </if>
     order by create_time
     limit #{pageIndex},#{pageSize}
   </select>
@@ -59,15 +67,19 @@
     select
       <include refid="Join_Base_Column_List" />
     from tbl_teacher tt INNER JOIN tbl_agency ta ON
+    <if test="agencyId != null">
+       tt.agency_id = #{agencyId}
+    </if>
     tt.agency_id = ta.agency_id
     and ta.agency_name like '%#{keyword}%'
+    and tt.status = 0
     order by tt.create_time
     limit #{pageIndex},#{pageSize}
   </select>
 
   <update id="updateStatus" parameterType="com.mohress.training.entity.TblTeacher">
     update tbl_teacher
-    set status = #{toStatus,jdbcType=TINYINT},
+    set status = #{toStatus,jdbcType=TINYINT}
     where teacher_id = #{teacherId}
   </update>
 
@@ -162,7 +174,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mohress.training.entity.TblTeacher" >
+
+  <update id="updateByTeacherIdSelective" parameterType="com.mohress.training.entity.TblTeacher" >
     update tbl_teacher
     <set >
       <if test="teacherId != null" >
@@ -205,6 +218,6 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where teacher_id=#{teacherId}
   </update>
 </mapper>

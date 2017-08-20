@@ -3,11 +3,17 @@ package com.mohress.training.util;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.mohress.training.dto.agency.AgencyItemDto;
-import com.mohress.training.dto.agency.AgencyListResponseDto;
+import com.mohress.training.dto.attendance.AttendanceItemDto;
+import com.mohress.training.dto.course.CourseItemDto;
+import com.mohress.training.dto.mclass.ClassItemDto;
+import com.mohress.training.dto.student.StudentItemDto;
 import com.mohress.training.dto.teacher.TeacherItemDto;
-import com.mohress.training.dto.teacher.TeacherListResponseDto;
+import com.mohress.training.entity.TblCourse;
+import com.mohress.training.entity.TblStudent;
 import com.mohress.training.entity.TblTeacher;
 import com.mohress.training.entity.agency.TblAgency;
+import com.mohress.training.entity.attendance.TblAttendance;
+import com.mohress.training.entity.mclass.TblClass;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -22,32 +28,97 @@ public class Convert {
     /**
      * 转换机构列表展示
      */
-    public static AgencyListResponseDto convertAgency(List<TblAgency> tblAgencies) {
+    public static List<AgencyItemDto> convertAgency(List<TblAgency> tblAgencies) {
         if (CollectionUtils.isEmpty(tblAgencies)) {
             return null;
         }
-        return new AgencyListResponseDto(Lists.transform(tblAgencies, new Function<TblAgency, AgencyItemDto>() {
+        return Lists.transform(tblAgencies, new Function<TblAgency, AgencyItemDto>() {
             @Override
             public AgencyItemDto apply(TblAgency input) {
                 AgencyItemDto dto = new AgencyItemDto();
                 BeanUtils.copyProperties(input, dto);
                 return dto;
             }
-        }));
+        });
     }
 
-    public static TeacherListResponseDto convertTeacher(List<TblTeacher> tblTeachers) {
+    public static List<TeacherItemDto> convertTeacher(List<TblTeacher> tblTeachers) {
         if(CollectionUtils.isEmpty(tblTeachers)){
             return null;
         }
 
-        return new TeacherListResponseDto(Lists.transform(tblTeachers, new Function<TblTeacher, TeacherItemDto>() {
+        return Lists.transform(tblTeachers, new Function<TblTeacher, TeacherItemDto>() {
             @Override
             public TeacherItemDto apply(TblTeacher input) {
                 TeacherItemDto dto = new TeacherItemDto();
                 BeanUtils.copyProperties(input,dto);
                 return dto;
             }
-        }));
+        });
+    }
+
+    public static List<ClassItemDto> convertClass(List<TblClass> tblClasses) {
+        if(CollectionUtils.isEmpty(tblClasses)){
+            return null;
+        }
+
+        return Lists.transform(tblClasses, new Function<TblClass, ClassItemDto>() {
+            @Override
+            public ClassItemDto apply(TblClass input) {
+                ClassItemDto dto = new ClassItemDto();
+                BeanUtils.copyProperties(input,dto,"startTime","endTime","onClassTime","offClassTime");
+                dto.setStartTime(input.getStartTime().getTime());
+                dto.setEndTime(input.getEndTime().getTime());
+                dto.setOnClassTime(input.getOnClassTime().getTime());
+                dto.setOffClassTime(input.getOffClassTime().getTime());
+                return dto;
+            }
+        });
+
+    }
+
+    public static List<StudentItemDto> convertStudent(List<TblStudent> tblStudents) {
+        if(CollectionUtils.isEmpty(tblStudents)){
+            return null;
+        }
+
+        return Lists.transform(tblStudents, new Function<TblStudent, StudentItemDto>() {
+            @Override
+            public StudentItemDto apply(TblStudent input) {
+                StudentItemDto dto = new StudentItemDto();
+                BeanUtils.copyProperties(input,dto);
+                return dto;
+            }
+        });
+    }
+
+    public static List<CourseItemDto> convertCourse(List<TblCourse> tblCourses) {
+        if(CollectionUtils.isEmpty(tblCourses)){
+            return null;
+        }
+
+        return Lists.transform(tblCourses, new Function<TblCourse, CourseItemDto>() {
+            @Override
+            public CourseItemDto apply(TblCourse input) {
+                CourseItemDto dto = new CourseItemDto();
+                BeanUtils.copyProperties(input,dto);
+                return dto;
+            }
+        });
+    }
+
+    public static List<AttendanceItemDto> convertAttendance(List<TblAttendance> tblAgencies) {
+        if(CollectionUtils.isEmpty(tblAgencies)){
+            return null;
+        }
+
+        return Lists.transform(tblAgencies, new Function<TblAttendance, AttendanceItemDto>() {
+            @Override
+            public AttendanceItemDto apply(TblAttendance input) {
+                AttendanceItemDto dto = new AttendanceItemDto();
+                BeanUtils.copyProperties(input,dto);
+                return dto;
+            }
+        });
     }
 }

@@ -1,13 +1,13 @@
-package com.mohress.training.service.agency.impl;
+package com.mohress.training.service.agency;
 
 import com.google.common.base.Preconditions;
 import com.mohress.training.dto.PageDto;
 import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.agency.AgencyRequestDto;
 import com.mohress.training.entity.agency.TblAgency;
+import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.ModuleBiz;
 import com.mohress.training.service.agency.AgencyQuery;
-import com.mohress.training.service.agency.AgencyService;
 import com.mohress.training.util.Convert;
 import com.mohress.training.util.JsonUtil;
 import com.mohress.training.util.SequenceCreator;
@@ -28,7 +28,7 @@ import java.util.List;
 public class AgencyBizImpl implements ModuleBiz {
 
     @Resource
-    private AgencyService agencyServiceImpl;
+    private BaseManageService agencyServiceImpl;
 
     @Override
     public void newModule(String o) {
@@ -39,13 +39,13 @@ public class AgencyBizImpl implements ModuleBiz {
         } catch (Exception e) {
             log.error("新建机构反序列化失败 {}", o, e);
         }
-        agencyServiceImpl.newAgency(buildInsertTblAgency(agencyRequestDto));
+        agencyServiceImpl.newModule(buildInsertTblAgency(agencyRequestDto));
     }
 
     @Override
     public void delete(List<String> ids) {
         Preconditions.checkArgument(!CollectionUtils.isEmpty(ids));
-        agencyServiceImpl.deleteAgency(ids);
+        agencyServiceImpl.delete(ids);
     }
 
     @Override
@@ -53,16 +53,19 @@ public class AgencyBizImpl implements ModuleBiz {
         Preconditions.checkNotNull(o);
         AgencyRequestDto agencyRequestDto = null;
         try {
-            agencyRequestDto = JsonUtil.getInstance().convertToBean(AgencyRequestDto.class, String.valueOf(0));
+            agencyRequestDto = JsonUtil.getInstance().convertToBean(AgencyRequestDto.class, String.valueOf(o));
         } catch (Exception e) {
             log.error("新建机构反序列化失败 {}", o, e);
         }
-        agencyServiceImpl.updateAgency(buildUpdateTblAgency(agencyRequestDto));
+        agencyServiceImpl.update(buildUpdateTblAgency(agencyRequestDto));
     }
 
     @Override
-    public Object query(PageDto pageDto) {
-        List<TblAgency> tblAgencies = agencyServiceImpl.queryAgencies(buildAgencyQuery(pageDto));
+    public Object query(QueryDto pageDto) {
+        Preconditions.checkNotNull(pageDto);
+        Preconditions.checkArgument(pageDto.getPage() >= 0);
+        Preconditions.checkArgument(pageDto.getPageSize() > 0);
+        List<TblAgency> tblAgencies = agencyServiceImpl.query(buildAgencyQuery(pageDto));
         //todo 填充教师人数
         return Convert.convertAgency(tblAgencies);
     }
@@ -72,11 +75,8 @@ public class AgencyBizImpl implements ModuleBiz {
         throw new RuntimeException("暂不支持");
     }
 
-    private AgencyQuery buildAgencyQuery(PageDto dto) {
-        AgencyQuery query = new AgencyQuery();
-        query.setPageIndex(dto.getPage());
-        query.setPageSize(dto.getPageSize());
-        return query;
+    private AgencyQuery buildAgencyQuery(QueryDto dto) {
+        return new AgencyQuery(dto.getPageSize(),dto.getPage());
     }
 
     private TblAgency buildInsertTblAgency(AgencyRequestDto agencyRequestDto) {

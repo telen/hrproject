@@ -1,7 +1,6 @@
 package com.mohress.training.controller;
 
 import com.google.common.collect.Maps;
-import com.mohress.training.dto.PageDto;
 import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.Response;
 import com.mohress.training.dto.Responses;
@@ -32,10 +31,26 @@ public class BaseManageController extends BaseController {
     @Resource
     private ModuleBiz agencyBizImpl;
 
+    @Resource
+    private ModuleBiz classBizImpl;
+
+    @Resource
+    private ModuleBiz studentBizImpl;
+
+    @Resource
+    private ModuleBiz courseBizImpl;
+
+    @Resource
+    private ModuleBiz attendanceBizImpl;
+
     @PostConstruct
     public void init() {
+        moduleMap.put("class", classBizImpl);
         moduleMap.put("agency", agencyBizImpl);
         moduleMap.put("teacher", teacherBizImpl);
+        moduleMap.put("student", studentBizImpl);
+        moduleMap.put("course", courseBizImpl);
+        moduleMap.put("course", attendanceBizImpl);
     }
 
     @ResponseBody
@@ -68,7 +83,7 @@ public class BaseManageController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "delete")
-    public Response<Boolean> delete(@PathVariable String module, List<String> ids) {
+    public Response<Boolean> delete(@PathVariable String module, @RequestBody List<String> ids) {
 //    public Response<Boolean> delete(@PathVariable String module, @CookieValue(name = "token") String encryptedName, List<String> ids) {
 //        String userId = CipherUtil.decryptName(encryptedName);
         String userId = null;
@@ -81,13 +96,23 @@ public class BaseManageController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "query/{busiId}")
-    public Response<Object> query(@CookieValue(name = "token") String encryptedName, @PathVariable String module, @PathVariable String busiId, @RequestBody PageDto pageDto) {
-        String userId = CipherUtil.decryptName(encryptedName);
-        log.info("userId-{}, 查询 {} ,查询ID：{}，查询条件 {}", userId, module, busiId, pageDto);
+    @RequestMapping(value = "query")
+    public Response<Object> query(@PathVariable String module, QueryDto pageDto) {
+//    public Response<Object> query(@CookieValue(name = "token") String encryptedName, @PathVariable String module, @RequestBody PageDto pageDto) {
+        if (pageDto == null || pageDto.getPage() == null || pageDto.getPage() < 0) {
+            pageDto = new QueryDto();
+            pageDto.setPage(0);
+            pageDto.setPageSize(10);
+        } else {
+            pageDto.setPage(pageDto.getPage() - 1);
+        }
+//        String userId = CipherUtil.decryptName(encryptedName);
+        String userId = null;
+        pageDto.setUserId(userId);
+        log.info("userId-{}, 查询 {} ,查询条件 {}", userId, module, pageDto);
 
         Object dto = moduleMap.get(module).query(pageDto);
-        log.info("userId-{}, 查询 {}, 查询ID：{}，返回 {}", userId, module, busiId, dto);
+        log.info("userId-{}, 查询 {}，返回 {}", userId, module, dto);
         return Responses.succ(dto);
     }
 
@@ -99,6 +124,7 @@ public class BaseManageController extends BaseController {
     public Response<Object> queryByAgency(@CookieValue(name = "token") String encryptedName,
                                           @PathVariable String module, @RequestBody QueryDto queryDto) {
         String userId = CipherUtil.decryptName(encryptedName);
+        queryDto.setUserId(userId);
         log.info("userId-{}, 查询 {}, 查询条件 {}", userId, module, queryDto);
 
         Object dto = moduleMap.get(module).queryByKeyword(queryDto);
