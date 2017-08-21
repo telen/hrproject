@@ -22,11 +22,11 @@
     id, course_id, course_name, profession, period, teaching_material, agency_id, profession_brief, 
     course_brief, industry_category, training_form, training_jobs, teacher_id, create_time, update_time
   </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="selectByCourseId" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>
         from tbl_course
-        where id = #{id,jdbcType=INTEGER}
+        where course_id = #{courseId}
     </select>
 
     <select id="queryCourseList" resultMap="BaseResultMap"

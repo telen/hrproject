@@ -17,7 +17,7 @@ public interface TblAttendanceDao {
 
     List<TblAttendance> selectByKeyword(AttendanceQuery query);
 
-    TblAttendance selectByDate(@Param("todayStart") Date todayStart, @Param("todayEnd") Date todayEnd);
+    TblAttendance selectByDate(@Param("userId") String userId, @Param("todayStart") Date todayStart, @Param("todayEnd") Date todayEnd);
 
-    int updateByPrimaryIdSelective(TblAttendance attendance);
+    int updateByPrimaryKeySelective(TblAttendance attendance);
 }
