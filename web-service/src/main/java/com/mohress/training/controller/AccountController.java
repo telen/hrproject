@@ -30,27 +30,35 @@ public class AccountController {
     @Resource
     private AccountManager accountManager;
 
+    /**
+     * 用户登录成功后，根据userId查询用户的基本信息
+     *
+     * @param userId
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/query")
     public Response<UserDto> user(@CookieValue("token") String userId){
 
+        // 1.查询用户信息
         AccountAuthority accountAuthority = accountManager.queryAccountAuthorityByUserId(userId);
 
         if (accountAuthority == null){
             return new Response<>(ResultCode.FAIL.getCode(), "用户不存在");
         }
 
+        // 2.填充用户基本信息
         UserDto userDto = new UserDto();
         userDto.setUserId(userId);
         userDto.setUserName(accountAuthority.getAccount().getUserName());
 
         List<RoleAuthority> roleAuthorityList = Lists.newArrayList(accountAuthority.getAuthoritySet());
 
-        // 用户无权限信息
         if (CollectionUtils.isEmpty(accountAuthority.getAuthoritySet())){
             return new Response<>(ResultCode.SUCCESS.getCode(), "用户信息查询成功", userDto);
         }
 
+        // 3.填充用户权限信息
         RoleAuthority roleAuthority = roleAuthorityList.get(0);
         userDto.setRole(roleAuthority.getRole().getRoleName());
         userDto.setAuthorityList(Lists.<String>newArrayList());

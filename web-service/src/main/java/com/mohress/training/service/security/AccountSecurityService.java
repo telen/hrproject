@@ -85,6 +85,7 @@ public class AccountSecurityService implements UserDetailsService{
     private List<GrantedAuthority> loadDefaultAuthority(){
         List<GrantedAuthority> defaultAuthority = Lists.newArrayList();
         defaultAuthority.add(new SimpleGrantedAuthority("ACTION_USER_QUERY"));
+        defaultAuthority.add(new SimpleGrantedAuthority("ACTION_SECURITY_MENUS"));
         return defaultAuthority;
     }
 }
