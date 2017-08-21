@@ -2,13 +2,12 @@ package com.mohress.training.service.student;
 
 import com.google.common.base.Preconditions;
 import com.mohress.training.dto.QueryDto;
-import com.mohress.training.dto.student.StudentItemDto;
 import com.mohress.training.dto.student.StudentRequestDto;
-import com.mohress.training.entity.TblSCRelation;
 import com.mohress.training.entity.TblStudent;
+import com.mohress.training.enums.ResultCode;
+import com.mohress.training.exception.BusinessException;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.ModuleBiz;
-import com.mohress.training.service.SCRelationService;
 import com.mohress.training.util.Checker;
 import com.mohress.training.util.Convert;
 import com.mohress.training.util.JsonUtil;
@@ -19,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,11 +35,12 @@ public class StudentBizImpl implements ModuleBiz {
     @Override
     public void newModule(String o) {
         Preconditions.checkArgument(o != null);
-        StudentRequestDto studentRequestDto = null;
+        StudentRequestDto studentRequestDto;
         try {
             studentRequestDto = JsonUtil.getInstance().convertToBean(StudentRequestDto.class, String.valueOf(o));
         } catch (Exception e) {
             log.error("教师新增反序列化失败 {}", o, e);
+            throw new BusinessException(ResultCode.FAIL, "反序列化失败");
         }
 
         Checker.checkNewStudent(studentRequestDto);
@@ -60,6 +61,7 @@ public class StudentBizImpl implements ModuleBiz {
             studentRequestDto = JsonUtil.getInstance().convertToBean(StudentRequestDto.class, String.valueOf(o));
         } catch (Exception e) {
             log.error("教师新增反序列化失败 {}", o, e);
+            throw new RuntimeException("反序列化失败");
         }
         studentServiceImpl.update(buildUpdateTblStudent(studentRequestDto));
     }
@@ -69,18 +71,11 @@ public class StudentBizImpl implements ModuleBiz {
         Preconditions.checkNotNull(pageDto);
         Preconditions.checkArgument(pageDto.getPage() >= 0);
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
-        Preconditions.checkArgument(pageDto.getUserId() != null);
+//        Preconditions.checkArgument(pageDto.getUserId() != null);
 
         List<TblStudent> tblStudents = studentServiceImpl.query(buildStudentQuery(pageDto));
 
-        List<StudentItemDto> studentItemDtos = Convert.convertStudent(tblStudents);
-        if (CollectionUtils.isEmpty(studentItemDtos)){
-            return studentItemDtos;
-        }
-        for(StudentItemDto dto:studentItemDtos){
-
-        }
-        return studentItemDtos;
+        return Convert.convertStudent(tblStudents);
     }
 
     @Override
@@ -107,20 +102,40 @@ public class StudentBizImpl implements ModuleBiz {
         return query;
     }
 
-    private SCRelation buildInsertTblStudent(StudentRequestDto studentRequestDto) {
+    private TblStudent buildInsertTblStudent(StudentRequestDto studentRequestDto) {
         TblStudent student = new TblStudent();
         BeanUtils.copyProperties(studentRequestDto, student);
         student.setStudentId(SequenceCreator.getStudentId());
-
-        TblSCRelation relation = new TblSCRelation();
-        relation.setStudentId(student.getStudentId());
-        relation.setCourseId(studentRequestDto.getCourseId());
-        return new SCRelation(student, relation);
+        Long birthday = studentRequestDto.getBirthday();
+        Long schoolDate = studentRequestDto.getSchoolDate();
+        Long dropout = studentRequestDto.getDropout();
+        if (birthday != null) {
+            student.setBirthday(new Date(birthday));
+        }
+        if (schoolDate != null) {
+            student.setSchoolDate(new Date(schoolDate));
+        }
+        if (dropout != null) {
+            student.setDropout(new Date(dropout));
+        }
+        return student;
     }
 
     private TblStudent buildUpdateTblStudent(StudentRequestDto studentRequestDto) {
         TblStudent student = new TblStudent();
         BeanUtils.copyProperties(studentRequestDto, student);
+        Long birthday = studentRequestDto.getBirthday();
+        Long schoolDate = studentRequestDto.getSchoolDate();
+        Long dropout = studentRequestDto.getDropout();
+        if (birthday != null) {
+            student.setBirthday(new Date(birthday));
+        }
+        if (schoolDate != null) {
+            student.setSchoolDate(new Date(schoolDate));
+        }
+        if (dropout != null) {
+            student.setDropout(new Date(dropout));
+        }
         return student;
     }
 

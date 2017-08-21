@@ -24,6 +24,7 @@ public class AttendanceServiceImpl implements BaseManageService{
 
     @Override
     public <T> void newModule(T t) {
+        //判断当天是否存在，存在则添加至末尾，否则新建
         Verify.verify(tblAttendanceDao.insertSelective((TblAttendance) t) > 0, "新增机构SQL异常");
 
     }

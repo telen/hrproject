@@ -17,6 +17,7 @@ import com.mohress.training.entity.mclass.TblClass;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class Convert {
     }
 
     public static List<TeacherItemDto> convertTeacher(List<TblTeacher> tblTeachers) {
-        if(CollectionUtils.isEmpty(tblTeachers)){
+        if (CollectionUtils.isEmpty(tblTeachers)) {
             return null;
         }
 
@@ -51,14 +52,14 @@ public class Convert {
             @Override
             public TeacherItemDto apply(TblTeacher input) {
                 TeacherItemDto dto = new TeacherItemDto();
-                BeanUtils.copyProperties(input,dto);
+                BeanUtils.copyProperties(input, dto);
                 return dto;
             }
         });
     }
 
     public static List<ClassItemDto> convertClass(List<TblClass> tblClasses) {
-        if(CollectionUtils.isEmpty(tblClasses)){
+        if (CollectionUtils.isEmpty(tblClasses)) {
             return null;
         }
 
@@ -66,7 +67,7 @@ public class Convert {
             @Override
             public ClassItemDto apply(TblClass input) {
                 ClassItemDto dto = new ClassItemDto();
-                BeanUtils.copyProperties(input,dto,"startTime","endTime","onClassTime","offClassTime");
+                BeanUtils.copyProperties(input, dto, "startTime", "endTime", "onClassTime", "offClassTime");
                 dto.setStartTime(input.getStartTime().getTime());
                 dto.setEndTime(input.getEndTime().getTime());
                 dto.setOnClassTime(input.getOnClassTime().getTime());
@@ -78,7 +79,7 @@ public class Convert {
     }
 
     public static List<StudentItemDto> convertStudent(List<TblStudent> tblStudents) {
-        if(CollectionUtils.isEmpty(tblStudents)){
+        if (CollectionUtils.isEmpty(tblStudents)) {
             return null;
         }
 
@@ -86,14 +87,26 @@ public class Convert {
             @Override
             public StudentItemDto apply(TblStudent input) {
                 StudentItemDto dto = new StudentItemDto();
-                BeanUtils.copyProperties(input,dto);
+                BeanUtils.copyProperties(input, dto);
+                Date birthday = input.getBirthday();
+                Date schoolDate = input.getSchoolDate();
+                Date dropout = input.getDropout();
+                if (birthday != null) {
+                    dto.setBirthday(birthday.getTime());
+                }
+                if (schoolDate != null) {
+                    dto.setSchoolDate(schoolDate.getTime());
+                }
+                if (dropout != null) {
+                    dto.setDropout(dropout.getTime());
+                }
                 return dto;
             }
         });
     }
 
     public static List<CourseItemDto> convertCourse(List<TblCourse> tblCourses) {
-        if(CollectionUtils.isEmpty(tblCourses)){
+        if (CollectionUtils.isEmpty(tblCourses)) {
             return null;
         }
 
@@ -101,14 +114,14 @@ public class Convert {
             @Override
             public CourseItemDto apply(TblCourse input) {
                 CourseItemDto dto = new CourseItemDto();
-                BeanUtils.copyProperties(input,dto);
+                BeanUtils.copyProperties(input, dto);
                 return dto;
             }
         });
     }
 
     public static List<AttendanceItemDto> convertAttendance(List<TblAttendance> tblAgencies) {
-        if(CollectionUtils.isEmpty(tblAgencies)){
+        if (CollectionUtils.isEmpty(tblAgencies)) {
             return null;
         }
 
@@ -116,7 +129,7 @@ public class Convert {
             @Override
             public AttendanceItemDto apply(TblAttendance input) {
                 AttendanceItemDto dto = new AttendanceItemDto();
-                BeanUtils.copyProperties(input,dto);
+                BeanUtils.copyProperties(input, dto);
                 return dto;
             }
         });

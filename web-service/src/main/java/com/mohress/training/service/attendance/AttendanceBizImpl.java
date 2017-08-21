@@ -37,7 +37,7 @@ public class AttendanceBizImpl implements ModuleBiz {
         try {
             attendanceRequestDto = JsonUtil.getInstance().convertToBean(AttendanceRequestDto.class, String.valueOf(o));
         } catch (Exception e) {
-            log.error("新建机构反序列化失败 {}", o, e);
+            throw new RuntimeException("反序列化失败");
         }
         //todo 设置打卡时间
         attendanceServiceImpl.newModule(buildInsertTblAttendance(attendanceRequestDto));
