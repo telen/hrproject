@@ -5,12 +5,12 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 审批记录
+ * 审核日志
  *
  * Created by youtao.wan on 2017/8/10.
  */
 @Data
-public class TblAuditRecord {
+public class TblAuditLog {
 
     /**
      * 主键Id
