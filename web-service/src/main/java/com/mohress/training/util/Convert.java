@@ -1,6 +1,8 @@
 package com.mohress.training.util;
 
 import com.google.common.base.Function;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.mohress.training.dto.agency.AgencyItemDto;
 import com.mohress.training.dto.attendance.AttendanceItemDto;
@@ -25,6 +27,7 @@ import java.util.List;
  * Created by qx.wang on 2017/8/15.
  */
 public class Convert {
+    private static final Splitter SPLITTER = Splitter.on(",").omitEmptyStrings().trimResults();
 
     /**
      * 转换机构列表展示
@@ -130,7 +133,18 @@ public class Convert {
             public AttendanceItemDto apply(TblAttendance input) {
                 AttendanceItemDto dto = new AttendanceItemDto();
                 BeanUtils.copyProperties(input, dto);
+                parseTime(dto, input.getAttendanceTime());
                 return dto;
+            }
+
+            private void parseTime(AttendanceItemDto dto, String attendanceTime) {
+                if (Strings.isNullOrEmpty(attendanceTime)) {
+                    return;
+                }
+                List<String> attendanceTimes = SPLITTER.splitToList(attendanceTime);
+
+                dto.setStartTime(Long.valueOf(attendanceTimes.get(0)));
+                dto.setEndTime(Long.valueOf(attendanceTimes.get(attendanceTimes.size() - 1)));
             }
         });
     }
