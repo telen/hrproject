@@ -58,6 +58,7 @@ public class AccountSecurityService implements UserDetailsService{
             return ImmutableList.of();
         }
 
+        // 加载角色关联的权限Id
         List<GrantedAuthority> authorityList = Lists.newArrayList();
         for (RoleAuthority it: roleAuthoritySet){
             if (CollectionUtils.isEmpty(it.getAuthorityAction())){
@@ -70,6 +71,20 @@ public class AccountSecurityService implements UserDetailsService{
                 }
             }
         }
+
+        // 默认加载每个用户都具备的权限Id
+        authorityList.addAll(loadDefaultAuthority());
         return authorityList;
+    }
+
+    /**
+     * 加载用户默认拥有的权限
+     *
+     * @return
+     */
+    private List<GrantedAuthority> loadDefaultAuthority(){
+        List<GrantedAuthority> defaultAuthority = Lists.newArrayList();
+        defaultAuthority.add(new SimpleGrantedAuthority("ACTION_USER_QUERY"));
+        return defaultAuthority;
     }
 }
