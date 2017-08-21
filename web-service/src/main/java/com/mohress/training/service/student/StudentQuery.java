@@ -9,8 +9,6 @@ import lombok.Data;
 @Data
 public class StudentQuery {
 
-    private String agencyId;
-
     private String keyword;
 
     private Integer pageSize;

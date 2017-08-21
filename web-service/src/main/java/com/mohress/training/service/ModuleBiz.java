@@ -1,6 +1,5 @@
 package com.mohress.training.service;
 
-import com.mohress.training.dto.PageDto;
 import com.mohress.training.dto.QueryDto;
 
 import java.util.List;

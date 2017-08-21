@@ -19,7 +19,7 @@ public class AttendanceQuery {
 
     private String classId;
 
-    private String sourseId;
+    private String courseId;
 
     public AttendanceQuery (Integer page,Integer pageSize){
         this.page = page;

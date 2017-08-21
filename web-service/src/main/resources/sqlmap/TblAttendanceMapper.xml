@@ -38,7 +38,7 @@
         <if test="courseId != null">
             and course_id = #{courseId},
         </if>
-        limit #{page},#{pageSize}
+        limit #{pageIndex},#{pageSize}
     </select>
 
     <insert id="insertSelective" parameterType="com.mohress.training.entity.attendance.TblAttendance">

@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mohress.training.dao.TblStudentDao">
+    <resultMap id="BaseResultMap" type="com.mohress.training.entity.TblStudent">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="course_id" property="courseId" jdbcType="VARCHAR" />
+        <result column="agency_name" property="agencyName" jdbcType="VARCHAR" />
+        <result column="id_number" property="idNumber" jdbcType="VARCHAR" />
+        <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+        <result column="student_id" property="studentId" jdbcType="VARCHAR" />
+        <result column="gender" property="gender" jdbcType="TINYINT" />
+        <result column="nationality" property="nationality" jdbcType="VARCHAR" />
+        <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+        <result column="physical_condition" property="physicalCondition" jdbcType="VARCHAR" />
+        <result column="marital_status" property="maritalStatus" jdbcType="TINYINT" />
+        <result column="political_outlook" property="politicalOutlook" jdbcType="VARCHAR" />
+        <result column="insured_status" property="insuredStatus" jdbcType="TINYINT" />
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="work_status" property="workStatus" jdbcType="TINYINT" />
+        <result column="fingerprint" property="fingerprint" jdbcType="VARCHAR" />
+        <result column="education" property="education" jdbcType="VARCHAR" />
+        <result column="profession" property="profession" jdbcType="VARCHAR" />
+        <result column="graduation_school" property="graduationSchool" jdbcType="VARCHAR" />
+        <result column="registered_residence" property="registeredResidence" jdbcType="VARCHAR" />
+        <result column="registered_property" property="registeredProperty" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+        <result column="bank" property="bank" jdbcType="VARCHAR" />
+        <result column="bank_account" property="bankAccount" jdbcType="VARCHAR" />
+        <result column="bank_account_name" property="bankAccountName" jdbcType="VARCHAR" />
+        <result column="school_date" property="schoolDate" jdbcType="TIMESTAMP" />
+        <result column="student_cat" property="studentCat" jdbcType="VARCHAR" />
+        <result column="tuition" property="tuition" jdbcType="DECIMAL" />
+        <result column="subsidy_code" property="subsidyCode" jdbcType="VARCHAR" />
+        <result column="subsidy_target" property="subsidyTarget" jdbcType="VARCHAR" />
+        <result column="is_dropout" property="isDropout" jdbcType="TINYINT" />
+        <result column="dropout" property="dropout" jdbcType="TIMESTAMP" />
+        <result column="has_certificate" property="hasCertificate" jdbcType="TINYINT" />
+        <result column="certificate_level" property="certificateLevel" jdbcType="VARCHAR" />
+        <result column="certificate" property="certificate" jdbcType="VARCHAR" />
+        <result column="is_using_coupon" property="isUsingCoupon" jdbcType="TINYINT" />
+        <result column="coupon_num" property="couponNum" jdbcType="VARCHAR" />
+        <result column="is_compact" property="isCompact" jdbcType="TINYINT" />
+        <result column="compact" property="compact" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, course_id, agency_name, id_number, student_name, student_id, gender, nationality, bank_account_name,
+    birthday, physical_condition, marital_status, political_outlook, insured_status,
+    mobile, email, work_status, fingerprint, education, profession, graduation_school,
+    registered_residence, registered_property, status, bank, bank_account, school_date,
+    student_cat, tuition, subsidy_code, subsidy_target, is_dropout, dropout, has_certificate,
+    certificate_level, certificate, is_using_coupon, coupon_num, is_compact, compact,
+    create_time, update_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_student
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="queryStudentList" resultMap="BaseResultMap"
+            parameterType="com.mohress.training.service.student.StudentQuery">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_student
+        where status = 0
+        <if test="keyword != null">
+            and agency_name like concat(concat('%',#{keyword}),'%')
+        </if>
+        limit #{pageIndex},#{pageSize}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.mohress.training.entity.TblStudent">
+        insert into tbl_student
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="courseId != null" >
+                course_id,
+            </if>
+            <if test="agencyName != null" >
+                agency_name,
+            </if>
+            <if test="idNumber != null" >
+                id_number,
+            </if>
+            <if test="studentName != null" >
+                student_name,
+            </if>
+            <if test="studentId != null" >
+                student_id,
+            </if>
+            <if test="gender != null" >
+                gender,
+            </if>
+            <if test="nationality != null" >
+                nationality,
+            </if>
+            <if test="birthday != null" >
+                birthday,
+            </if>
+            <if test="physicalCondition != null" >
+                physical_condition,
+            </if>
+            <if test="maritalStatus != null" >
+                marital_status,
+            </if>
+            <if test="politicalOutlook != null" >
+                political_outlook,
+            </if>
+            <if test="insuredStatus != null" >
+                insured_status,
+            </if>
+            <if test="mobile != null" >
+                mobile,
+            </if>
+            <if test="email != null" >
+                email,
+            </if>
+            <if test="workStatus != null" >
+                work_status,
+            </if>
+            <if test="fingerprint != null" >
+                fingerprint,
+            </if>
+            <if test="education != null" >
+                education,
+            </if>
+            <if test="profession != null" >
+                profession,
+            </if>
+            <if test="graduationSchool != null" >
+                graduation_school,
+            </if>
+            <if test="registeredResidence != null" >
+                registered_residence,
+            </if>
+            <if test="registeredProperty != null" >
+                registered_property,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="bank != null" >
+                bank,
+            </if>
+            <if test="bankAccount != null" >
+                bank_account,
+            </if>
+            <if test="bankAccountName != null" >
+                bank_account_name,
+            </if>
+            <if test="schoolDate != null" >
+                school_date,
+            </if>
+            <if test="studentCat != null" >
+                student_cat,
+            </if>
+            <if test="tuition != null" >
+                tuition,
+            </if>
+            <if test="subsidyCode != null" >
+                subsidy_code,
+            </if>
+            <if test="subsidyTarget != null" >
+                subsidy_target,
+            </if>
+            <if test="isDropout != null" >
+                is_dropout,
+            </if>
+            <if test="dropout != null" >
+                dropout,
+            </if>
+            <if test="hasCertificate != null" >
+                has_certificate,
+            </if>
+            <if test="certificateLevel != null" >
+                certificate_level,
+            </if>
+            <if test="certificate != null" >
+                certificate,
+            </if>
+            <if test="isUsingCoupon != null" >
+                is_using_coupon,
+            </if>
+            <if test="couponNum != null" >
+                coupon_num,
+            </if>
+            <if test="isCompact != null" >
+                is_compact,
+            </if>
+            <if test="compact != null" >
+                compact,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="courseId != null" >
+                #{courseId,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyName != null" >
+                #{agencyName,jdbcType=VARCHAR},
+            </if>
+            <if test="idNumber != null" >
+                #{idNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="studentName != null" >
+                #{studentName,jdbcType=VARCHAR},
+            </if>
+            <if test="studentId != null" >
+                #{studentId,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                #{gender,jdbcType=TINYINT},
+            </if>
+            <if test="nationality != null" >
+                #{nationality,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null" >
+                #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="physicalCondition != null" >
+                #{physicalCondition,jdbcType=VARCHAR},
+            </if>
+            <if test="maritalStatus != null" >
+                #{maritalStatus,jdbcType=TINYINT},
+            </if>
+            <if test="politicalOutlook != null" >
+                #{politicalOutlook,jdbcType=VARCHAR},
+            </if>
+            <if test="insuredStatus != null" >
+                #{insuredStatus,jdbcType=TINYINT},
+            </if>
+            <if test="mobile != null" >
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="workStatus != null" >
+                #{workStatus,jdbcType=TINYINT},
+            </if>
+            <if test="fingerprint != null" >
+                #{fingerprint,jdbcType=VARCHAR},
+            </if>
+            <if test="education != null" >
+                #{education,jdbcType=VARCHAR},
+            </if>
+            <if test="profession != null" >
+                #{profession,jdbcType=VARCHAR},
+            </if>
+            <if test="graduationSchool != null" >
+                #{graduationSchool,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredResidence != null" >
+                #{registeredResidence,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredProperty != null" >
+                #{registeredProperty,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="bank != null" >
+                #{bank,jdbcType=VARCHAR},
+            </if>
+            <if test="bankAccount != null" >
+                #{bankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="bankAccountName != null" >
+                #{bankAccountName},
+            </if>
+            <if test="schoolDate != null" >
+                #{schoolDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="studentCat != null" >
+                #{studentCat,jdbcType=VARCHAR},
+            </if>
+            <if test="tuition != null" >
+                #{tuition,jdbcType=DECIMAL},
+            </if>
+            <if test="subsidyCode != null" >
+                #{subsidyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="subsidyTarget != null" >
+                #{subsidyTarget,jdbcType=VARCHAR},
+            </if>
+            <if test="isDropout != null" >
+                #{isDropout,jdbcType=TINYINT},
+            </if>
+            <if test="dropout != null" >
+                #{dropout,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hasCertificate != null" >
+                #{hasCertificate,jdbcType=TINYINT},
+            </if>
+            <if test="certificateLevel != null" >
+                #{certificateLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="certificate != null" >
+                #{certificate,jdbcType=VARCHAR},
+            </if>
+            <if test="isUsingCoupon != null" >
+                #{isUsingCoupon,jdbcType=TINYINT},
+            </if>
+            <if test="couponNum != null" >
+                #{couponNum,jdbcType=VARCHAR},
+            </if>
+            <if test="isCompact != null" >
+                #{isCompact,jdbcType=TINYINT},
+            </if>
+            <if test="compact != null" >
+                #{compact,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateStatus">
+    update tbl_student
+    set status = #{toStatus}
+    where student_id = #{studentId}
+  </update>
+
+    <update id="updateByStudentIdSelective" parameterType="com.mohress.training.entity.TblStudent">
+        update tbl_student
+        <set >
+            <if test="courseId != null" >
+                course_id = #{courseId,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyName != null" >
+                agency_name = #{agencyName,jdbcType=VARCHAR},
+            </if>
+            <if test="idNumber != null" >
+                id_number = #{idNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="studentName != null" >
+                student_name = #{studentName,jdbcType=VARCHAR},
+            </if>
+            <if test="studentId != null" >
+                student_id = #{studentId,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                gender = #{gender,jdbcType=TINYINT},
+            </if>
+            <if test="nationality != null" >
+                nationality = #{nationality,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null" >
+                birthday = #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="physicalCondition != null" >
+                physical_condition = #{physicalCondition,jdbcType=VARCHAR},
+            </if>
+            <if test="maritalStatus != null" >
+                marital_status = #{maritalStatus,jdbcType=TINYINT},
+            </if>
+            <if test="politicalOutlook != null" >
+                political_outlook = #{politicalOutlook,jdbcType=VARCHAR},
+            </if>
+            <if test="insuredStatus != null" >
+                insured_status = #{insuredStatus,jdbcType=TINYINT},
+            </if>
+            <if test="mobile != null" >
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="workStatus != null" >
+                work_status = #{workStatus,jdbcType=TINYINT},
+            </if>
+            <if test="fingerprint != null" >
+                fingerprint = #{fingerprint,jdbcType=VARCHAR},
+            </if>
+            <if test="education != null" >
+                education = #{education,jdbcType=VARCHAR},
+            </if>
+            <if test="profession != null" >
+                profession = #{profession,jdbcType=VARCHAR},
+            </if>
+            <if test="graduationSchool != null" >
+                graduation_school = #{graduationSchool,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredResidence != null" >
+                registered_residence = #{registeredResidence,jdbcType=VARCHAR},
+            </if>
+            <if test="registeredProperty != null" >
+                registered_property = #{registeredProperty,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="bank != null" >
+                bank = #{bank,jdbcType=VARCHAR},
+            </if>
+            <if test="bankAccount != null" >
+                bank_account = #{bankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="bankAccountName != null" >
+                bank_account_name = #{bankAccountName},
+            </if>
+            <if test="schoolDate != null" >
+                school_date = #{schoolDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="studentCat != null" >
+                student_cat = #{studentCat,jdbcType=VARCHAR},
+            </if>
+            <if test="tuition != null" >
+                tuition = #{tuition,jdbcType=DECIMAL},
+            </if>
+            <if test="subsidyCode != null" >
+                subsidy_code = #{subsidyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="subsidyTarget != null" >
+                subsidy_target = #{subsidyTarget,jdbcType=VARCHAR},
+            </if>
+            <if test="isDropout != null" >
+                is_dropout = #{isDropout,jdbcType=TINYINT},
+            </if>
+            <if test="dropout != null" >
+                dropout = #{dropout,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hasCertificate != null" >
+                has_certificate = #{hasCertificate,jdbcType=TINYINT},
+            </if>
+            <if test="certificateLevel != null" >
+                certificate_level = #{certificateLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="certificate != null" >
+                certificate = #{certificate,jdbcType=VARCHAR},
+            </if>
+            <if test="isUsingCoupon != null" >
+                is_using_coupon = #{isUsingCoupon,jdbcType=TINYINT},
+            </if>
+            <if test="couponNum != null" >
+                coupon_num = #{couponNum,jdbcType=VARCHAR},
+            </if>
+            <if test="isCompact != null" >
+                is_compact = #{isCompact,jdbcType=TINYINT},
+            </if>
+            <if test="compact != null" >
+                compact = #{compact,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where student_id = #{studentId}
+    </update>
+
+</mapper>
