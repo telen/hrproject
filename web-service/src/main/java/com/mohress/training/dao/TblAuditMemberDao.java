@@ -1,6 +1,7 @@
 package com.mohress.training.dao;
 
 import com.mohress.training.entity.audit.TblAuditMember;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ public interface TblAuditMemberDao {
 
     List<TblAuditMember> selectByNodeId(String nodeId);
 
-    TblAuditMember selectByNodeIdAndUserId(String nodeId, String userId);
+    TblAuditMember selectByNodeIdAndUserId(@Param("nodeId") String nodeId, @Param("userId") String userId);
 }

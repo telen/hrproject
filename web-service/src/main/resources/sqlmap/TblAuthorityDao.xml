@@ -4,23 +4,26 @@
     <resultMap id="resultMap" type="TblAuthority">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="authority_id" property="authorityId" jdbcType="VARCHAR"/>
+        <result column="authority_type" property="authorityType" jdbcType="VARCHAR"/>
         <result column="authority_name" property="authorityName" jdbcType="VARCHAR"/>
         <result column="authority_desc" property="authorityDesc" jdbcType="VARCHAR"/>
-        <result column="resource_path" property="resourcePath" jdbcType="VARCHAR"/>
+        <result column="authority_route" property="authorityRoute" jdbcType="VARCHAR"/>
+        <result column="authority_icon" property="authorityIcon" jdbcType="VARCHAR"/>
+        <result column="parent_authority_id" property="parentAuthorityId" jdbcType="VARCHAR"/>
         <result column="enable" property="enable" jdbcType="TINYINT"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="columnList">
-        id, authority_id, authority_name, authority_desc, resource_path, enable, create_time, update_time
+        id, authority_id, authority_type, authority_name, authority_desc, authority_route, authority_icon,  parent_authority_id, enable, create_time, update_time
     </sql>
 
     <insert id="insert" parameterType="TblAuthority">
         INSERT INTO tb_authority
-        (authority_id, authority_name, authority_desc, resource_path, enable)
+        (authority_id, authority_type, authority_name, authority_desc, authority_route, authority_icon, parent_authority_id, enable)
         VALUE
-        (#{authorityId}, #{authority_name}, #{authority_desc}, #{resource_path}, #{enable})
+        (#{authorityId}, #{authorityType}, #{authorityName}, #{authorityDesc}, #{authorityRoute}, #{authorityIcon}, #{parentAuthorityId}, #{enable})
     </insert>
 
     <select id="selectByAuthorityId" resultMap="resultMap">
@@ -34,5 +37,6 @@
         SELECT
         <include refid="columnList"/>
         FROM tb_authority
+        WHERE enable = 1
     </select>
 </mapper>

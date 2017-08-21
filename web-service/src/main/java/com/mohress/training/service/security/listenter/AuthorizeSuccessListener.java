@@ -23,10 +23,6 @@ public class AuthorizeSuccessListener implements ApplicationListener<AuthorizedE
         // 1.解析资源路径
         FilterInvocation invocation = (FilterInvocation) authorizedEvent.getSource();
         String url = invocation.getRequestUrl();
-        int index = url.indexOf("?");
-        if (index != -1) {
-            url = url.substring(0, index);
-        }
 
         // 2.解析访问资源权限
         String authorityName = "";

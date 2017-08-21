@@ -15,12 +15,14 @@
     <select id="selectByNodeId" resultMap="resultMap">
         SELECT
         <include refid="columnList"/>
+        FROM tb_audit_member
         WHERE node_id = #{nodeId}
     </select>
 
     <select id="selectByNodeIdAndUserId" resultMap="resultMap">
         SELECT
         <include refid="columnList"/>
+        FROM tb_audit_member
         WHERE node_id = #{nodeId} AND user_id = #{userId}
     </select>
 </mapper>

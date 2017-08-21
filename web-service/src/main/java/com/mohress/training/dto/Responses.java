@@ -1,5 +1,7 @@
 package com.mohress.training.dto;
 
+import com.mohress.training.enums.ResultCode;
+
 /**
  * 返回值描述
  *
@@ -8,11 +10,11 @@ package com.mohress.training.dto;
 public class Responses {
 
     public static <T> Response<T> fail() {
-        return fail(StatusCode.UNKNOWN_EXCEPTION);
+        return fail(ResultCode.UNKNOWN_EXCEPTION);
     }
 
-    public static <T> Response<T> fail(StatusCode statusCode) {
-        return fail(statusCode.getCode(), statusCode.getDesc());
+    public static <T> Response<T> fail(ResultCode resultCode) {
+        return fail(resultCode.getCode(), resultCode.getDesc());
     }
 
 
@@ -21,7 +23,7 @@ public class Responses {
     }
 
     public static <T> Response<T> succ(T data) {
-        return new Response<>(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getDesc(), data);
+        return new Response<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getDesc(), data);
     }
 
 }
