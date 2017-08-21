@@ -14,15 +14,15 @@ public class AttendanceQuery {
      */
     private String userId;
     private String keyword;
-    private Integer page;
+    private Integer pageIndex;
     private Integer pageSize;
 
     private String classId;
 
     private String courseId;
 
-    public AttendanceQuery (Integer page,Integer pageSize){
-        this.page = page;
+    public AttendanceQuery (Integer pageIndex,Integer pageSize){
+        this.pageIndex = pageIndex;
         this.pageSize = pageSize;
     }
 }

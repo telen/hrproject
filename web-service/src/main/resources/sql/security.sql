@@ -79,7 +79,7 @@ CREATE TABLE tb_role (
   DEFAULT CHARSET = utf8mb4
   COMMENT = '角色记录表';
 
-
+drop TABLE if EXISTS tb_authority;
 CREATE TABLE tb_authority (
   `id`                  BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT
   COMMENT '主键Id',
@@ -110,7 +110,7 @@ CREATE TABLE tb_authority (
   DEFAULT CHARSET = utf8mb4
   COMMENT = '权限记录表';
 
-
+drop TABLE if EXISTS tb_role_authority;
 CREATE TABLE tb_role_authority (
   `id`           BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT
   COMMENT '主键Id',
@@ -126,6 +126,7 @@ CREATE TABLE tb_role_authority (
   DEFAULT CHARSET = utf8mb4
   COMMENT = '权限角色关联表';
 
+drop TABLE if EXISTS tb_action;
 CREATE TABLE tb_action (
   `id`            BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT
   COMMENT '主键Id',

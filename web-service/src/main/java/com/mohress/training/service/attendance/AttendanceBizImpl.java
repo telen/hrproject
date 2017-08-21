@@ -14,7 +14,6 @@ import com.mohress.training.util.SequenceCreator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -79,7 +78,7 @@ public class AttendanceBizImpl implements ModuleBiz {
     }
 
     private AttendanceQuery buildAttendanceQuery(QueryDto dto) {
-        return new AttendanceQuery(dto.getPageSize(), dto.getPage());
+        return new AttendanceQuery(dto.getPage(), dto.getPageSize());
     }
 
     private TblAttendance buildInsertTblAttendance(AttendanceRequestDto attendanceRequestDto) {
