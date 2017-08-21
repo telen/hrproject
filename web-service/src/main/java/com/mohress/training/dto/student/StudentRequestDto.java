@@ -3,6 +3,7 @@ package com.mohress.training.dto.student;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -11,6 +12,8 @@ import java.util.Date;
  */
 @Data
 public class StudentRequestDto implements Serializable {
+
+    private String studentId;
 
     private String idNumber;
 
@@ -24,7 +27,7 @@ public class StudentRequestDto implements Serializable {
 
     private String nationality;
 
-    private Date birthday;
+    private Long birthday;
 
     /**
      * 身体状态
@@ -87,4 +90,60 @@ public class StudentRequestDto implements Serializable {
      * 报名所属班级
      */
     private String courseId;
+
+    /**
+     * 开户行
+     */
+    private String bank;
+
+    private String bankAccount;
+
+    private String bankAccountName;
+
+    /**
+     * 入学日期
+     */
+    private Long schoolDate;
+
+    /**
+     * 人员类别
+     */
+    private String studentCat;
+
+    private BigDecimal tuition;
+    /**
+     * 补贴标准
+     */
+    private String subsidyCode;
+    /**
+     * 支付对象
+     */
+    private String subsidyTarget;
+    /**
+     * 是否错学
+     */
+    private Integer isDropout;
+    /**
+     * 错学日期
+     */
+    private Long dropout;
+    private Integer hasCertificate;
+    /**
+     * 培训证书类型
+     */
+    private String certificate;
+    /**
+     * 培训证书等级
+     */
+    private String certificateLevel;
+    /**
+     * 是否用券
+     */
+    private Integer isUsingCoupon;
+    private String couponNum;
+    /**
+     * 是否企业录用员工
+     */
+    private Integer isCompact;
+    private String compact;
 }

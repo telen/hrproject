@@ -32,14 +32,11 @@ public class Checker {
         Preconditions.checkArgument(studentRequestDto.getInsuredStatus() != null);
         Preconditions.checkArgument(studentRequestDto.getMaritalStatus() != null);
         Preconditions.checkArgument(!Strings.isNullOrEmpty(studentRequestDto.getEducation()));
-        Preconditions.checkArgument(!Strings.isNullOrEmpty(studentRequestDto.getEmail()));
-        Preconditions.checkArgument(!Strings.isNullOrEmpty(studentRequestDto.getFingerprint()));
-        BusiVerify.verifyNotEmpty(studentRequestDto.getGraduationSchool(), "毕业学校为空");
+//        Preconditions.checkArgument(!Strings.isNullOrEmpty(studentRequestDto.getFingerprint()));
         BusiVerify.verifyNotEmpty(studentRequestDto.getIdNumber(), "身份证号码为空");
         BusiVerify.verifyNotEmpty(studentRequestDto.getMobile(), "手机号为空");
         BusiVerify.verifyNotEmpty(studentRequestDto.getNationality(), "民族为空");
-        BusiVerify.verifyNotEmpty(studentRequestDto.getPhysicalCondition(), "健康状况为空");
-        BusiVerify.verifyNotEmpty(studentRequestDto.getPoliticalOutlook(), "政治面貌为空");
+//        BusiVerify.verifyNotEmpty(studentRequestDto.getPoliticalOutlook(), "政治面貌为空");
         BusiVerify.verifyNotEmpty(studentRequestDto.getCourseId(), "课程ID为空");
     }
 
