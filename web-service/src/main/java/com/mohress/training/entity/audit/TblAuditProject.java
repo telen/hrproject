@@ -44,6 +44,11 @@ public class TblAuditProject {
     private String endNode;
 
     /**
+     * 项目审核流程图
+     */
+    private String auditFlowDiagram;
+
+    /**
      * 创建时间
      */
     private Date createTime;
