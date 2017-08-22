@@ -1,8 +1,13 @@
 package com.mohress.training.service.attendance;
 
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import com.google.common.base.Verify;
 import com.mohress.training.dao.TblAttendanceDao;
+import com.mohress.training.dao.TblClassDao;
+import com.mohress.training.dao.TblStudentDao;
 import com.mohress.training.entity.attendance.TblAttendance;
+import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.util.BusiVerify;
 import com.mohress.training.util.DateUtils;
@@ -22,19 +27,34 @@ import java.util.List;
 public class AttendanceServiceImpl implements BaseManageService {
     private static final int DELETE_STATUS = 1;
 
+    private static final Splitter SPLITTER = Splitter.on(",").trimResults().omitEmptyStrings();
+
     @Resource
     private TblAttendanceDao tblAttendanceDao;
 
+    @Resource
+    private TblClassDao tblClassDao;
+
+    @Resource
+    private TblStudentDao tblStudentDao;
+
     @Override
     public <T> void newModule(T t) {
+        TblAttendance newAttendance = (TblAttendance) t;
+//        TblStudent student = tblStudentDao.selectByIdNumber(newAttendance.getIdNumber());
+
         //判断当天是否存在，存在则添加至末尾，否则新建
         Date date = new Date();
-        TblAttendance attendance = tblAttendanceDao.selectByDate(DateUtils.getTodayStart(date), DateUtils.getTodayEnd(date));
-        if (attendance == null) {
+        TblAttendance dbAttendance = tblAttendanceDao.selectByDate(newAttendance.getUserId(), DateUtils.getTodayStart(date), DateUtils.getTodayEnd(date));
+        newAttendance.setStatus(getStatus(newAttendance, dbAttendance));
+        if (dbAttendance == null) {
             Verify.verify(tblAttendanceDao.insertSelective((TblAttendance) t) > 0, "新增机构SQL异常");
         } else {
-            attendance.setAttendanceTime(attendance.getAttendanceTime() + "," + ((TblAttendance) t).getAttendanceTime());
-            BusiVerify.verify(tblAttendanceDao.updateByPrimaryIdSelective(attendance) > 0, "更新考勤记录SQL异常");
+            String attendanceTime = ((TblAttendance) t).getAttendanceTime();
+            if(!Strings.isNullOrEmpty(attendanceTime)) {
+                dbAttendance.setAttendanceTime(dbAttendance.getAttendanceTime() + "," + attendanceTime);
+            }
+            BusiVerify.verify(tblAttendanceDao.updateByPrimaryKeySelective(dbAttendance) > 0, "更新考勤记录SQL异常");
         }
     }
 
@@ -56,5 +76,35 @@ public class AttendanceServiceImpl implements BaseManageService {
     @Override
     public void delete(List<String> attendanceIds) {
         throw new RuntimeException("暂不支持");
+    }
+
+    /**
+     *
+     */
+    private Integer getStatus(TblAttendance newAttendance, TblAttendance dbAttendance) {
+        String attendanceTime = newAttendance.getAttendanceTime();
+        if (TblAttendance.Status.PATCH_CLOCK .equals(newAttendance.getStatus()) ||
+                TblAttendance.Status.LEAVE.equals(newAttendance.getStatus())) {
+            return newAttendance.getStatus();
+        }
+
+        if (dbAttendance == null) {
+            return TblAttendance.Status.EXCEPTION;
+        }
+
+        TblClass tblClass = tblClassDao.selectByClassId(dbAttendance.getClassId());
+        BusiVerify.verifyNotNull(tblClass, "查询班级为空");
+        Date currentTime = new Date(Long.parseLong(attendanceTime));
+        String dbTime = dbAttendance.getAttendanceTime();
+        List<String> timeList = SPLITTER.splitToList(dbTime);
+        Date firstTime = new Date(Long.valueOf(timeList.get(0)));
+        //根据课程ID查询上下课时间
+
+        if (firstTime.after(tblClass.getOnClassTime())) {
+            return TblAttendance.Status.BE_LATE;
+        } else if (currentTime.before(tblClass.getOffClassTime())) {
+            return TblAttendance.Status.LEAVE_EARLY;
+        }
+        return TblAttendance.Status.NORMAL;
     }
 }

@@ -39,6 +39,8 @@ public class AttendanceItemDto implements Serializable {
      */
     private String remark;
 
+    private String idNumber;
+
     /**
      * 上课打卡时间
      */

@@ -26,6 +26,14 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
+    <select id="selectByDate" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_attendance
+        where user_id = #{userId}
+          and create_time between #{todayStart} and #{todayEnd}
+    </select>
+
     <select id="selectByKeyword" resultMap="BaseResultMap"
             parameterType="com.mohress.training.service.mclass.ClassQuery">
         select

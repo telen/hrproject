@@ -143,9 +143,14 @@ public class Convert {
                 }
                 List<String> attendanceTimes = SPLITTER.splitToList(attendanceTime);
 
-                dto.setStartTime(Long.valueOf(attendanceTimes.get(0)));
-                dto.setEndTime(Long.valueOf(attendanceTimes.get(attendanceTimes.size() - 1)));
+                try {
+                    dto.setStartTime(Long.valueOf(attendanceTimes.get(0)));
+                    dto.setEndTime(Long.valueOf(attendanceTimes.get(attendanceTimes.size() - 1)));
+                } catch (Exception e) {
+
+                }
             }
         });
     }
+
 }

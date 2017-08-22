@@ -50,7 +50,7 @@ public class BaseManageController {
         moduleMap.put("teacher", teacherBizImpl);
         moduleMap.put("student", studentBizImpl);
         moduleMap.put("course", courseBizImpl);
-        moduleMap.put("course", attendanceBizImpl);
+        moduleMap.put("attendance", attendanceBizImpl);
     }
 
     @ResponseBody

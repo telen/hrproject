@@ -21,4 +21,5 @@ public interface TblCourseDao {
     List<TblCourse> queryCourseList(CourseQuery query);
 
     List<TblCourse> queryCourseByKeyword(CourseQuery query);
+
 }

@@ -56,4 +56,13 @@ public class TblAttendance {
     private Integer status;
 
     private Date createTime;
+
+    public static class Status {
+        public static final Integer LEAVE_EARLY = 3;
+        public static final Integer BE_LATE = 2;
+        public static final Integer LEAVE = 1;
+        public static final Integer NORMAL = 0;
+        public static final Integer PATCH_CLOCK = 4;
+        public static final Integer EXCEPTION = 5;
+    }
 }
