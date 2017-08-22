@@ -25,7 +25,7 @@ import static com.mohress.training.enums.AuditStatus.AUDIT_REJECT;
  */
 public class RejectAction extends AbstractAuditAction {
 
-    private static final int ACTION_ID = 4;
+    private static final int ACTION_ID = 2;
 
     private String flowId;
 

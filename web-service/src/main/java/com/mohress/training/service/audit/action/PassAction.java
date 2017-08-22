@@ -27,7 +27,7 @@ import static com.mohress.training.enums.AuditStatus.AUDIT_WAIT;
  */
 public class PassAction extends AbstractAuditAction {
 
-    private static final int ACTION_ID = 3;
+    private static final int ACTION_ID = 1;
 
     private String flowId;
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mohress.training.dao.">
+    <resultMap id="resultMap" type="TblAuditTemplate">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="template_id" property="templateId" jdbcType="VARCHAR"/>
+        <result column="template_name" property="templateName" jdbcType="VARCHAR"/>
+        <result column="template_desc" property="templateDesc" jdbcType="VARCHAR"/>
+        <result column="start_node" property="startNode" jdbcType="VARCHAR"/>
+        <result column="end_node" property="endNode" jdbcType="VARCHAR"/>
+        <result column="audit_flow_diagram" property="auditFlowDiagram" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="columnList">
+        id, template_id, template_name, template_desc, start_node, end_node, audit_flow_diagram, create_time, update_time
+    </sql>
+
+    <select id="selectByTemplateId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_audit_template
+        WHERE template_id = #{templateId}
+    </select>
+</mapper>

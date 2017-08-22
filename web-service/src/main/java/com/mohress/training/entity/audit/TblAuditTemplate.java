@@ -5,12 +5,12 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 审核项目
+ * 审核模板
  *
  * Created by youtao.wan on 2017/8/10.
  */
 @Data
-public class TblAuditProject {
+public class TblAuditTemplate {
 
     /**
      * 主键Id
@@ -20,18 +20,18 @@ public class TblAuditProject {
     /**
      * 项目Id
      */
-    private String projectId;
+    private String templateId;
 
     /**
      * 项目名称
      * (培训结构审核、开班审核，台账审核)
      */
-    private String projectName;
+    private String templateName;
 
     /**
      * 项目描述
      */
-    private String projectDesc;
+    private String templateDesc;
 
     /**
      * 起始节点

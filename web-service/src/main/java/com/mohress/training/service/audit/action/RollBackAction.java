@@ -3,11 +3,11 @@ package com.mohress.training.service.audit.action;
 
 import com.mohress.training.dao.TblAuditFlowDao;
 import com.mohress.training.dao.TblAuditNodeDao;
-import com.mohress.training.dao.TblAuditProjectDao;
+import com.mohress.training.dao.TblAuditTemplateDao;
 import com.mohress.training.dao.TblAuditLogDao;
 import com.mohress.training.entity.audit.TblAuditFlow;
 import com.mohress.training.entity.audit.TblAuditNode;
-import com.mohress.training.entity.audit.TblAuditProject;
+import com.mohress.training.entity.audit.TblAuditTemplate;
 import com.mohress.training.entity.audit.TblAuditLog;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
@@ -24,9 +24,10 @@ import static com.mohress.training.enums.AuditStatus.AUDIT_WAIT;
  * 将步骤退回至上一步骤，即返回至上一处理人处，若为首步骤，则不进行退回；
  *
  */
+@Deprecated
 public class RollBackAction extends AbstractAuditAction {
 
-    private static final int ACTION_ID = 2;
+    private static final int ACTION_ID = 4;
 
     private String flowId;
 
@@ -43,7 +44,7 @@ public class RollBackAction extends AbstractAuditAction {
     protected void doExecute() {
         TblAuditFlow auditFlow = getAuditFlow();
 
-        TblAuditProject auditProject = SpringContextHelper.getBean(TblAuditProjectDao.class).selectByProjectId(auditFlow.getProjectId());
+        TblAuditTemplate auditProject = SpringContextHelper.getBean(TblAuditTemplateDao.class).selectByTemplateId(auditFlow.getTemplateId());
 
         // 当前审核流程已进入终态，不能回退
         if (auditFlow.getFlowStatus() != AUDIT_WAIT.getStatus()){

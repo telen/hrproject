@@ -26,9 +26,10 @@ import static com.mohress.training.enums.AuditStatus.AUDIT_WAIT;
  *
  */
 @Slf4j
+@Deprecated
 public class RetractAction extends AbstractAuditAction {
 
-    private static final int ACTION_ID = 1;
+    private static final int ACTION_ID = 3;
 
     private String flowId;
 

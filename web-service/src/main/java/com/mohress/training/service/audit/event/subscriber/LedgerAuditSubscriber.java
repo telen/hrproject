@@ -25,7 +25,6 @@ public class LedgerAuditSubscriber implements Subscriber{
     /**
      * 台账审核通过
      *
-     *
      * @param auditPassEvent
      */
     @Subscribe
@@ -36,7 +35,7 @@ public class LedgerAuditSubscriber implements Subscriber{
             return;
         }
 
-        log.info("台账审核通过通知");
+        log.info("台账审核通过通知。recordId={}, ledgerId={}, ledgerName={}, auditor={}, auditResult={}", auditPassEvent.getRecordId(), "", "", passAction.getAuditor(), passAction.getAuditResult());
     }
 
     /**
@@ -52,7 +51,7 @@ public class LedgerAuditSubscriber implements Subscriber{
             return;
         }
 
-        log.info("台账审核否决通知");
+        log.info("台账审核否决通知。recordId={}, ledgerId={}, ledgerName={}, auditor={}, auditResult={}", auditRejectEvent.getRecordId(), "", "", rejectAction.getAuditor(), rejectAction.getAuditResult());
     }
 
     /**
