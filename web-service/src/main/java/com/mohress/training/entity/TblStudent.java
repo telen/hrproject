@@ -22,6 +22,8 @@ public class TblStudent {
      */
     private String agencyName;
 
+    private String agencyId;
+
     /**
      * 系统生成ID
      */

@@ -6,11 +6,13 @@ import com.google.common.base.Verify;
 import com.mohress.training.dao.TblAttendanceDao;
 import com.mohress.training.dao.TblClassDao;
 import com.mohress.training.dao.TblStudentDao;
+import com.mohress.training.entity.TblStudent;
 import com.mohress.training.entity.attendance.TblAttendance;
 import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.util.BusiVerify;
 import com.mohress.training.util.DateUtils;
+import com.mohress.training.util.SequenceCreator;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -41,17 +43,17 @@ public class AttendanceServiceImpl implements BaseManageService {
     @Override
     public <T> void newModule(T t) {
         TblAttendance newAttendance = (TblAttendance) t;
-//        TblStudent student = tblStudentDao.selectByIdNumber(newAttendance.getIdNumber());
 
         //判断当天是否存在，存在则添加至末尾，否则新建
         Date date = new Date();
         TblAttendance dbAttendance = tblAttendanceDao.selectByDate(newAttendance.getUserId(), DateUtils.getTodayStart(date), DateUtils.getTodayEnd(date));
         newAttendance.setStatus(getStatus(newAttendance, dbAttendance));
         if (dbAttendance == null) {
-            Verify.verify(tblAttendanceDao.insertSelective((TblAttendance) t) > 0, "新增机构SQL异常");
+            newAttendance.setAttendanceId(SequenceCreator.getAttendanceId());
+            Verify.verify(tblAttendanceDao.insertSelective(newAttendance) > 0, "新增机构SQL异常");
         } else {
             String attendanceTime = ((TblAttendance) t).getAttendanceTime();
-            if(!Strings.isNullOrEmpty(attendanceTime)) {
+            if (!Strings.isNullOrEmpty(attendanceTime)) {
                 dbAttendance.setAttendanceTime(dbAttendance.getAttendanceTime() + "," + attendanceTime);
             }
             BusiVerify.verify(tblAttendanceDao.updateByPrimaryKeySelective(dbAttendance) > 0, "更新考勤记录SQL异常");
@@ -79,11 +81,11 @@ public class AttendanceServiceImpl implements BaseManageService {
     }
 
     /**
-     *
+     * 获取时间
      */
     private Integer getStatus(TblAttendance newAttendance, TblAttendance dbAttendance) {
         String attendanceTime = newAttendance.getAttendanceTime();
-        if (TblAttendance.Status.PATCH_CLOCK .equals(newAttendance.getStatus()) ||
+        if (TblAttendance.Status.PATCH_CLOCK.equals(newAttendance.getStatus()) ||
                 TblAttendance.Status.LEAVE.equals(newAttendance.getStatus())) {
             return newAttendance.getStatus();
         }

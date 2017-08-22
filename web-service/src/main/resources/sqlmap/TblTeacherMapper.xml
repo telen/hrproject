@@ -54,10 +54,10 @@
     from tbl_teacher
     where status = 0
     <if test="agencyId != null">
-      and agency_id = #{agencyId},
+      and agency_id = #{agencyId}
     </if>
     <if test="teacherId != null">
-      and teacher_id = #{teacherId},
+      and teacher_id = #{teacherId}
     </if>
     order by create_time
     limit #{pageIndex},#{pageSize}

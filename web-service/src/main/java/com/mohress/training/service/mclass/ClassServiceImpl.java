@@ -1,10 +1,9 @@
 package com.mohress.training.service.mclass;
 
-import com.google.common.base.Verify;
 import com.mohress.training.dao.TblClassDao;
 import com.mohress.training.dao.TblClassMemberDao;
-import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.service.BaseManageService;
+import com.mohress.training.util.BusiVerify;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,22 +28,21 @@ public class ClassServiceImpl implements BaseManageService {
 
     @Override
     public <T> void newModule(T t) {
-        Verify.verify(tblClassDao.insertSelective(((ClassStudent) t).getTblClass()) > 0);
+        BusiVerify.verify(tblClassDao.insertSelective(((ClassStudent) t).getTblClass()) > 0, "新增班级SQL异常");
+        BusiVerify.verify(tblClassMemberDao.insertBatchSelective(((ClassStudent) t).getTblClassMembers()) > 0, "新增班级SQL异常");
     }
 
     @Override
     @Transactional
     public void delete(List<String> ids) {
         for (String id : ids) {
-            Verify.verify(tblClassDao.updateStatus(id, DELETE_STATUS) > 0);
-            Verify.verify(tblClassMemberDao.updateBatchStatusByClassId(id) > 0);
+            BusiVerify.verify(tblClassDao.updateStatus(id, DELETE_STATUS) > 0, "更新班级删除状态SQL失败");
         }
-
     }
 
     @Override
     public <T> void update(T t) {
-        Verify.verify(tblClassDao.updateSelectiveByClassId(((ClassStudent) t).getTblClass()) > 0);
+        BusiVerify.verify(tblClassDao.updateSelectiveByClassId(((ClassStudent) t).getTblClass()) > 0, "更新班级SQL异常");
     }
 
     @Override
@@ -57,7 +55,4 @@ public class ClassServiceImpl implements BaseManageService {
         return (List<T>) tblClassDao.selectByKeyword((ClassQuery) query);
     }
 
-    public void alterStatus(String classId, int beforeStatus, int toStatus) {
-        Verify.verify(tblClassDao.updateByClassId(classId, beforeStatus, toStatus) > 0);
-    }
 }

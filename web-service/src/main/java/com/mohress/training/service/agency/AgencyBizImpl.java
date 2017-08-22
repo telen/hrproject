@@ -8,9 +8,7 @@ import com.mohress.training.entity.agency.TblAgency;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.ModuleBiz;
 import com.mohress.training.service.agency.AgencyQuery;
-import com.mohress.training.util.Convert;
-import com.mohress.training.util.JsonUtil;
-import com.mohress.training.util.SequenceCreator;
+import com.mohress.training.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -33,12 +31,13 @@ public class AgencyBizImpl implements ModuleBiz {
     @Override
     public void newModule(String o) {
         Preconditions.checkNotNull(o);
-        AgencyRequestDto agencyRequestDto = null;
+        AgencyRequestDto agencyRequestDto;
         try {
             agencyRequestDto = JsonUtil.getInstance().convertToBean(AgencyRequestDto.class, String.valueOf(o));
         } catch (Exception e) {
-            log.error("新建机构反序列化失败 {}", o, e);
+            throw new RuntimeException("机构反序列化失败");
         }
+        Checker.checkNewAgency(agencyRequestDto);
         agencyServiceImpl.newModule(buildInsertTblAgency(agencyRequestDto));
     }
 
