@@ -1,20 +1,21 @@
 package com.mohress.training.service.audit.impl;
 
-import com.mohress.training.dao.TblAuditRoleDao;
+import com.mohress.training.dao.TblAccountRoleDao;
 import com.mohress.training.dao.TblAuditNodeDao;
 import com.mohress.training.entity.audit.TblAuditFlow;
-import com.mohress.training.entity.audit.TblAuditRole;
 import com.mohress.training.entity.audit.TblAuditNode;
+import com.mohress.training.entity.security.TblAccountRole;
 import com.mohress.training.enums.AuditStatus;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
 import com.mohress.training.service.audit.AuditService;
 import com.mohress.training.service.audit.action.AuditAction;
-import com.mohress.training.service.audit.action.RetractAction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 审核服务
@@ -25,10 +26,10 @@ import javax.annotation.Resource;
 public class AuditServiceImpl implements AuditService{
 
     @Resource
-    private TblAuditRoleDao auditMemberDao;
+    private TblAuditNodeDao auditNodeDao;
 
     @Resource
-    private TblAuditNodeDao auditNodeDao;
+    private TblAccountRoleDao accountRoleDao;
 
     public void audit(AuditAction action) {
 
@@ -57,22 +58,20 @@ public class AuditServiceImpl implements AuditService{
             throw new BusinessException(ResultCode.AUDIT_FAIL, "审核流程已进入终态");
         }
 
-        TblAuditRole auditMember = auditMemberDao.selectByNodeIdAndRoleId(auditFlow.getNodeId(), auditAction.getAuditor());
+        List<TblAccountRole> accountRoleList = accountRoleDao.selectByUserId(auditAction.getAuditor());
+
+        TblAuditNode auditNode = auditNodeDao.selectByNodeId(auditFlow.getNodeId());
 
         // 判断审核人是否拥有当前节点下的审核权限
-        if (auditMember != null){
-            return;
-        }
-
-        // 审核人没有当前节点的审核权限，但是执行撤回操作，检查审核人是否具备上一个节点的权限
-        if (auditAction instanceof RetractAction){
-            TblAuditNode auditNode = auditNodeDao.selectByNodeId(auditFlow.getNodeId());
-            TblAuditRole previousAuditMember = auditMemberDao.selectByNodeIdAndRoleId(auditNode.getPreviousNode(), auditAction.getAuditor());
-            if (previousAuditMember != null){
+        for (TblAccountRole it : accountRoleList){
+            if (Objects.equals(auditNode.getAuditRoleId(), it.getRoleId())){
                 return;
             }
         }
 
         throw new BusinessException(ResultCode.AUDIT_NO_PRIVILEGE, String.format("%s在%s节点下无审核权限", auditAction.getAuditor(), auditFlow.getNodeId()));
     }
+
+
+
 }

@@ -39,4 +39,10 @@ public class TblAuditNode {
      * 后置节点
      */
     private String nextNode;
+
+    /**
+     * 当前节点审核角色Id
+     * (神一样的逻辑，*****)
+     */
+    private String auditRoleId;
 }

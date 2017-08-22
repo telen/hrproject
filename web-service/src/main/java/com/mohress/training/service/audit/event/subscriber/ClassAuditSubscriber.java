@@ -2,12 +2,10 @@ package com.mohress.training.service.audit.event.subscriber;
 
 import com.google.common.eventbus.Subscribe;
 import com.mohress.training.dao.TblAuditNodeDao;
-import com.mohress.training.dao.TblAuditRoleDao;
 import com.mohress.training.dao.TblClassAuditRecordDao;
 import com.mohress.training.dao.TblClassDao;
 import com.mohress.training.entity.audit.TblAuditFlow;
 import com.mohress.training.entity.audit.TblAuditNode;
-import com.mohress.training.entity.audit.TblAuditRole;
 import com.mohress.training.entity.audit.TblClassAuditRecord;
 import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.enums.AuditStatus;
@@ -40,9 +38,6 @@ public class ClassAuditSubscriber implements Subscriber{
     @Resource
     private TblAuditNodeDao tblAuditNodeDao;
 
-    @Resource
-    private TblAuditRoleDao tblAuditRoleDao;
-
     /**
      * 课程审核通过
      *
@@ -60,12 +55,10 @@ public class ClassAuditSubscriber implements Subscriber{
 
         TblAuditNode currentAuditNode = tblAuditNodeDao.selectByNodeId(auditFlow.getNodeId());
 
-        TblAuditRole currentAuditRole = tblAuditRoleDao.selectByNodeId(currentAuditNode.getNodeId());
-
         // 审核流程进入终态
         if (AuditStatus.AUDIT_PASS.getStatus() == auditFlow.getFlowStatus()){
             // 1.更新审核人信息
-            TblClassAuditRecord classAuditRecord = tblClassAuditRecordDao.selectByClassIdAndAuditRoleId(auditFlow.getFlowId(), currentAuditRole.getRoleId());
+            TblClassAuditRecord classAuditRecord = tblClassAuditRecordDao.selectByClassIdAndAuditRoleId(auditFlow.getFlowId(), currentAuditNode.getAuditRoleId());
             classAuditRecord.setAuditor(passAction.getAuditor());
             classAuditRecord.setAuditResult(passAction.getAuditResult());
             classAuditRecord.setAuditStatus(AuditStatus.AUDIT_PASS.getStatus());
@@ -77,9 +70,9 @@ public class ClassAuditSubscriber implements Subscriber{
             tblClassDao.updateStatus(auditFlow.getFlowId(), TblClass.Status.ACCESSED);
         }else {
             // 1.更新审核人信息
-            TblAuditRole previousAuditRole = tblAuditRoleDao.selectByNodeId(currentAuditNode.getPreviousNode());
+            TblAuditNode previousAuditNode = tblAuditNodeDao.selectByNodeId(auditFlow.getNodeId());
 
-            TblClassAuditRecord classAuditRecord = tblClassAuditRecordDao.selectByClassIdAndAuditRoleId(auditFlow.getFlowId(), previousAuditRole.getRoleId());
+            TblClassAuditRecord classAuditRecord = tblClassAuditRecordDao.selectByClassIdAndAuditRoleId(auditFlow.getFlowId(), previousAuditNode.getAuditRoleId());
             classAuditRecord.setAuditor(passAction.getAuditor());
             classAuditRecord.setAuditResult(passAction.getAuditResult());
             classAuditRecord.setAuditStatus(AuditStatus.AUDIT_PASS.getStatus());
@@ -88,7 +81,7 @@ public class ClassAuditSubscriber implements Subscriber{
             // 2.为下一级审核人添加一条待审核记录
             TblClassAuditRecord waitInsertClassAuditRecord = new TblClassAuditRecord();
             BeanUtils.copyProperties(classAuditRecord, waitInsertClassAuditRecord,  "auditor", "auditResult", "recordId");
-            waitInsertClassAuditRecord.setAuditRoleId(currentAuditRole.getRoleId());
+            waitInsertClassAuditRecord.setAuditRoleId(currentAuditNode.getAuditRoleId());
             waitInsertClassAuditRecord.setAuditStatus(AuditStatus.AUDIT_WAIT.getStatus());
             waitInsertClassAuditRecord.setRecordId("");
             tblClassAuditRecordDao.insert(waitInsertClassAuditRecord);
@@ -110,10 +103,10 @@ public class ClassAuditSubscriber implements Subscriber{
 
         log.info("课程审核否决通知。recordId={}, classId={}, className={}, auditor={}, auditorResult={}。", auditRejectEvent.getRecordId(), auditFlow.getFlowId(), "", rejectAction.getAuditor(), rejectAction.getAuditResult());
 
-        TblAuditRole currentAuditRole = tblAuditRoleDao.selectByNodeId(auditFlow.getNodeId());
+        TblAuditNode currentAuditNode = tblAuditNodeDao.selectByNodeId(auditFlow.getNodeId());
 
         // 审核流程进入终态
-        TblClassAuditRecord classAuditRecord = tblClassAuditRecordDao.selectByClassIdAndAuditRoleId(auditFlow.getFlowId(), currentAuditRole.getRoleId());
+        TblClassAuditRecord classAuditRecord = tblClassAuditRecordDao.selectByClassIdAndAuditRoleId(auditFlow.getFlowId(), currentAuditNode.getAuditRoleId());
         classAuditRecord.setAuditor(rejectAction.getAuditor());
         classAuditRecord.setAuditResult(rejectAction.getAuditResult());
         classAuditRecord.setAuditStatus(AuditStatus.AUDIT_REJECT.getStatus());

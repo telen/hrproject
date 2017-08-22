@@ -5,7 +5,7 @@ CREATE TABLE tb_audit_flow (
   COMMENT '主键Id',
   `flow_id`     VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '流程Id',
-  `template_id`  VARCHAR(32)         NOT NULL DEFAULT ''
+  `template_id` VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '项目模板Id',
   `node_id`     VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '流程当前节点Id',
@@ -32,22 +32,6 @@ CREATE TABLE tb_audit_flow (
 
 
 DROP TABLE IF EXISTS tb_audit_member;
-CREATE TABLE tb_audit_member (
-  `id`       BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT
-  COMMENT '主键Id',
-  `node_id`  VARCHAR(32)         NOT NULL DEFAULT ''
-  COMMENT '审核节点Id',
-  `user_id`  VARCHAR(32)         NOT NULL DEFAULT ''
-  COMMENT '审核人用户Id',
-  `priority` INTEGER             NOT NULL DEFAULT 0
-  COMMENT '审核成员优先级',
-  PRIMARY KEY (`id`),
-  KEY idx_node_id(node_id),
-  KEY idx_user_id(user_id)
-)
-  ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-  COMMENT = '节点审核人关联表';
 
 DROP TABLE IF EXISTS tb_audit_node;
 CREATE TABLE tb_audit_node (
@@ -63,6 +47,8 @@ CREATE TABLE tb_audit_node (
   COMMENT '前置节点',
   `next_node`     VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '后置节点',
+  `audit_role_id` VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '当前节点审核角色',
   PRIMARY KEY (`id`),
   UNIQUE KEY uniq_node_id(node_id),
   KEY idx_previous_node(previous_node),
