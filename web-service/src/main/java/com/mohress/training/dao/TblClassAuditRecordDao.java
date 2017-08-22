@@ -10,4 +10,8 @@ import com.mohress.training.entity.audit.TblClassAuditRecord;
 public interface TblClassAuditRecordDao {
 
     int insert(TblClassAuditRecord tblClassAuditRecord);
+
+    int updateByClassIdAndAuditRoleId(TblClassAuditRecord tblClassAuditRecord);
+
+    TblClassAuditRecord selectByClassIdAndAuditRoleId(String classId, String auditRoleId);
 }

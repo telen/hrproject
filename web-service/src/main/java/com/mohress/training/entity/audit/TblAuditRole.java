@@ -3,12 +3,12 @@ package com.mohress.training.entity.audit;
 import lombok.Data;
 
 /**
- * 审核成员
+ * 审核角色
  *
  * Created by youtao.wan on 2017/8/13.
  */
 @Data
-public class TblAuditMember {
+public class TblAuditRole {
 
     /**
      * 主键Id
@@ -21,12 +21,7 @@ public class TblAuditMember {
     private String nodeId;
 
     /**
-     * 用户Id
+     * 角色Id
      */
-    private String userId;
-
-    /**
-     * 审核成员优先级
-     */
-    private Integer priority;
+    private String roleId;
 }

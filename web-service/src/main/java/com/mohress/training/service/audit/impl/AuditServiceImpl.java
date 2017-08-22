@@ -1,9 +1,9 @@
 package com.mohress.training.service.audit.impl;
 
-import com.mohress.training.dao.TblAuditMemberDao;
+import com.mohress.training.dao.TblAuditRoleDao;
 import com.mohress.training.dao.TblAuditNodeDao;
 import com.mohress.training.entity.audit.TblAuditFlow;
-import com.mohress.training.entity.audit.TblAuditMember;
+import com.mohress.training.entity.audit.TblAuditRole;
 import com.mohress.training.entity.audit.TblAuditNode;
 import com.mohress.training.enums.AuditStatus;
 import com.mohress.training.enums.ResultCode;
@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 public class AuditServiceImpl implements AuditService{
 
     @Resource
-    private TblAuditMemberDao auditMemberDao;
+    private TblAuditRoleDao auditMemberDao;
 
     @Resource
     private TblAuditNodeDao auditNodeDao;
@@ -57,7 +57,7 @@ public class AuditServiceImpl implements AuditService{
             throw new BusinessException(ResultCode.AUDIT_FAIL, "审核流程已进入终态");
         }
 
-        TblAuditMember auditMember = auditMemberDao.selectByNodeIdAndUserId(auditFlow.getNodeId(), auditAction.getAuditor());
+        TblAuditRole auditMember = auditMemberDao.selectByNodeIdAndRoleId(auditFlow.getNodeId(), auditAction.getAuditor());
 
         // 判断审核人是否拥有当前节点下的审核权限
         if (auditMember != null){
@@ -67,7 +67,7 @@ public class AuditServiceImpl implements AuditService{
         // 审核人没有当前节点的审核权限，但是执行撤回操作，检查审核人是否具备上一个节点的权限
         if (auditAction instanceof RetractAction){
             TblAuditNode auditNode = auditNodeDao.selectByNodeId(auditFlow.getNodeId());
-            TblAuditMember previousAuditMember = auditMemberDao.selectByNodeIdAndUserId(auditNode.getPreviousNode(), auditAction.getAuditor());
+            TblAuditRole previousAuditMember = auditMemberDao.selectByNodeIdAndRoleId(auditNode.getPreviousNode(), auditAction.getAuditor());
             if (previousAuditMember != null){
                 return;
             }
