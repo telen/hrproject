@@ -61,6 +61,7 @@ public class AuditController {
      * @param auditActionDto
      * @return
      */
+    @Deprecated
     @ResponseBody
     @RequestMapping("retract")
     public Response auditRetract(@RequestBody AuditActionDto auditActionDto){
@@ -76,6 +77,7 @@ public class AuditController {
      * @param auditActionDto
      * @return
      */
+    @Deprecated
     @ResponseBody
     @RequestMapping("rollBack")
     public Response auditRollback(@RequestBody AuditActionDto auditActionDto){

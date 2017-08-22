@@ -1,6 +1,6 @@
 package com.mohress.training.service.security;
 
-import com.mohress.training.dto.SecurityDto;
+import com.mohress.training.dto.security.AuthorityDto;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface SecurityService {
      *
      * @return
      */
-    List<SecurityDto> queryAuthorityList();
+    List<AuthorityDto> queryAuthorityList();
 
     /**
      * 分配权限

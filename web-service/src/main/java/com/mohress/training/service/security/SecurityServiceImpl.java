@@ -2,7 +2,7 @@ package com.mohress.training.service.security;
 
 import com.google.common.collect.Lists;
 import com.mohress.training.dao.TblAuthorityDao;
-import com.mohress.training.dto.SecurityDto;
+import com.mohress.training.dto.security.AuthorityDto;
 import com.mohress.training.entity.security.TblAuthority;
 import org.springframework.stereotype.Service;
 
@@ -19,22 +19,22 @@ public class SecurityServiceImpl implements SecurityService{
     private TblAuthorityDao authorityDao;
 
     @Override
-    public List<SecurityDto> queryAuthorityList() {
+    public List<AuthorityDto> queryAuthorityList() {
         List<TblAuthority> authorityList = authorityDao.selectAll();
-        List<SecurityDto> securityDtoList = Lists.newArrayList();
+        List<AuthorityDto> authorityDtoList = Lists.newArrayList();
         for (TblAuthority authority : authorityList){
-            SecurityDto securityDto = new SecurityDto();
-            securityDto.setId(authority.getAuthorityId());
-            securityDto.setName(authority.getAuthorityName());
-            securityDto.setRoute(authority.getAuthorityRoute());
-            securityDto.setIcon(authority.getAuthorityIcon());
-            securityDto.setBpid(authority.getParentAuthorityId());
+            AuthorityDto authorityDto = new AuthorityDto();
+            authorityDto.setId(authority.getAuthorityId());
+            authorityDto.setName(authority.getAuthorityName());
+            authorityDto.setRoute(authority.getAuthorityRoute());
+            authorityDto.setIcon(authority.getAuthorityIcon());
+            authorityDto.setBpid(authority.getParentAuthorityId());
             if ("page".equals(authority.getAuthorityType())){
-                securityDto.setMpid(authority.getParentAuthorityId());
+                authorityDto.setMpid(authority.getParentAuthorityId());
             }
-            securityDtoList.add(securityDto);
+            authorityDtoList.add(authorityDto);
         }
-        return securityDtoList;
+        return authorityDtoList;
     }
 
     @Override

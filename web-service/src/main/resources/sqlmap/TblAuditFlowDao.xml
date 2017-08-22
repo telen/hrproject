@@ -4,7 +4,7 @@
     <resultMap id="resultMap" type="TblAuditFlow">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="flow_id" property="flowId" jdbcType="VARCHAR"/>
-        <result column="project_id" property="projectId" jdbcType="VARCHAR"/>
+        <result column="template_id" property="templateId" jdbcType="VARCHAR"/>
         <result column="node_id" property="nodeId" jdbcType="VARCHAR"/>
         <result column="node_status" property="nodeStatus" jdbcType="TINYINT"/>
         <result column="flow_status" property="flowStatus" jdbcType="TINYINT"/>
@@ -15,14 +15,14 @@
     </resultMap>
 
     <sql id="columnList">
-        id, flow_id, project_id, node_id, node_status, flow_status, creator, version, create_time, update_time
+        id, flow_id, template_id, node_id, node_status, flow_status, creator, version, create_time, update_time
     </sql>
 
     <insert id="insert" parameterType="TblAuditFlow">
         INSERT INTO tb_audit_flow
-        (flow_id, project_id, node_id, node_status, flow_status, creator, version)
+        (flow_id, template_id, node_id, node_status, flow_status, creator, version)
         VALUE
-        (#{flowId}, #{projectId},  #{nodeId}, #{nodeStatus}, #{flowStatus}, #{creator}, #{version})
+        (#{flowId}, #{templateId},  #{nodeId}, #{nodeStatus}, #{flowStatus}, #{creator}, #{version})
     </insert>
 
     <select id="selectByFlowId" resultMap="resultMap">

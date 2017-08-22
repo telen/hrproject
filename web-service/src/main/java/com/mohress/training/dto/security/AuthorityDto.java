@@ -1,4 +1,4 @@
-package com.mohress.training.dto;
+package com.mohress.training.dto.security;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
  *
  */
 @Data
-public class SecurityDto implements Serializable{
+public class AuthorityDto implements Serializable{
 
     /**
      * 权限Id

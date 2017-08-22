@@ -5,12 +5,12 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 审批记录
+ * 审核模板
  *
  * Created by youtao.wan on 2017/8/10.
  */
 @Data
-public class TblAuditRecord {
+public class TblAuditTemplate {
 
     /**
      * 主键Id
@@ -18,35 +18,35 @@ public class TblAuditRecord {
     private Integer id;
 
     /**
-     * 记录Id
+     * 项目Id
      */
-    private String recordId;
+    private String templateId;
 
     /**
-     * 流程Id
+     * 项目名称
+     * (培训结构审核、开班审核，台账审核)
      */
-    private String flowId;
+    private String templateName;
 
     /**
-     * 审批节点
+     * 项目描述
      */
-    private String nodeId;
+    private String templateDesc;
 
     /**
-     * 审核人
+     * 起始节点
      */
-    private String auditor;
+    private String startNode;
 
     /**
-     * 审核执行动作
-     * 初始化，撤销，回退，通过，否决
+     * 终止节点
      */
-    private Integer action;
+    private String endNode;
 
     /**
-     * 审核意见
+     * 项目审核流程图
      */
-    private String auditResult;
+    private String auditFlowDiagram;
 
     /**
      * 创建时间
