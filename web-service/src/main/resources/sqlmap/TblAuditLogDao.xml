@@ -17,7 +17,7 @@
         id, record_id, flow_id, node_id, auditor, action, audit_result, create_time, update_time
     </sql>
 
-    <insert id="insert" parameterType="TblAuditRecord">
+    <insert id="insert" parameterType="TblAuditLog">
         INSERT INTO tb_audit_log
         (record_id, flow_id, node_id, auditor, action, audit_result)
         VALUE
