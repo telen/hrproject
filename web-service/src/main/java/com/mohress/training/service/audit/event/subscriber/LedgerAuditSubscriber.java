@@ -10,6 +10,8 @@ import com.mohress.training.service.audit.event.AuditRejectEvent;
 import com.mohress.training.service.audit.event.Subscriber;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.Resource;
+
 /**
  * 台账审核事件通知
  *
@@ -20,6 +22,7 @@ public class LedgerAuditSubscriber implements Subscriber{
 
     private static final String AUDIT_TEMPLATE_ID = "";
 
+    @Resource
     private TblLedgerAuditRecordDao ledgerAuditRecordDao;
 
     /**

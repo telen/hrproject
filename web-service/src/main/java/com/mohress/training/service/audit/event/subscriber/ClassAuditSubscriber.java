@@ -11,6 +11,8 @@ import com.mohress.training.service.audit.event.AuditRejectEvent;
 import com.mohress.training.service.audit.event.Subscriber;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.Resource;
+
 /**
  * 课程审核事件通知
  *
@@ -21,8 +23,10 @@ public class ClassAuditSubscriber implements Subscriber{
 
     private static final String AUDIT_TEMPLATE_ID = "";
 
+    @Resource
     private TblClassAuditRecordDao classAuditRecordDao;
 
+    @Resource
     private TblClassDao tblClassDao;
 
     /**
@@ -57,6 +61,12 @@ public class ClassAuditSubscriber implements Subscriber{
         log.info("课程审核否决通知。recordId={}, classId={}, className={}, auditor={}, auditorResult={}。", auditRejectEvent.getRecordId(), auditFlow.getFlowId(), "", rejectAction.getAuditor(), rejectAction.getAuditResult());
     }
 
+    /**
+     * 是否接收审核事件
+     *
+     * @param auditTemplateId
+     * @return
+     */
     private boolean isAccept(String auditTemplateId){
         return AUDIT_TEMPLATE_ID.equals(auditTemplateId);
     }

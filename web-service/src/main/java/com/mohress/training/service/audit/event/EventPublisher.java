@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 public class EventPublisher implements Publisher{
 
-    private EventBus eventBus;
+    private EventBus eventBus = new EventBus("audit");
 
     private List<Subscriber> subscribers;
 
