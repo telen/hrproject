@@ -24,7 +24,7 @@
     proposer_mobile, teach_plan_file_path, status, start_time, end_time, on_class_time, off_class_time, create_time,
     update_time
   </sql>
-  <select id="selectByClassId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByClassId" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from tbl_class

@@ -1,15 +1,21 @@
 package com.mohress.training.service.mclass;
 
 import com.google.common.base.Verify;
-import com.mohress.training.dao.TblClassDao;
-import com.mohress.training.dao.TblClassMemberDao;
+import com.mohress.training.dao.*;
+import com.mohress.training.dto.mclass.ClassApplyDto;
+import com.mohress.training.entity.audit.TblAuditFlow;
+import com.mohress.training.entity.audit.TblAuditTemplate;
+import com.mohress.training.entity.audit.TblClassAuditRecord;
 import com.mohress.training.entity.mclass.TblClass;
+import com.mohress.training.enums.AuditStatus;
 import com.mohress.training.service.BaseManageService;
+import com.mohress.training.service.audit.action.InitAction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,5 +65,10 @@ public class ClassServiceImpl implements BaseManageService {
 
     public void alterStatus(String classId, int beforeStatus, int toStatus) {
         Verify.verify(tblClassDao.updateByClassId(classId, beforeStatus, toStatus) > 0);
+    }
+
+    public void apply(ClassApplyDto classApplyDto){
+        InitAction initAction = new InitAction(classApplyDto.getApplicant(), "", "", classApplyDto.getClassId());
+        initAction.execute();
     }
 }

@@ -32,6 +32,10 @@ public class SequenceCreator {
         return getSequenceId(SequenceType.AR);
     }
 
+    public static String getAuditFlowId(){
+        return getSequenceId(SequenceType.AF);
+    }
+
     public static String getClassId() {
         return getSequenceId(SequenceType.CL);
     }
@@ -66,6 +70,6 @@ public class SequenceCreator {
     }
 
     enum SequenceType {
-        AG, TE, AR, CL, ST, CI, AT,
+        AG, TE, AR, CL, ST, CI, AT,AF
     }
 }

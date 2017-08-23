@@ -10,6 +10,7 @@ import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
 import com.mohress.training.service.audit.AuditService;
 import com.mohress.training.service.audit.action.AuditAction;
+import com.mohress.training.service.audit.action.InitAction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +57,11 @@ public class AuditServiceImpl implements AuditService{
         // 判断审核状态
         if (AuditStatus.AUDIT_WAIT.getStatus() != auditFlow.getFlowStatus()){
             throw new BusinessException(ResultCode.AUDIT_FAIL, "审核流程已进入终态");
+        }
+
+        // 审核流程初始化
+        if (auditAction instanceof InitAction){
+            return;
         }
 
         List<TblAccountRole> accountRoleList = accountRoleDao.selectByUserId(auditAction.getAuditor());

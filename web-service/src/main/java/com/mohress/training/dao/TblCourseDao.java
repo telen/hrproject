@@ -22,4 +22,5 @@ public interface TblCourseDao {
 
     List<TblCourse> queryCourseByKeyword(CourseQuery query);
 
+    TblCourse selectByCourseId(String courseId);
 }
