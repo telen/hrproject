@@ -2,6 +2,7 @@ package com.mohress.training.service.mclass;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import com.mohress.training.dao.TblClassMemberDao;
 import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.mclass.ClassItemDto;
 import com.mohress.training.dto.mclass.ClassRequestDto;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +34,8 @@ public class ClassBizImpl implements ModuleBiz {
 
     @Resource
     private BaseManageService classServiceImpl;
+    @Resource
+    private TblClassMemberDao tblClassMemberDao;
 
     @Override
     public void newModule(String o) {
@@ -42,7 +46,7 @@ public class ClassBizImpl implements ModuleBiz {
         } catch (Exception e) {
             log.error("新建机构反序列化失败 {}", o, e);
         }
-        classServiceImpl.newModule(buildClass(classRequestDto));
+        classServiceImpl.newModule(buildInsertClass(classRequestDto));
     }
 
     @Override
@@ -60,7 +64,7 @@ public class ClassBizImpl implements ModuleBiz {
         } catch (Exception e) {
             log.error("新建机构反序列化失败 {}", o, e);
         }
-        classServiceImpl.update(buildClass(classRequestDto));
+        classServiceImpl.update(buildUpdateClass(classRequestDto));
     }
 
     @Override
@@ -71,6 +75,22 @@ public class ClassBizImpl implements ModuleBiz {
         List<TblClass> tblClasses = classServiceImpl.query(buildClassQuery(pageDto));
 
         List<ClassItemDto> classItemDtos = Convert.convertClass(tblClasses);
+
+        if (CollectionUtils.isEmpty(classItemDtos)) {
+            return classItemDtos;
+        }
+
+        for (ClassItemDto dto : classItemDtos) {
+            List<TblClassMember> classMembers = tblClassMemberDao.selectByClassId(dto.getClassId());
+            if (CollectionUtils.isEmpty(classMembers)) {
+                continue;
+            }
+
+            dto.setStudentIds(new ArrayList<String>());
+            for (TblClassMember member : classMembers) {
+                dto.getStudentIds().add(member.getStudentId());
+            }
+        }
 
         return classItemDtos;
     }
@@ -84,7 +104,7 @@ public class ClassBizImpl implements ModuleBiz {
         return new ClassQuery(pageDto.getPageSize(), pageDto.getPage());
     }
 
-    private ClassStudent buildClass(ClassRequestDto classRequestDto) {
+    private ClassStudent buildInsertClass(ClassRequestDto classRequestDto) {
         TblClass tblClass = new TblClass();
         BeanUtils.copyProperties(classRequestDto, tblClass, "startTime", "endTime", "onClassTime", "offClassTime");
         tblClass.setStartTime(new Date(classRequestDto.getStartTime()));
@@ -107,9 +127,13 @@ public class ClassBizImpl implements ModuleBiz {
         return new ClassStudent(tblClass, classMembers);
     }
 
-    private TblClass buildUpdateTblClass(ClassRequestDto classRequestDto) {
+    private ClassStudent buildUpdateClass(ClassRequestDto classRequestDto) {
         TblClass tblClass = new TblClass();
         BeanUtils.copyProperties(classRequestDto, tblClass);
-        return tblClass;
+        tblClass.setStartTime(new Date(classRequestDto.getStartTime()));
+        tblClass.setEndTime(new Date(classRequestDto.getEndTime()));
+        tblClass.setOnClassTime(new Date(classRequestDto.getOnClassTime()));
+        tblClass.setOffClassTime(new Date(classRequestDto.getOffClassTime()));
+        return new ClassStudent(tblClass, null);
     }
 }

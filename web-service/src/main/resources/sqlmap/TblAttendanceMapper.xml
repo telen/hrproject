@@ -41,10 +41,10 @@
         from tbl_attendance
         where 1=1
         <if test="classId != null">
-            and class_id = #{classId},
+            and class_id = #{classId}
         </if>
         <if test="courseId != null">
-            and course_id = #{courseId},
+            and course_id = #{courseId}
         </if>
         limit #{pageIndex},#{pageSize}
     </select>

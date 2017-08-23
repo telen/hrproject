@@ -9,6 +9,8 @@ import lombok.Data;
 @Data
 public class TeacherQuery {
 
+    private String name;
+
     private String agencyId;
 
     private String keyword;

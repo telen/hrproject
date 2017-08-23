@@ -14,4 +14,8 @@ public class StudentQuery {
     private Integer pageSize;
 
     private Integer pageIndex;
+
+    private String courseId;
+
+    private String idNumber;
 }

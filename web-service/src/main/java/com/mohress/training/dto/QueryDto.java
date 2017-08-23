@@ -14,8 +14,12 @@ public class QueryDto implements Serializable{
      * 查询者
      */
     private String userId;
+    private String courseId;
+    private String classId;
     private String keyword;
     private Integer page;
     private Integer pageSize;
+
+    private String name;
 
 }

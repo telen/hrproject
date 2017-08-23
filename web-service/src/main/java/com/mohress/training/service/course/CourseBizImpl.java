@@ -6,6 +6,7 @@ import com.mohress.training.dto.course.CourseItemDto;
 import com.mohress.training.dto.course.CourseRequestDto;
 import com.mohress.training.entity.TblCourse;
 import com.mohress.training.entity.TblTeacher;
+import com.mohress.training.exception.BusinessException;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.ModuleBiz;
 import com.mohress.training.service.mclass.ClassQuery;
@@ -40,14 +41,15 @@ public class CourseBizImpl implements ModuleBiz {
     @Override
     public void newModule(String o) {
         Preconditions.checkArgument(o != null);
-        CourseRequestDto courseRequestDto = null;
+        CourseRequestDto courseRequestDto;
         try {
             courseRequestDto = JsonUtil.getInstance().convertToBean(CourseRequestDto.class, String.valueOf(o));
         } catch (Exception e) {
-            log.error("教师新增反序列化失败 {}", o, e);
+            throw new RuntimeException("反序列化课程失败");
         }
 
         Checker.checkNewCourse(courseRequestDto);
+        //todo 校验教师合理性
         courseServiceImpl.newModule(buildInsertTblCourse(courseRequestDto));
     }
 
@@ -85,6 +87,8 @@ public class CourseBizImpl implements ModuleBiz {
         for(CourseItemDto dto:courseItemDtos){
             TeacherQuery query = new TeacherQuery();
             query.setTeacherId(dto.getTeacherId());
+            query.setPageIndex(0);
+            query.setPageSize(10);
             List<TblTeacher> teachers = teacherServiceImpl.query(query);
             if(!CollectionUtils.isEmpty(teachers)){
                 dto.setTeacherName(teachers.get(0).getName());

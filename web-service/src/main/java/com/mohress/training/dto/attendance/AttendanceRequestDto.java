@@ -25,8 +25,6 @@ public class AttendanceRequestDto implements Serializable {
 
     private String deviceName;
 
-    private String idNumber;
-
     /**
      * 为机器识别出来的id
      */
