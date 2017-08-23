@@ -2,11 +2,13 @@ package com.mohress.training.service.audit.action;
 
 
 import com.mohress.training.dao.TblAuditFlowDao;
-import com.mohress.training.dao.TblAuditRecordDao;
+import com.mohress.training.dao.TblAuditLogDao;
 import com.mohress.training.entity.audit.TblAuditFlow;
-import com.mohress.training.entity.audit.TblAuditRecord;
+import com.mohress.training.entity.audit.TblAuditLog;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
+import com.mohress.training.service.audit.event.AuditRejectEvent;
+import com.mohress.training.service.audit.event.EventPublisher;
 import com.mohress.training.util.SequenceCreator;
 import com.mohress.training.util.SpringContextHelper;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +25,7 @@ import static com.mohress.training.enums.AuditStatus.AUDIT_REJECT;
  */
 public class RejectAction extends AbstractAuditAction {
 
-    private static final int ACTION_ID = 4;
+    private static final int ACTION_ID = 2;
 
     private String flowId;
 
@@ -40,24 +42,30 @@ public class RejectAction extends AbstractAuditAction {
     protected void doExecute() {
         TblAuditFlow auditFlow = getAuditFlow();
 
+        // 更改审核流状态
         auditFlow.setNodeStatus(AUDIT_REJECT.getStatus());
         auditFlow.setFlowStatus(AUDIT_REJECT.getStatus());
 
-        TblAuditRecord auditRecord = new TblAuditRecord();
-        auditRecord.setAction(ACTION_ID);
-        auditRecord.setRecordId(SequenceCreator.getAuditRecordId());
-        auditRecord.setAuditor(getAuditor());
-        auditRecord.setAuditResult(getAuditResult());
-        auditRecord.setFlowId(auditFlow.getFlowId());
-        auditRecord.setNodeId(auditFlow.getNodeId());
-        auditRecord.setCreateTime(new Date());
-        auditRecord.setUpdateTime(new Date());
+        // 添加审核日志
+        TblAuditLog auditLog = new TblAuditLog();
+        auditLog.setAction(ACTION_ID);
+        auditLog.setRecordId(SequenceCreator.getAuditRecordId());
+        auditLog.setAuditor(getAuditor());
+        auditLog.setAuditResult(getAuditResult());
+        auditLog.setFlowId(auditFlow.getFlowId());
+        auditLog.setNodeId(auditFlow.getNodeId());
+        auditLog.setCreateTime(new Date());
+        auditLog.setUpdateTime(new Date());
 
-        SpringContextHelper.getBean(TblAuditRecordDao.class).insert(auditRecord);
+        SpringContextHelper.getBean(TblAuditLogDao.class).insert(auditLog);
         int updateResult = SpringContextHelper.getBean(TblAuditFlowDao.class).updateByFlowIdAndVersion(auditFlow);
 
         if (updateResult != 1){
             throw new BusinessException(ResultCode.AUDIT_FAIL, "更新审核流程信息失败，请重新审核。");
         }
+
+        // 发布审核否决事件
+        AuditRejectEvent auditRejectEvent = new AuditRejectEvent(auditLog.getRecordId(), this);
+        SpringContextHelper.getBean(EventPublisher.class).push(auditRejectEvent);
     }
 }

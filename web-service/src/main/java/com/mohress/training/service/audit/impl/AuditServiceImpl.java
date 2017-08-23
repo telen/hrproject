@@ -5,6 +5,7 @@ import com.mohress.training.dao.TblAuditNodeDao;
 import com.mohress.training.entity.audit.TblAuditFlow;
 import com.mohress.training.entity.audit.TblAuditMember;
 import com.mohress.training.entity.audit.TblAuditNode;
+import com.mohress.training.enums.AuditStatus;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
 import com.mohress.training.service.audit.AuditService;
@@ -49,6 +50,11 @@ public class AuditServiceImpl implements AuditService{
         // 判断审核流程是否存在
         if (auditFlow == null){
             throw new BusinessException(ResultCode.AUDIT_FAIL, "审核流程不存在");
+        }
+
+        // 判断审核状态
+        if (AuditStatus.AUDIT_WAIT.getStatus() != auditFlow.getFlowStatus()){
+            throw new BusinessException(ResultCode.AUDIT_FAIL, "审核流程已进入终态");
         }
 
         TblAuditMember auditMember = auditMemberDao.selectByNodeIdAndUserId(auditFlow.getNodeId(), auditAction.getAuditor());

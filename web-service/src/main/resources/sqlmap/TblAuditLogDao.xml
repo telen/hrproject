@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mohress.training.dao.TblAuditRecordDao">
-    <resultMap id="resultMap" type="TblAuditRecord">
+<mapper namespace="com.mohress.training.dao.TblAuditLogDao">
+    <resultMap id="resultMap" type="TblAuditLog">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="record_id" property="recordId" jdbcType="VARCHAR"/>
         <result column="flow_id" property="flowId" jdbcType="VARCHAR"/>
@@ -17,8 +17,8 @@
         id, record_id, flow_id, node_id, auditor, action, audit_result, create_time, update_time
     </sql>
 
-    <insert id="insert" parameterType="TblAuditRecord">
-        INSERT INTO tb_audit_record
+    <insert id="insert" parameterType="TblAuditLog">
+        INSERT INTO tb_audit_log
         (record_id, flow_id, node_id, auditor, action, audit_result)
         VALUE
         (#{recordId}, #{flowId}, #{nodeId}, #{auditor}, #{action}, #{auditResult})
@@ -27,7 +27,7 @@
     <select id="selectByFlowIdAndAuditor" resultMap="resultMap">
         SELECT
         <include refid="columnList"/>
-        FROM tb_audit_record
+        FROM tb_audit_log
         WHERE flow_id = #{flowId} AND auditor = #{auditor}
     </select>
 </mapper>

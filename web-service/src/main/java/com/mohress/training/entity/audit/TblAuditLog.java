@@ -5,12 +5,12 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 审核项目
+ * 审核日志
  *
  * Created by youtao.wan on 2017/8/10.
  */
 @Data
-public class TblAuditProject {
+public class TblAuditLog {
 
     /**
      * 主键Id
@@ -18,30 +18,35 @@ public class TblAuditProject {
     private Integer id;
 
     /**
-     * 项目Id
+     * 记录Id
      */
-    private String projectId;
+    private String recordId;
 
     /**
-     * 项目名称
-     * (培训结构审核、开班审核，台账审核)
+     * 流程Id
      */
-    private String projectName;
+    private String flowId;
 
     /**
-     * 项目描述
+     * 审批节点
      */
-    private String projectDesc;
+    private String nodeId;
 
     /**
-     * 起始节点
+     * 审核人
      */
-    private String startNode;
+    private String auditor;
 
     /**
-     * 终止节点
+     * 审核执行动作
+     * 初始化，撤销，回退，通过，否决
      */
-    private String endNode;
+    private Integer action;
+
+    /**
+     * 审核意见
+     */
+    private String auditResult;
 
     /**
      * 创建时间

@@ -3,12 +3,12 @@ package com.mohress.training.service.audit.action;
 
 import com.mohress.training.dao.TblAuditFlowDao;
 import com.mohress.training.dao.TblAuditNodeDao;
-import com.mohress.training.dao.TblAuditProjectDao;
-import com.mohress.training.dao.TblAuditRecordDao;
+import com.mohress.training.dao.TblAuditTemplateDao;
+import com.mohress.training.dao.TblAuditLogDao;
 import com.mohress.training.entity.audit.TblAuditFlow;
 import com.mohress.training.entity.audit.TblAuditNode;
-import com.mohress.training.entity.audit.TblAuditProject;
-import com.mohress.training.entity.audit.TblAuditRecord;
+import com.mohress.training.entity.audit.TblAuditTemplate;
+import com.mohress.training.entity.audit.TblAuditLog;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
 import com.mohress.training.util.SequenceCreator;
@@ -24,9 +24,10 @@ import static com.mohress.training.enums.AuditStatus.AUDIT_WAIT;
  * 将步骤退回至上一步骤，即返回至上一处理人处，若为首步骤，则不进行退回；
  *
  */
+@Deprecated
 public class RollBackAction extends AbstractAuditAction {
 
-    private static final int ACTION_ID = 2;
+    private static final int ACTION_ID = 4;
 
     private String flowId;
 
@@ -43,7 +44,7 @@ public class RollBackAction extends AbstractAuditAction {
     protected void doExecute() {
         TblAuditFlow auditFlow = getAuditFlow();
 
-        TblAuditProject auditProject = SpringContextHelper.getBean(TblAuditProjectDao.class).selectByProjectId(auditFlow.getProjectId());
+        TblAuditTemplate auditProject = SpringContextHelper.getBean(TblAuditTemplateDao.class).selectByTemplateId(auditFlow.getTemplateId());
 
         // 当前审核流程已进入终态，不能回退
         if (auditFlow.getFlowStatus() != AUDIT_WAIT.getStatus()){
@@ -58,21 +59,21 @@ public class RollBackAction extends AbstractAuditAction {
         TblAuditNode auditNode = SpringContextHelper.getBean(TblAuditNodeDao.class).selectByNodeId(auditFlow.getNodeId());
 
         // 审核记录存档
-        TblAuditRecord auditRecord = new TblAuditRecord();
-        auditRecord.setRecordId(SequenceCreator.getAuditRecordId());
-        auditRecord.setFlowId(flowId);
-        auditRecord.setNodeId(auditFlow.getNodeId());
-        auditRecord.setAction(ACTION_ID);
-        auditRecord.setAuditor(getAuditor());
-        auditRecord.setAuditResult(getAuditResult());
-        auditRecord.setCreateTime(new Date());
-        auditRecord.setUpdateTime(new Date());
+        TblAuditLog auditLog = new TblAuditLog();
+        auditLog.setRecordId(SequenceCreator.getAuditRecordId());
+        auditLog.setFlowId(flowId);
+        auditLog.setNodeId(auditFlow.getNodeId());
+        auditLog.setAction(ACTION_ID);
+        auditLog.setAuditor(getAuditor());
+        auditLog.setAuditResult(getAuditResult());
+        auditLog.setCreateTime(new Date());
+        auditLog.setUpdateTime(new Date());
 
         auditFlow.setNodeId(auditNode.getPreviousNode());
         auditFlow.setNodeStatus(AUDIT_WAIT.getStatus());
         auditFlow.setFlowStatus(AUDIT_WAIT.getStatus());
 
-        SpringContextHelper.getBean(TblAuditRecordDao.class).insert(auditRecord);
+        SpringContextHelper.getBean(TblAuditLogDao.class).insert(auditLog);
         int updateResult = SpringContextHelper.getBean(TblAuditFlowDao.class).updateByFlowIdAndVersion(auditFlow);
         if (updateResult != 1){
             throw new BusinessException(ResultCode.AUDIT_FAIL, "更新审核流程信息失败，请重新审核。");

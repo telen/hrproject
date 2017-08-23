@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--课程审核事件监听-->
+    <bean id="classAuditSubscriber" class="com.mohress.training.service.audit.event.subscriber.ClassAuditSubscriber"/>
+    <!--台账审核事件监听-->
+    <bean id="ledgerAuditSubscriber" class="com.mohress.training.service.audit.event.subscriber.LedgerAuditSubscriber"/>
+
+    <!--审核事件发布者-->
+    <bean id = "eventPublisher" class="com.mohress.training.service.audit.event.EventPublisher">
+        <property name="subscribers">
+            <list>
+                <ref bean="classAuditSubscriber"/>
+                <ref bean="ledgerAuditSubscriber"/>
+            </list>
+        </property>
+    </bean>
+</beans>

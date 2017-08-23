@@ -2,9 +2,9 @@ package com.mohress.training.service.audit.action;
 
 
 import com.mohress.training.dao.TblAuditFlowDao;
-import com.mohress.training.dao.TblAuditRecordDao;
+import com.mohress.training.dao.TblAuditLogDao;
 import com.mohress.training.entity.audit.TblAuditFlow;
-import com.mohress.training.entity.audit.TblAuditRecord;
+import com.mohress.training.entity.audit.TblAuditLog;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
 import com.mohress.training.util.DateUtil;
@@ -26,9 +26,10 @@ import static com.mohress.training.enums.AuditStatus.AUDIT_WAIT;
  *
  */
 @Slf4j
+@Deprecated
 public class RetractAction extends AbstractAuditAction {
 
-    private static final int ACTION_ID = 1;
+    private static final int ACTION_ID = 3;
 
     private String flowId;
 
@@ -43,9 +44,9 @@ public class RetractAction extends AbstractAuditAction {
         TblAuditFlow auditFlow = getAuditFlow();
 
         // 2.查询审核人当前流程的审核记录
-        TblAuditRecordDao auditRecordDao = SpringContextHelper.getBean(TblAuditRecordDao.class);
-        List<TblAuditRecord> auditHistoryRecordList = auditRecordDao.selectByFlowIdAndAuditor(flowId, getAuditor());
-        TblAuditRecord auditHistoryRecord = select(auditHistoryRecordList);
+        TblAuditLogDao auditRecordDao = SpringContextHelper.getBean(TblAuditLogDao.class);
+        List<TblAuditLog> auditHistoryRecordList = auditRecordDao.selectByFlowIdAndAuditor(flowId, getAuditor());
+        TblAuditLog auditHistoryRecord = select(auditHistoryRecordList);
 
         // 3.执行动作5分钟后，拒绝撤销
         if (DateUtil.isBeforeNow(DateUtil.addMinute(auditHistoryRecord.getCreateTime(), 5))){
@@ -69,17 +70,17 @@ public class RetractAction extends AbstractAuditAction {
         }
 
         // 5.操作记录入库存档
-        TblAuditRecord auditRecord = new TblAuditRecord();
-        auditRecord.setAction(ACTION_ID);
-        auditRecord.setRecordId(SequenceCreator.getAuditRecordId());
-        auditRecord.setAuditor(getAuditor());
-        auditRecord.setAuditResult(getAuditResult());
-        auditRecord.setFlowId(auditFlow.getFlowId());
-        auditRecord.setNodeId(currentNodeId);
-        auditRecord.setCreateTime(new Date());
-        auditRecord.setUpdateTime(new Date());
+        TblAuditLog auditLog = new TblAuditLog();
+        auditLog.setAction(ACTION_ID);
+        auditLog.setRecordId(SequenceCreator.getAuditRecordId());
+        auditLog.setAuditor(getAuditor());
+        auditLog.setAuditResult(getAuditResult());
+        auditLog.setFlowId(auditFlow.getFlowId());
+        auditLog.setNodeId(currentNodeId);
+        auditLog.setCreateTime(new Date());
+        auditLog.setUpdateTime(new Date());
 
-        auditRecordDao.insert(auditRecord);
+        auditRecordDao.insert(auditLog);
 
         int flowUpdateResult = SpringContextHelper.getBean(TblAuditFlowDao.class).updateByFlowIdAndVersion(auditFlow);
         if (flowUpdateResult != 1){
@@ -97,9 +98,9 @@ public class RetractAction extends AbstractAuditAction {
      * @param auditHistoryRecordList
      * @return
      */
-    private TblAuditRecord select(List<TblAuditRecord> auditHistoryRecordList){
-        Collections.sort(auditHistoryRecordList, new Comparator<TblAuditRecord>() {
-            public int compare(TblAuditRecord o1, TblAuditRecord o2) {
+    private TblAuditLog select(List<TblAuditLog> auditHistoryRecordList){
+        Collections.sort(auditHistoryRecordList, new Comparator<TblAuditLog>() {
+            public int compare(TblAuditLog o1, TblAuditLog o2) {
                 return o2.getId() - o1.getId();
             }
         });
@@ -112,7 +113,7 @@ public class RetractAction extends AbstractAuditAction {
      * @param auditFlow
      * @param auditRecord
      */
-    private void passActionRetract(TblAuditFlow auditFlow, TblAuditRecord auditRecord){
+    private void passActionRetract(TblAuditFlow auditFlow, TblAuditLog auditRecord){
         String currentNodeId = auditFlow.getNodeId();
         String recordNodeId = auditRecord.getNodeId();
         if (currentNodeId.equals(recordNodeId)){
@@ -135,7 +136,7 @@ public class RetractAction extends AbstractAuditAction {
      * @param auditFlow
      * @param auditRecord
      */
-    private void rejectActionRetract(TblAuditFlow auditFlow, TblAuditRecord auditRecord){
+    private void rejectActionRetract(TblAuditFlow auditFlow, TblAuditLog auditRecord){
         auditFlow.setNodeStatus(AUDIT_WAIT.getStatus());
         auditFlow.setFlowStatus(AUDIT_WAIT.getStatus());
     }
