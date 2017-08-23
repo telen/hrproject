@@ -4,6 +4,7 @@
     <resultMap id="resultMap" type="TblClassAuditRecord">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="record_id" property="recordId" jdbcType="VARCHAR"/>
+        <result column="flow_id" property="flowId" jdbcType="VARCHAR"/>
         <result column="class_id" property="classId" jdbcType="VARCHAR"/>
         <result column="class_name" property="className" jdbcType="VARCHAR"/>
         <result column="agency_id" property="agencyId" jdbcType="VARCHAR"/>
@@ -15,26 +16,26 @@
     </resultMap>
 
     <sql id="columnList">
-        id, record_id, class_id, class_name, agency_id, agency_name, audit_role_id, auditor, audit_result, audit_status
+        id, record_id, flow_id, class_id, class_name, agency_id, agency_name, audit_role_id, auditor, audit_result, audit_status
     </sql>
 
     <insert id="insert" parameterType="TblClassAuditRecord">
         INSERT INTO tb_class_audit_record
-        (record_id, class_id, class_name, agency_id, agency_name, audit_role_id, auditor, audit_result, audit_status)
+        (record_id, flow_id, class_id, class_name, agency_id, agency_name, audit_role_id, auditor, audit_result, audit_status)
         VALUE
-        (#{recordId}, #{classId}, #{className}, #{agencyId}, #{agencyName}, #{auditRoleId}, #{auditor}, #{auditResult}, #{auditStatus})
+        (#{recordId}, #{flowId}, #{classId}, #{className}, #{agencyId}, #{agencyName}, #{auditRoleId}, #{auditor}, #{auditResult}, #{auditStatus})
     </insert>
 
-    <select id="selectByClassIdAndAuditRoleId" resultMap="resultMap">
+    <select id="selectByFlowIdAndAuditRoleId" resultMap="resultMap">
         SELECT
         <include refid="columnList"/>
         FROM tb_class_audit_record
-        WHERE class_id = #{classId} AND audit_role_id = #{auditRoleId}
+        WHERE flow_id = #{flowId} AND audit_role_id = #{auditRoleId}
     </select>
 
-    <update id="updateByClassIdAndAuditRoleId" parameterType="TblClassAuditRecord">
+    <update id="updateByFlowIdAndAuditRoleId" parameterType="TblClassAuditRecord">
         UPDATE tb_class_audit_record
         SET auditor = #{auditor}, audit_result=#{auditResult}, audit_status=#{auditStatus}, record_id = #{recordId}
-        WHERE class_id = #{classId} AND audit_role_id = #{auditRoleId}
+        WHERE flow_id = #{flowId} AND audit_role_id = #{auditRoleId}
     </update>
 </mapper>

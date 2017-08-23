@@ -122,6 +122,8 @@ CREATE TABLE `tb_class_audit_record` (
   COMMENT '主键Id',
   `record_id`     VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '记录Id',
+  `flow_id`     VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '审核流程Id',
   `class_id`      VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '班级Id',
   `class_name`    VARCHAR(32)         NOT NULL DEFAULT ''
@@ -143,10 +145,12 @@ CREATE TABLE `tb_class_audit_record` (
   `update_time`   TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uniq_audit_role_id_class_id` (`audit_role_id`, `class_id`)
+  UNIQUE KEY `uniq_audit_role_id_flow_id` (`audit_role_id`, `flow_id`)
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 30
   DEFAULT CHARSET = utf8mb4
   COMMENT = '课程审核记录表';
 
+INSERT INTO mohress_training.tb_audit_node (node_id, node_name, node_desc, previous_node, next_node, audit_role_id) VALUES ('Node_class_audit_people_society', '培训班级-人社局审核节点', '', '', '', '17081610225621055996');
+INSERT INTO mohress_training.tb_audit_template (template_id, template_name, template_desc, start_node, end_node, audit_flow_diagram, create_time, update_time) VALUES ('Class_audit_template', '培训课程审核模板', '', 'Node_class_audit_people_society', '', '', '2017-08-23 17:13:18', '2017-08-23 17:13:46');

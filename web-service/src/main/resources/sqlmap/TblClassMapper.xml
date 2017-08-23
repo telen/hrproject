@@ -35,7 +35,7 @@
     select
     <include refid="Base_Column_List" />
     from tbl_class
-    where status = 0
+    where status != 4
     <if test="agencyId != null">
       and agency_id = #{agencyId}
     </if>

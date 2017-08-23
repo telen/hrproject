@@ -51,5 +51,7 @@ public class ClassItemDto implements Serializable {
 
     private String teachPlanFilePath;
 
+    private Integer status;
+
     private List<String> studentIds;
 }

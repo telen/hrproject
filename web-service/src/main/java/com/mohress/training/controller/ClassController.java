@@ -35,7 +35,7 @@ public class ClassController {
     @RequestMapping("apply")
     public Response apply(@CookieValue("token") String userId, @RequestBody ClassApplyDto classApplyDto){
 
-        classApplyDto.setApplicant(userId);
+        classApplyDto.setApplicant("17081815504021040603");
 
         classService.apply(classApplyDto);
 

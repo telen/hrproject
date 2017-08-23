@@ -20,6 +20,11 @@ public class TblClassAuditRecord {
     private String recordId;
 
     /**
+     * 审核流程Id
+     */
+    private String flowId;
+
+    /**
      * 班级Id
      */
     private String classId;

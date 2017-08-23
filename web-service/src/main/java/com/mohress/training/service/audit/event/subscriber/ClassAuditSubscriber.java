@@ -29,7 +29,7 @@ import javax.annotation.Resource;
 @Slf4j
 public class ClassAuditSubscriber implements Subscriber{
 
-    private static final String AUDIT_TEMPLATE_ID = "";
+    private static final String AUDIT_TEMPLATE_ID = "Class_audit_template";
 
     @Resource
     private TblClassAuditRecordDao tblClassAuditRecordDao;
@@ -55,7 +55,7 @@ public class ClassAuditSubscriber implements Subscriber{
     public void classAuditPass(AuditPassEvent auditPassEvent){
         PassAction passAction = (PassAction)auditPassEvent.getSource();
         TblAuditFlow auditFlow = passAction.getAuditFlow();
-        if (!isAccept(auditFlow.getFlowId())){
+        if (!isAccept(auditFlow.getTemplateId())){
             return;
         }
 
@@ -66,13 +66,13 @@ public class ClassAuditSubscriber implements Subscriber{
         // 审核流程进入终态
         if (AuditStatus.AUDIT_PASS.getStatus() == auditFlow.getFlowStatus()){
             // 1.更新审核人信息
-            TblClassAuditRecord classAuditRecord = tblClassAuditRecordDao.selectByClassIdAndAuditRoleId(auditFlow.getFlowId(), currentAuditNode.getAuditRoleId());
+            TblClassAuditRecord classAuditRecord = tblClassAuditRecordDao.selectByFlowIdAndAuditRoleId(auditFlow.getFlowId(), currentAuditNode.getAuditRoleId());
             classAuditRecord.setAuditor(passAction.getAuditor());
             classAuditRecord.setAuditResult(passAction.getAuditResult());
             classAuditRecord.setAuditStatus(AuditStatus.AUDIT_PASS.getStatus());
             classAuditRecord.setRecordId(auditPassEvent.getRecordId());
 
-            tblClassAuditRecordDao.updateByClassIdAndAuditRoleId(classAuditRecord);
+            tblClassAuditRecordDao.updateByFlowIdAndAuditRoleId(classAuditRecord);
 
             // 2.更新班级状态为审核通过
             tblClassDao.updateStatus(auditFlow.getProjectId(), TblClass.Status.ACCESSED);
@@ -80,7 +80,7 @@ public class ClassAuditSubscriber implements Subscriber{
             // 1.更新审核人信息
             TblAuditNode previousAuditNode = tblAuditNodeDao.selectByNodeId(auditFlow.getNodeId());
 
-            TblClassAuditRecord classAuditRecord = tblClassAuditRecordDao.selectByClassIdAndAuditRoleId(auditFlow.getFlowId(), previousAuditNode.getAuditRoleId());
+            TblClassAuditRecord classAuditRecord = tblClassAuditRecordDao.selectByFlowIdAndAuditRoleId(auditFlow.getFlowId(), previousAuditNode.getAuditRoleId());
             classAuditRecord.setAuditor(passAction.getAuditor());
             classAuditRecord.setAuditResult(passAction.getAuditResult());
             classAuditRecord.setAuditStatus(AuditStatus.AUDIT_PASS.getStatus());
@@ -105,7 +105,7 @@ public class ClassAuditSubscriber implements Subscriber{
     public void classAuditReject(AuditRejectEvent auditRejectEvent){
         RejectAction rejectAction = (RejectAction)auditRejectEvent.getSource();
         TblAuditFlow auditFlow = rejectAction.getAuditFlow();
-        if (!isAccept(auditFlow.getFlowId())){
+        if (!isAccept(auditFlow.getTemplateId())){
             return;
         }
 
@@ -114,13 +114,13 @@ public class ClassAuditSubscriber implements Subscriber{
         TblAuditNode currentAuditNode = tblAuditNodeDao.selectByNodeId(auditFlow.getNodeId());
 
         // 审核流程进入终态
-        TblClassAuditRecord classAuditRecord = tblClassAuditRecordDao.selectByClassIdAndAuditRoleId(auditFlow.getFlowId(), currentAuditNode.getAuditRoleId());
+        TblClassAuditRecord classAuditRecord = tblClassAuditRecordDao.selectByFlowIdAndAuditRoleId(auditFlow.getFlowId(), currentAuditNode.getAuditRoleId());
         classAuditRecord.setAuditor(rejectAction.getAuditor());
         classAuditRecord.setAuditResult(rejectAction.getAuditResult());
         classAuditRecord.setAuditStatus(AuditStatus.AUDIT_REJECT.getStatus());
         classAuditRecord.setRecordId(auditRejectEvent.getRecordId());
 
-        tblClassAuditRecordDao.updateByClassIdAndAuditRoleId(classAuditRecord);
+        tblClassAuditRecordDao.updateByFlowIdAndAuditRoleId(classAuditRecord);
         tblClassDao.updateStatus(auditFlow.getProjectId(), TblClass.Status.REJECTED);
     }
 
@@ -133,7 +133,7 @@ public class ClassAuditSubscriber implements Subscriber{
     public void classAuditInit(AuditInitEvent auditInitEvent){
         InitAction initAction = (InitAction)auditInitEvent.getSource();
         TblAuditFlow auditFlow = initAction.getAuditFlow();
-        if (!isAccept(auditFlow.getFlowId())){
+        if (!isAccept(auditFlow.getTemplateId())){
             return;
         }
 
@@ -148,6 +148,7 @@ public class ClassAuditSubscriber implements Subscriber{
         TblAgency tblAgency = tblAgencyDao.selectByAgencyId(tblCourse.getAgencyId());
 
         TblClassAuditRecord classWaitAuditRecord = new TblClassAuditRecord();
+        classWaitAuditRecord.setFlowId(auditFlow.getFlowId());
         classWaitAuditRecord.setClassId(tblClass.getClassId());
         classWaitAuditRecord.setClassName(tblClass.getClassname());
         classWaitAuditRecord.setAgencyId(tblAgency.getAgencyId());
