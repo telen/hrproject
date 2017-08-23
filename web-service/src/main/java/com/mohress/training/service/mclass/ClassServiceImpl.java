@@ -2,8 +2,10 @@ package com.mohress.training.service.mclass;
 
 import com.mohress.training.dao.TblClassDao;
 import com.mohress.training.dao.TblClassMemberDao;
+import com.mohress.training.dto.mclass.ClassApplyDto;
 import com.mohress.training.entity.mclass.TblClassMember;
 import com.mohress.training.service.BaseManageService;
+import com.mohress.training.service.audit.action.InitAction;
 import com.mohress.training.util.BusiVerify;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -60,4 +62,8 @@ public class ClassServiceImpl implements BaseManageService {
         return (List<T>) tblClassDao.selectByKeyword((ClassQuery) query);
     }
 
+    public void apply(ClassApplyDto classApplyDto){
+        InitAction initAction = new InitAction(classApplyDto.getApplicant(), "", "Class_audit_template", classApplyDto.getClassId());
+        initAction.execute();
+    }
 }

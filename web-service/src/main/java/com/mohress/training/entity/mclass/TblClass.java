@@ -67,5 +67,6 @@ public class TblClass {
 
         public static final int REJECTED = 3;
 
+        public static final int DELETE = 4;
     }
 }
