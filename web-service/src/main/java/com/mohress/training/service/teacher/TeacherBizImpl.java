@@ -89,6 +89,7 @@ public class TeacherBizImpl implements ModuleBiz {
         query.setKeyword(dto.getKeyword());
         query.setPageIndex(dto.getPage());
         query.setPageSize(dto.getPageSize());
+        query.setName(dto.getName());
         return query;
     }
 
@@ -98,6 +99,7 @@ public class TeacherBizImpl implements ModuleBiz {
 //        query.setAgencyId();
         query.setPageIndex(dto.getPage());
         query.setPageSize(dto.getPageSize());
+        query.setName(dto.getName());
         return query;
     }
 

@@ -1,9 +1,9 @@
 package com.mohress.training.service.agency;
 
-import com.google.common.base.Verify;
 import com.mohress.training.dao.TblAgencyDao;
 import com.mohress.training.entity.agency.TblAgency;
 import com.mohress.training.service.BaseManageService;
+import com.mohress.training.util.BusiVerify;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,14 +25,13 @@ public class AgencyServiceImpl implements BaseManageService {
 
     @Override
     public <T> void newModule(T t) {
-        Verify.verify(tblAgencyDao.insertSelective((TblAgency) t) > 0, "新增机构SQL异常");
+        BusiVerify.verify(tblAgencyDao.insertSelective((TblAgency) t) > 0, "新增机构SQL异常");
 
     }
 
     @Override
     public <T> void update(T t) {
-        Verify.verify(tblAgencyDao.updateByPrimaryAgencyIdSelective((TblAgency) t) > 0, "更新机构SQL异常");
-
+        BusiVerify.verify(tblAgencyDao.updateByPrimaryAgencyIdSelective((TblAgency) t) > 0, "更新机构SQL异常");
     }
 
     @Override
@@ -50,7 +49,7 @@ public class AgencyServiceImpl implements BaseManageService {
     @Transactional
     public void delete(List<String> agencyIds) {
         for (String agencyId : agencyIds) {
-            Verify.verify(tblAgencyDao.updateStatus(agencyId, DELETE_STATUS) > 0, "删除机构SQL异常");
+            BusiVerify.verify(tblAgencyDao.updateStatus(agencyId, DELETE_STATUS) > 0, "删除机构SQL异常");
         }
     }
 

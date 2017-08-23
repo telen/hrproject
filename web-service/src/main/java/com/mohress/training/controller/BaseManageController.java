@@ -99,8 +99,10 @@ public class BaseManageController {
     @RequestMapping(value = "query")
     public Response<Object> query(@PathVariable String module, QueryDto pageDto) {
 //    public Response<Object> query(@CookieValue(name = "token") String encryptedName, @PathVariable String module, @RequestBody PageDto pageDto) {
-        if (pageDto == null || pageDto.getPage() == null || pageDto.getPage() < 0) {
+        if(pageDto == null){
             pageDto = new QueryDto();
+        }
+        if (pageDto.getPage() == null || pageDto.getPage() < 0) {
             pageDto.setPage(0);
             pageDto.setPageSize(10);
         } else {

@@ -4,6 +4,7 @@ import com.google.common.base.Verify;
 import com.mohress.training.dao.TblStudentDao;
 import com.mohress.training.entity.TblStudent;
 import com.mohress.training.service.BaseManageService;
+import com.mohress.training.util.BusiVerify;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,21 +28,20 @@ public class StudentServiceImpl implements BaseManageService {
     @Override
     @Transactional
     public <T> void newModule(T student) {
-        Verify.verify(tblStudentDao.insertSelective((TblStudent) student) > 0, "新增学生SQL异常");
-
+        BusiVerify.verify(tblStudentDao.insertSelective((TblStudent) student) > 0, "新增学生SQL异常");
     }
 
     @Override
     @Transactional
     public void delete(List<String> ids) {
         for (String id : ids) {
-            Verify.verify(tblStudentDao.updateStatus(id, DELETE_STATUS) > 0, "删除学生SQL异常");
+            BusiVerify.verify(tblStudentDao.updateStatus(id, DELETE_STATUS) > 0, "删除学生SQL异常");
         }
     }
 
     @Override
     public <T> void update(T student) {
-        Verify.verify(tblStudentDao.updateByStudentIdSelective((TblStudent) student) > 0, "更新学生SQL异常");
+        BusiVerify.verify(tblStudentDao.updateByStudentIdSelective((TblStudent) student) > 0, "更新学生SQL异常");
     }
 
     @Override

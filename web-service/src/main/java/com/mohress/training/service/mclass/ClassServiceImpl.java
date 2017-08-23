@@ -1,5 +1,8 @@
 package com.mohress.training.service.mclass;
 
+import com.mohress.training.dao.TblClassDao;
+import com.mohress.training.dao.TblClassMemberDao;
+import com.mohress.training.entity.mclass.TblClassMember;
 import com.google.common.base.Verify;
 import com.mohress.training.dao.*;
 import com.mohress.training.dto.mclass.ClassApplyDto;
@@ -9,10 +12,12 @@ import com.mohress.training.entity.audit.TblClassAuditRecord;
 import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.enums.AuditStatus;
 import com.mohress.training.service.BaseManageService;
+import com.mohress.training.util.BusiVerify;
 import com.mohress.training.service.audit.action.InitAction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -35,22 +40,24 @@ public class ClassServiceImpl implements BaseManageService {
 
     @Override
     public <T> void newModule(T t) {
-        Verify.verify(tblClassDao.insertSelective(((ClassStudent) t).getTblClass()) > 0);
+        BusiVerify.verify(tblClassDao.insertSelective(((ClassStudent) t).getTblClass()) > 0, "新增班级SQL异常");
+        List<TblClassMember> tblClassMembers = ((ClassStudent) t).getTblClassMembers();
+        if (!CollectionUtils.isEmpty(tblClassMembers)) {
+            BusiVerify.verify(tblClassMemberDao.insertBatchSelective(tblClassMembers) > 0, "新增班级SQL异常");
+        }
     }
 
     @Override
     @Transactional
     public void delete(List<String> ids) {
         for (String id : ids) {
-            Verify.verify(tblClassDao.updateStatus(id, DELETE_STATUS) > 0);
-            Verify.verify(tblClassMemberDao.updateBatchStatusByClassId(id) > 0);
+            BusiVerify.verify(tblClassDao.updateStatus(id, DELETE_STATUS) > 0, "更新班级删除状态SQL失败");
         }
-
     }
 
     @Override
     public <T> void update(T t) {
-        Verify.verify(tblClassDao.updateSelectiveByClassId(((ClassStudent) t).getTblClass()) > 0);
+        BusiVerify.verify(tblClassDao.updateSelectiveByClassId(((ClassStudent) t).getTblClass()) > 0, "更新班级SQL异常");
     }
 
     @Override

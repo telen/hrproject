@@ -1,8 +1,18 @@
 package com.mohress.training.dao;
 
+import com.mohress.training.entity.mclass.TblClassMember;
+
+import java.util.List;
+
 /**
+ * 班级学员
  * Created by qx.wang on 2017/8/17.
  */
 public interface TblClassMemberDao {
-    int updateBatchStatusByClassId(String classId);
+
+    int insertBatchSelective(List<TblClassMember> members);
+
+    List<TblClassMember> selectByClassId(String classId);
+
+    int deleteByClassId(String classId);
 }

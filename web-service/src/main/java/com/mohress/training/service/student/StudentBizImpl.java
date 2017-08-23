@@ -56,7 +56,7 @@ public class StudentBizImpl implements ModuleBiz {
     @Override
     public void update(String o) {
         Preconditions.checkArgument(o != null);
-        StudentRequestDto studentRequestDto = null;
+        StudentRequestDto studentRequestDto;
         try {
             studentRequestDto = JsonUtil.getInstance().convertToBean(StudentRequestDto.class, String.valueOf(o));
         } catch (Exception e) {
@@ -99,6 +99,7 @@ public class StudentBizImpl implements ModuleBiz {
         StudentQuery query = new StudentQuery();
         query.setPageIndex(dto.getPage());
         query.setPageSize(dto.getPageSize());
+        query.setCourseId(dto.getCourseId());
         return query;
     }
 
