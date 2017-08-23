@@ -32,12 +32,11 @@ public class Checker {
         Preconditions.checkNotNull(studentRequestDto);
         Preconditions.checkArgument(studentRequestDto.getGender() != null);
         Preconditions.checkArgument(studentRequestDto.getInsuredStatus() != null);
-        Preconditions.checkArgument(studentRequestDto.getMaritalStatus() != null);
         Preconditions.checkArgument(!Strings.isNullOrEmpty(studentRequestDto.getEducation()));
 //        Preconditions.checkArgument(!Strings.isNullOrEmpty(studentRequestDto.getFingerprint()));
         BusiVerify.verifyNotEmpty(studentRequestDto.getIdNumber(), "身份证号码为空");
         BusiVerify.verifyNotEmpty(studentRequestDto.getMobile(), "手机号为空");
-        BusiVerify.verifyNotEmpty(studentRequestDto.getNationality(), "民族为空");
+//        BusiVerify.verifyNotEmpty(studentRequestDto.getNationality(), "民族为空");
 //        BusiVerify.verifyNotEmpty(studentRequestDto.getPoliticalOutlook(), "政治面貌为空");
         BusiVerify.verifyNotEmpty(studentRequestDto.getCourseId(), "课程ID为空");
     }
@@ -60,7 +59,7 @@ public class Checker {
     }
 
     public static void checkNewAttendance(AttendanceRequestDto dto) {
-        BusiVerify.verifyNotEmpty(dto.getCourseId(),"打卡课程为空");
+        BusiVerify.verifyNotEmpty(dto.getClassId(),"打卡课程为空");
         BusiVerify.verifyNotEmpty(dto.getUserId(),"打卡UserId为空");
     }
 }

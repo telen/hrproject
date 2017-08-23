@@ -17,5 +17,5 @@ public class StudentQuery {
 
     private String courseId;
 
-    private String studentId;
+    private String idNumber;
 }

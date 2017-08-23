@@ -12,5 +12,7 @@ public interface TblClassMemberDao {
 
     int insertBatchSelective(List<TblClassMember> members);
 
+    List<TblClassMember> selectByClassId(String classId);
+
     int deleteByClassId(String classId);
 }

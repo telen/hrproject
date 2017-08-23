@@ -48,7 +48,7 @@ public class AttendanceBizImpl implements ModuleBiz {
         StudentQuery query = new StudentQuery();
         query.setPageIndex(0);
         query.setPageSize(10);
-        query.setStudentId(attendance.getUserId());
+        query.setIdNumber(attendance.getUserId());
         List<TblStudent> students = studentServiceImpl.query(query);
         BusiVerify.verify(!CollectionUtils.isEmpty(students), "考勤学生未查询到");
         //判断该学生是否是该机构

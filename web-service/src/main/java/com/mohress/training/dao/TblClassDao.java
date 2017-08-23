@@ -26,7 +26,5 @@ public interface TblClassDao {
 
     List<TblClass> selectByKeyword(ClassQuery query);
 
-    int updateByClassId(@Param("classId") String classId, @Param("beforeStatus") int beforeStatus, @Param("toStatus") int toStatus);
-
     TblClass selectByClassId(String classId);
 }

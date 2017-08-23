@@ -80,8 +80,8 @@
         <if test="courseId != null">
             and course_id = #{courseId}
         </if>
-        <if test="studentId != null">
-            and student_id = #{studentId}
+        <if test="idNumber != null">
+            and id_number = #{idNumber}
         </if>
         limit #{pageIndex},#{pageSize}
     </select>

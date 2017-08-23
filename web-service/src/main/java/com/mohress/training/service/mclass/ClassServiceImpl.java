@@ -2,11 +2,13 @@ package com.mohress.training.service.mclass;
 
 import com.mohress.training.dao.TblClassDao;
 import com.mohress.training.dao.TblClassMemberDao;
+import com.mohress.training.entity.mclass.TblClassMember;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.util.BusiVerify;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,7 +31,10 @@ public class ClassServiceImpl implements BaseManageService {
     @Override
     public <T> void newModule(T t) {
         BusiVerify.verify(tblClassDao.insertSelective(((ClassStudent) t).getTblClass()) > 0, "新增班级SQL异常");
-        BusiVerify.verify(tblClassMemberDao.insertBatchSelective(((ClassStudent) t).getTblClassMembers()) > 0, "新增班级SQL异常");
+        List<TblClassMember> tblClassMembers = ((ClassStudent) t).getTblClassMembers();
+        if (!CollectionUtils.isEmpty(tblClassMembers)) {
+            BusiVerify.verify(tblClassMemberDao.insertBatchSelective(tblClassMembers) > 0, "新增班级SQL异常");
+        }
     }
 
     @Override

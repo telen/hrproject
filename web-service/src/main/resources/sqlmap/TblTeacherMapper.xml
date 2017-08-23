@@ -59,6 +59,9 @@
     <if test="teacherId != null">
       and teacher_id = #{teacherId}
     </if>
+    <if test="name != null">
+      and name like concat(concat('%', #{name}),'%')
+    </if>
     order by create_time
     limit #{pageIndex},#{pageSize}
   </select>
