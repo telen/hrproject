@@ -6,11 +6,11 @@ package com.mohress.training.enums;
  * Created by youtao.wan on 2017/8/13.
  */
 public enum AuditStatus {
-    AUDIT_WAIT(0),
+    AUDIT_WAIT(1),
 
-    AUDIT_PASS(1),
+    AUDIT_PASS(2),
 
-    AUDIT_REJECT(2);
+    AUDIT_REJECT(3);
 
     private int status;
 

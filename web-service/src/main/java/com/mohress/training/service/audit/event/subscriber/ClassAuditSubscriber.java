@@ -155,6 +155,7 @@ public class ClassAuditSubscriber implements Subscriber{
         classWaitAuditRecord.setAgencyName(tblAgency.getAgencyName());
         classWaitAuditRecord.setAuditStatus(AuditStatus.AUDIT_WAIT.getStatus());
         classWaitAuditRecord.setAuditRoleId(tblAuditNode.getAuditRoleId());
+        classWaitAuditRecord.setApplyTime(auditFlow.getCreateTime());
         classWaitAuditRecord.setAuditor("");
         classWaitAuditRecord.setAuditResult("");
         classWaitAuditRecord.setRecordId("");

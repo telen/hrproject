@@ -1,15 +1,25 @@
 package com.mohress.training.controller;
 
+import com.google.common.collect.Lists;
 import com.mohress.training.dto.AuditActionDto;
 import com.mohress.training.dto.Response;
+import com.mohress.training.dto.audit.ClassAuditItemDto;
+import com.mohress.training.dto.audit.ClassAuditQueryDto;
+import com.mohress.training.entity.audit.TblClassAuditRecord;
+import com.mohress.training.enums.ResultCode;
 import com.mohress.training.service.audit.AuditService;
 import com.mohress.training.service.audit.action.*;
+import com.mohress.training.service.audit.impl.ClassAuditRecordServiceImpl;
+import com.mohress.training.util.DateUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+
+import java.util.List;
 
 import static com.mohress.training.enums.ResultCode.AUDIT_SUCCESS;
 
@@ -24,6 +34,10 @@ public class AuditController {
     @Resource
     private AuditService auditService;
 
+    @Resource
+    private ClassAuditRecordServiceImpl classAuditRecordService;
+
+
     /**
      * 审核通过
      * 当前步骤处理通过，进入下一步骤，若为末步骤，则流程处理完成；
@@ -34,7 +48,7 @@ public class AuditController {
     @ResponseBody
     @RequestMapping("pass")
     public Response auditPass(@RequestBody AuditActionDto auditActionDto){
-        PassAction passAction = new PassAction(auditActionDto.getFlowId(), auditActionDto.getAuditor(), auditActionDto.getAuditResult());
+        PassAction passAction = new PassAction(auditActionDto.getFlowId(), "17081815504021040605", "");
 
         return audit(passAction);
     }
@@ -49,7 +63,7 @@ public class AuditController {
     @ResponseBody
     @RequestMapping("reject")
     public Response auditReject(@RequestBody AuditActionDto auditActionDto){
-        RejectAction rejectAction = new RejectAction(auditActionDto.getFlowId(), auditActionDto.getAuditor(), auditActionDto.getAuditResult());
+        RejectAction rejectAction = new RejectAction(auditActionDto.getFlowId(), "17081815504021040605", "");
 
         return audit(rejectAction);
     }
@@ -86,6 +100,33 @@ public class AuditController {
         return audit(rollBackAction);
     }
 
+    @ResponseBody
+    @RequestMapping("manager/classAudit")
+    public Response<List<ClassAuditItemDto>> queryClassAuditRecord(String agencyId, Integer pageSize, Integer pageIndex){
+
+        ClassAuditQueryDto classAuditQueryDto = new ClassAuditQueryDto();
+        classAuditQueryDto.setUserId("17081815504021040605");
+        classAuditQueryDto.setPageIndex(pageIndex);
+        classAuditQueryDto.setPageSize(pageSize);
+        classAuditQueryDto.setAgencyId(agencyId);
+
+        List<TblClassAuditRecord> classAuditRecordList = classAuditRecordService.queryByPage(classAuditQueryDto);
+
+        List<ClassAuditItemDto> result = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(classAuditRecordList)){
+            for (TblClassAuditRecord it: classAuditRecordList){
+                ClassAuditItemDto classAuditItemDto = new ClassAuditItemDto();
+                classAuditItemDto.setFlowId(it.getFlowId());
+                classAuditItemDto.setAgencyName(it.getAgencyName());
+                classAuditItemDto.setClassName(it.getClassName());
+                classAuditItemDto.setAuditStatus(it.getAuditStatus());
+                classAuditItemDto.setApplyTime(DateUtil.format(it.getApplyTime(), "yyyy-MM-dd HH:mm"));
+                result.add(classAuditItemDto);
+            }
+        }
+
+        return new Response<>(ResultCode.SUCCESS.getCode(), "", result);
+    }
 
     private Response audit(AuditAction auditAction){
 
