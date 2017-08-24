@@ -201,13 +201,13 @@
         where class_id = #{classId}
     </update>
 
-    <update id="updateStatus">
+  <update id="updateStatus" >
     update tbl_class
     set status = #{toStatus}
     where class_id=#{classId}
   </update>
 
-    <update id="updateByClassId">
+  <update id="updateByClassId" >
     update tbl_class
     set status = #{toStatus}
     where class_id=#{classId} and status = #{beforeStatus}

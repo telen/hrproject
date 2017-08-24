@@ -33,6 +33,13 @@
         from tbl_agency
         where id = #{id,jdbcType=INTEGER}
     </select>
+
+    <select id="selectByAgencyId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tbl_agency
+        WHERE agency_id = #{agencyId}
+    </select>
     <insert id="insertSelective" parameterType="com.mohress.training.entity.agency.TblAgency">
         insert into tbl_agency
         <trim prefix="(" suffix=")" suffixOverrides=",">

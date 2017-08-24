@@ -22,9 +22,9 @@
         <typeAlias alias="TblRoleAuthority" type="com.mohress.training.entity.security.TblRoleAuthority"/>
         <typeAlias alias="TblAction" type="com.mohress.training.entity.security.TblAction"/>
         <typeAlias alias="TblAuditFlow" type="com.mohress.training.entity.audit.TblAuditFlow"/>
-        <typeAlias alias="TblAuditMember" type="com.mohress.training.entity.audit.TblAuditMember"/>
         <typeAlias alias="TblAuditNode" type="com.mohress.training.entity.audit.TblAuditNode"/>
         <typeAlias alias="TblAuditTemplate" type="com.mohress.training.entity.audit.TblAuditTemplate"/>
         <typeAlias alias="TblAuditLog" type="com.mohress.training.entity.audit.TblAuditLog"/>
+        <typeAlias alias="TblClassAuditRecord" type="com.mohress.training.entity.audit.TblClassAuditRecord"/>
     </typeAliases>
 </configuration>

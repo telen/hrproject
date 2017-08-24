@@ -23,9 +23,15 @@ public class TblAuditFlow {
     private String flowId;
 
     /**
-     * 项目Id
+     * 审核流程模板Id
      */
     private String templateId;
+
+    /**
+     * 流程关联项目Id
+     * (台账Id，班级Id)
+     */
+    private String projectId;
 
     /**
      * 流程当前节点Id

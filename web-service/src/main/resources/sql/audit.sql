@@ -1,30 +1,32 @@
 DROP TABLE IF EXISTS tb_audit_flow;
 
-CREATE TABLE tb_audit_flow (
+CREATE TABLE `tb_audit_flow` (
   `id`          BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT
   COMMENT '主键Id',
   `flow_id`     VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '流程Id',
-  `template_id`  VARCHAR(32)         NOT NULL DEFAULT ''
+  `template_id` VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '项目模板Id',
+  `project_id`  VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '审核项目Id',
   `node_id`     VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '流程当前节点Id',
   `creator`     VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '审核流程发起人',
-  `version`     INTEGER             NOT NULL DEFAULT 0
+  `version`     INT(11)             NOT NULL DEFAULT '0'
   COMMENT '版本号',
-  `node_status` TINYINT(11)         NOT NULL DEFAULT 0
+  `node_status` TINYINT(11)         NOT NULL DEFAULT '0'
   COMMENT '当前节点状态，0=待审核，1=审核通过， 2=审核不通过',
-  `flow_status` TINYINT(11)         NOT NULL DEFAULT 0
+  `flow_status` TINYINT(11)         NOT NULL DEFAULT '0'
   COMMENT '当前流程审核状态，0=待审核，1=审核通过， 2=审核不通过',
-  `create_time` TIMESTAMP           NOT NULL DEFAULT current_timestamp
+  `create_time` TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
   COMMENT '创建时间',
-  `update_time` TIMESTAMP           NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp
+  `update_time` TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY uniq_flow_id(flow_id),
-  KEY idx_template_id(template_id),
-  KEY idx_creator(creator)
+  UNIQUE KEY `uniq_flow_id` (`flow_id`),
+  KEY `idx_template_id` (`template_id`),
+  KEY `idx_creator` (`creator`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -32,22 +34,6 @@ CREATE TABLE tb_audit_flow (
 
 
 DROP TABLE IF EXISTS tb_audit_member;
-CREATE TABLE tb_audit_member (
-  `id`       BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT
-  COMMENT '主键Id',
-  `node_id`  VARCHAR(32)         NOT NULL DEFAULT ''
-  COMMENT '审核节点Id',
-  `user_id`  VARCHAR(32)         NOT NULL DEFAULT ''
-  COMMENT '审核人用户Id',
-  `priority` INTEGER             NOT NULL DEFAULT 0
-  COMMENT '审核成员优先级',
-  PRIMARY KEY (`id`),
-  KEY idx_node_id(node_id),
-  KEY idx_user_id(user_id)
-)
-  ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-  COMMENT = '节点审核人关联表';
 
 DROP TABLE IF EXISTS tb_audit_node;
 CREATE TABLE tb_audit_node (
@@ -63,6 +49,8 @@ CREATE TABLE tb_audit_node (
   COMMENT '前置节点',
   `next_node`     VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '后置节点',
+  `audit_role_id` VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '当前节点审核角色',
   PRIMARY KEY (`id`),
   UNIQUE KEY uniq_node_id(node_id),
   KEY idx_previous_node(previous_node),
@@ -126,3 +114,43 @@ CREATE TABLE tb_audit_log (
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COMMENT = '项目审核日志记录表';
+
+
+DROP TABLE IF EXISTS tb_class_audit_record;
+CREATE TABLE `tb_class_audit_record` (
+  `id`            BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT
+  COMMENT '主键Id',
+  `record_id`     VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '记录Id',
+  `flow_id`     VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '审核流程Id',
+  `class_id`      VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '班级Id',
+  `class_name`    VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '班级名称',
+  `agency_id`     VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '机构Id',
+  `agency_name`   VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '机构名称',
+  `audit_role_id` VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '审核角色Id',
+  `auditor`       VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '实际审核人',
+  `audit_result`  VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '审核结果',
+  `audit_status`  TINYINT(11)         NOT NULL DEFAULT '1'
+  COMMENT '审核状态，0=等待审核， 1=审核通过，2=审核不通过',
+  `create_time`   TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
+  COMMENT '创建时间',
+  `update_time`   TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_audit_role_id_flow_id` (`audit_role_id`, `flow_id`)
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 30
+  DEFAULT CHARSET = utf8mb4
+  COMMENT = '课程审核记录表';
+
+INSERT INTO mohress_training.tb_audit_node (node_id, node_name, node_desc, previous_node, next_node, audit_role_id) VALUES ('Node_class_audit_people_society', '培训班级-人社局审核节点', '', '', '', '17081610225621055996');
+INSERT INTO mohress_training.tb_audit_template (template_id, template_name, template_desc, start_node, end_node, audit_flow_diagram, create_time, update_time) VALUES ('Class_audit_template', '培训课程审核模板', '', 'Node_class_audit_people_society', '', '', '2017-08-23 17:13:18', '2017-08-23 17:13:46');

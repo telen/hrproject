@@ -8,10 +8,11 @@
         <result column="node_desc" property="nodeDesc" jdbcType="VARCHAR"/>
         <result column="previous_node" property="previousNode" jdbcType="VARCHAR"/>
         <result column="next_node" property="nextNode" jdbcType="VARCHAR"/>
+        <result column="audit_role_id" property="auditRoleId" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="columnList">
-        id, node_id, node_name, node_desc, previous_node, next_node
+        id, node_id, node_name, node_desc, previous_node, next_node, audit_role_id
     </sql>
 
     <select id="selectByParentNodeId" resultMap="resultMap">

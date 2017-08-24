@@ -14,7 +14,7 @@ public interface TblClassDao {
     int insertSelective(TblClass tblClass);
 
 
-    int updateStatus(@Param("classId") String classId, @Param("status") int status);
+    int updateStatus(@Param("classId") String classId, @Param("toStatus") int status);
 
 
     int updateSelectiveByClassId(TblClass tblClass);

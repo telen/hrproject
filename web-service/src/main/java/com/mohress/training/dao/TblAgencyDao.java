@@ -22,4 +22,6 @@ public interface TblAgencyDao {
     List<TblAgency> queryAgencyList(AgencyQuery query);
 
     int updateByPrimaryAgencyIdSelective(TblAgency tblAgency);
+
+    TblAgency selectByAgencyId(String agencyId);
 }
