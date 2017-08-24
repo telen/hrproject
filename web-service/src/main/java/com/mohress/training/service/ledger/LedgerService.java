@@ -9,4 +9,6 @@ import com.mohress.training.dto.ledger.LedgerApplyDto;
 public interface LedgerService {
 
     void apply(LedgerApplyDto ledgerApplyDto);
+
+
 }

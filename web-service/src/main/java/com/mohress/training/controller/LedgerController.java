@@ -19,9 +19,16 @@ import javax.annotation.Resource;
 @RequestMapping("api/ledger/")
 public class LedgerController {
 
+
     @Resource
     private LedgerService ledgerService;
 
+    /**
+     * 培训机构发起台账审核
+     *
+     * @param ledgerApplyDto
+     * @return
+     */
     @ResponseBody
     @RequestMapping("apply")
     public Response apply(@RequestBody LedgerApplyDto ledgerApplyDto){
@@ -32,5 +39,27 @@ public class LedgerController {
         ledgerService.apply(ledgerApplyDto);
 
         return new Response(ResultCode.SUCCESS.getCode(), "台账申请成功");
+    }
+
+    /**
+     * 查询台账记录
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("queryLedger")
+    public Response queryLedger(){
+        return null;
+    }
+
+    /**
+     * 查询台账关联的学生信息
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("queryLedgerStudent")
+    public Response queryLedgerStudent(){
+        return null;
     }
 }
