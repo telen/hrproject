@@ -45,8 +45,6 @@ public class LedgerServiceImpl implements LedgerService{
     @Resource
     private TblAccountAgencyDao tblAccountAgencyDao;
 
-
-    @Transactional
     @Override
     public void apply(LedgerApplyDto ledgerApplyDto) {
         // 1.查询基本信息
@@ -62,14 +60,19 @@ public class LedgerServiceImpl implements LedgerService{
 
         // 4.拼装数据
         TblLedger tblLedger = packLedgerData();
+        List<TblLedgerStudent> tblLedgerStudentList = packStudentData();
 
-        List<TblLedgerStudent> ledgerStudentList = packStudentData();
+        // 5.发起审核
+        doApply(ledgerApplyDto, tblLedger, tblLedgerStudentList);
+    }
 
-        // 5.保存数据
+    @Transactional
+    private void doApply(LedgerApplyDto ledgerApplyDto, TblLedger tblLedger, List<TblLedgerStudent> ledgerStudentList){
+        // 1.保存数据
         tblLedgerDao.insert(tblLedger);
         tblLedgerStudentDao.insertBatch(ledgerStudentList);
 
-        // 6.发起审核流程
+        // 2.发起审核流程
         InitAction initAction = new InitAction(ledgerApplyDto.getApplicant(), "", AuditConstant.LEDGER_AUDIT_TEMPLATE_ID, "");
         initAction.execute();
     }
