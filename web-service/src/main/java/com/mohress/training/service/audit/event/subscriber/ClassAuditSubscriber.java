@@ -16,6 +16,7 @@ import com.mohress.training.service.audit.event.AuditInitEvent;
 import com.mohress.training.service.audit.event.AuditPassEvent;
 import com.mohress.training.service.audit.event.AuditRejectEvent;
 import com.mohress.training.service.audit.event.Subscriber;
+import com.mohress.training.util.constant.AuditConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
@@ -27,8 +28,6 @@ import javax.annotation.Resource;
  */
 @Slf4j
 public class ClassAuditSubscriber implements Subscriber{
-
-    private static final String AUDIT_TEMPLATE_ID = "Class_audit_template";
 
     @Resource
     private TblClassAuditRecordDao tblClassAuditRecordDao;
@@ -170,6 +169,6 @@ public class ClassAuditSubscriber implements Subscriber{
      * @return 是否接收事件
      */
     private boolean isAccept(String auditTemplateId){
-        return AUDIT_TEMPLATE_ID.equals(auditTemplateId);
+        return AuditConstant.CLASS_AUDIT_TEMPLATE_ID.equals(auditTemplateId);
     }
 }
