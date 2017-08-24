@@ -1,4 +1,4 @@
-package com.mohress.training.entity;
+package com.mohress.training.entity.ledger;
 
 import lombok.Data;
 

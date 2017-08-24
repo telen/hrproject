@@ -1,7 +1,7 @@
 package com.mohress.training.controller;
 
 import com.google.common.collect.Lists;
-import com.mohress.training.dto.AuditActionDto;
+import com.mohress.training.dto.audit.AuditActionDto;
 import com.mohress.training.dto.Response;
 import com.mohress.training.dto.audit.ClassAuditItemDto;
 import com.mohress.training.dto.audit.ClassAuditQueryDto;

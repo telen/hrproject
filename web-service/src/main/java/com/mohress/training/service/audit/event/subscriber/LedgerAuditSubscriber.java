@@ -3,7 +3,7 @@ package com.mohress.training.service.audit.event.subscriber;
 import com.google.common.eventbus.Subscribe;
 import com.mohress.training.dao.*;
 import com.mohress.training.entity.TblCourse;
-import com.mohress.training.entity.TblLedger;
+import com.mohress.training.entity.ledger.TblLedger;
 import com.mohress.training.entity.agency.TblAgency;
 import com.mohress.training.entity.audit.TblAuditFlow;
 import com.mohress.training.entity.audit.TblAuditNode;
@@ -78,7 +78,7 @@ public class LedgerAuditSubscriber implements Subscriber{
             ledgerAuditRecordDao.updateByPrimaryKey(ledgerAuditRecord);
 
             // 2.更新台账审核状态为审核通过
-            ledgerDao.updateStatusByledgerId(ledgerAuditRecord.getLedgerId(), AuditStatus.AUDIT_PASS.getStatus());
+            ledgerDao.updateStatusByLedgerId(ledgerAuditRecord.getLedgerId(), AuditStatus.AUDIT_PASS.getStatus());
         }else {
             // 审核流程未进入终态
 
@@ -126,7 +126,7 @@ public class LedgerAuditSubscriber implements Subscriber{
         ledgerAuditRecord.setAuditStatus(AuditStatus.AUDIT_REJECT.getStatus());
 
         ledgerAuditRecordDao.updateByPrimaryKey(ledgerAuditRecord);
-        ledgerDao.updateStatusByledgerId(ledgerAuditRecord.getLedgerId(), AuditStatus.AUDIT_REJECT.getStatus());
+        ledgerDao.updateStatusByLedgerId(ledgerAuditRecord.getLedgerId(), AuditStatus.AUDIT_REJECT.getStatus());
     }
 
     /**
