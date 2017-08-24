@@ -5,7 +5,8 @@ import com.mohress.training.service.BaseQuery;
 import java.util.List;
 
 /**
- * Created by youtao.wan on 2017/8/23.
+ * 审核记录服务
+ *
  */
 public interface AuditRecordService<T> {
 

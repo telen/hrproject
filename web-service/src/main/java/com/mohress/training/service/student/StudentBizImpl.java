@@ -3,7 +3,7 @@ package com.mohress.training.service.student;
 import com.google.common.base.Preconditions;
 import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.student.StudentRequestDto;
-import com.mohress.training.entity.TblStudent;
+import com.mohress.training.entity.student.TblStudent;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
 import com.mohress.training.service.BaseManageService;
