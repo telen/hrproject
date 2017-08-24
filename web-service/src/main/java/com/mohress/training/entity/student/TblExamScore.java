@@ -1,11 +1,14 @@
 package com.mohress.training.entity.student;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 
 /**
  * 考试成绩
  *
  */
+@Data
 public class TblExamScore {
 
     /**
@@ -42,4 +45,11 @@ public class TblExamScore {
      * 结业证书
      */
     private String certificate;
+
+    /**
+     * 考试状态
+     * 0=考试未通过
+     * 1=考试通过
+     */
+    private Integer examStatus;
 }

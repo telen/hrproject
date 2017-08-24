@@ -54,7 +54,7 @@ public class AuditController {
     }
 
     /**
-     * 审核否决
+     * 审核驳回
      * 将步骤直接结束，执行结束动作拒绝活动，不再进行操作，或者回退至第一步骤；
      *
      * @param auditActionDto

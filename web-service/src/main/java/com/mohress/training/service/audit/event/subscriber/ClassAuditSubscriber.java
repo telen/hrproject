@@ -24,7 +24,6 @@ import javax.annotation.Resource;
 /**
  * 课程审核事件通知
  *
- * Created by youtao.wan on 2017/8/21.
  */
 @Slf4j
 public class ClassAuditSubscriber implements Subscriber{
@@ -38,18 +37,18 @@ public class ClassAuditSubscriber implements Subscriber{
     private TblAuditNodeDao tblAuditNodeDao;
 
     @Resource
-    private TblClassDao tblClassDao;
+    private TblAgencyDao tblAgencyDao;
 
     @Resource
     private TblCourseDao tblCourseDao;
 
     @Resource
-    private TblAgencyDao tblAgencyDao;
+    private TblClassDao tblClassDao;
 
     /**
      * 课程审核通过
      *
-     * @param auditPassEvent
+     * @param auditPassEvent 班级审核通过事件
      */
     @Subscribe
     public void classAuditPass(AuditPassEvent auditPassEvent){
@@ -59,7 +58,7 @@ public class ClassAuditSubscriber implements Subscriber{
             return;
         }
 
-        log.info("课程审核通过通知。recordId={}, classId={}, className={}, auditor={}, auditorResult={}", auditPassEvent.getRecordId(), auditFlow.getFlowId(), "", passAction.getAuditor(), passAction.getAuditResult());
+        log.info("课程审核通过通知。recordId={}, flowId={}, classId={}, auditor={}, auditorResult={}", auditPassEvent.getRecordId(), auditFlow.getFlowId(), auditFlow.getProjectId(), passAction.getAuditor(), passAction.getAuditResult());
 
         TblAuditNode currentAuditNode = tblAuditNodeDao.selectByNodeId(auditFlow.getNodeId());
 
@@ -97,9 +96,9 @@ public class ClassAuditSubscriber implements Subscriber{
     }
 
     /**
-     * 课程审核不通过
+     * 课程审核驳回
      *
-     * @param auditRejectEvent
+     * @param auditRejectEvent 班级审核驳回事件
      */
     @Subscribe
     public void classAuditReject(AuditRejectEvent auditRejectEvent){
@@ -109,7 +108,7 @@ public class ClassAuditSubscriber implements Subscriber{
             return;
         }
 
-        log.info("课程审核否决通知。recordId={}, classId={}, className={}, auditor={}, auditorResult={}。", auditRejectEvent.getRecordId(), auditFlow.getFlowId(), "", rejectAction.getAuditor(), rejectAction.getAuditResult());
+        log.info("课程审核驳回通知。recordId={}, flowId={}, classId={}, auditor={}, auditorResult={}。", auditRejectEvent.getRecordId(), auditFlow.getFlowId(), auditFlow.getProjectId(), rejectAction.getAuditor(), rejectAction.getAuditResult());
 
         TblAuditNode currentAuditNode = tblAuditNodeDao.selectByNodeId(auditFlow.getNodeId());
 
@@ -125,9 +124,9 @@ public class ClassAuditSubscriber implements Subscriber{
     }
 
     /**
-     * 班级审核流程初始化事件
+     * 班级审核流程初始化
      *
-     * @param auditInitEvent
+     * @param auditInitEvent 班级审核初始化事件
      */
     @Subscribe
     public void classAuditInit(AuditInitEvent auditInitEvent){
@@ -137,7 +136,7 @@ public class ClassAuditSubscriber implements Subscriber{
             return;
         }
 
-        log.info("课程审核流程初始化通知。recordId={}, classId={}, className={}, creator={}", auditInitEvent.getRecordId(), auditFlow.getFlowId(), "", initAction.getAuditor());
+        log.info("课程审核初始化通知。recordId={}, flowId={}, classId={}, creator={}", auditInitEvent.getRecordId(), auditFlow.getFlowId(), auditFlow.getProjectId(), initAction.getAuditor());
 
         TblAuditNode tblAuditNode = tblAuditNodeDao.selectByNodeId(auditFlow.getNodeId());
 
@@ -167,8 +166,8 @@ public class ClassAuditSubscriber implements Subscriber{
     /**
      * 是否接收审核事件
      *
-     * @param auditTemplateId
-     * @return
+     * @param auditTemplateId 审核模板Id
+     * @return 是否接收事件
      */
     private boolean isAccept(String auditTemplateId){
         return AUDIT_TEMPLATE_ID.equals(auditTemplateId);
