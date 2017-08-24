@@ -16,6 +16,8 @@ public class ClassQuery {
 
     private Integer pageIndex;
 
+    private String classname;
+
     public ClassQuery(Integer pageSize, Integer pageIndex) {
         this.pageSize = pageSize;
         this.pageIndex = pageIndex;

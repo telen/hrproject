@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -86,12 +85,13 @@ public class ClassBizImpl implements ModuleBiz {
                 continue;
             }
 
-            dto.setStudentIds(new ArrayList<String>());
+            List<String> studentIds = Lists.newArrayList();
             for (TblClassMember member : classMembers) {
-                dto.getStudentIds().add(member.getStudentId());
+                studentIds.add(member.getStudentId());
             }
-        }
 
+            dto.setStudentIds(studentIds);
+        }
         return classItemDtos;
     }
 
@@ -101,7 +101,9 @@ public class ClassBizImpl implements ModuleBiz {
     }
 
     private ClassQuery buildClassQuery(QueryDto pageDto) {
-        return new ClassQuery(pageDto.getPageSize(), pageDto.getPage());
+        ClassQuery classQuery = new ClassQuery(pageDto.getPageSize(), pageDto.getPage());
+        classQuery.setClassname(pageDto.getClassname());
+        return classQuery;
     }
 
     private ClassStudent buildInsertClass(ClassRequestDto classRequestDto) {
