@@ -45,6 +45,20 @@
         limit #{pageIndex},#{pageSize}
     </select>
 
+    <select id="selectByRangeTime" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_class
+        where status = 0
+        <if test="agencyId != null">
+            and agency_id = #{agencyId}
+        </if>
+        <if test="classname != null">
+            and classname like concat(concat('%',#{classname}),'%')
+        </if>
+        limit #{pageIndex},#{pageSize}
+    </select>
+
     <insert id="insertSelective" parameterType="com.mohress.training.entity.mclass.TblClass">
         insert into tbl_class
         <trim prefix="(" suffix=")" suffixOverrides=",">

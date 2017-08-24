@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mohress.training.dao.TblAttendanceStatisticsDao">
+    <resultMap id="BaseResultMap" type="com.mohress.training.entity.attendance.TblAttendanceStatistics">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="class_id" property="classId" jdbcType="VARCHAR"/>
+        <result column="calssname" property="calssname" jdbcType="VARCHAR"/>
+        <result column="teacher_name" property="teacherName" jdbcType="VARCHAR"/>
+        <result column="teacher_id" property="teacherId" jdbcType="VARCHAR"/>
+        <result column="agency_id" property="agencyId" jdbcType="VARCHAR"/>
+        <result column="agency_name" property="agencyName" jdbcType="VARCHAR"/>
+        <result column="normal_count" property="normalCount" jdbcType="INTEGER"/>
+        <result column="be_late_count" property="beLateCount" jdbcType="INTEGER"/>
+        <result column="leave_early_count" property="leaveEarlyCount" jdbcType="INTEGER"/>
+        <result column="absent_count" property="absentCount" jdbcType="INTEGER"/>
+        <result column="added_count" property="addedCount" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, class_id, calssname, teacher_name, teacher_id, agency_id, agency_name, normal_count, 
+    be_late_count, leave_early_count, absent_count, added_count, create_time
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_attendance_statistics
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByQuery" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_attendance_statistics
+        where 1=1
+        <if test="agencyId != null">
+            and agency_id = #{agencyId}
+        </if>
+        <if test="agencyName != null">
+            and agency_name like concat(concat('%',#{agencyName}),'%')
+        </if>
+        <if test="classname != null">
+            and classname like concat(concat('%',#{classname}),'%')
+        </if>
+        limit #{pageIndex},#{pageSize}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.mohress.training.entity.attendance.TblAttendanceStatistics">
+        insert into tbl_attendance_statistics
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="classId != null">
+                class_id,
+            </if>
+            <if test="calssname != null">
+                calssname,
+            </if>
+            <if test="teacherName != null">
+                teacher_name,
+            </if>
+            <if test="teacherId != null">
+                teacher_id,
+            </if>
+            <if test="agencyId != null">
+                agency_id,
+            </if>
+            <if test="agencyName != null">
+                agency_name,
+            </if>
+            <if test="normalCount != null">
+                normal_count,
+            </if>
+            <if test="beLateCount != null">
+                be_late_count,
+            </if>
+            <if test="leaveEarlyCount != null">
+                leave_early_count,
+            </if>
+            <if test="absentCount != null">
+                absent_count,
+            </if>
+            <if test="addedCount != null">
+                added_count,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="classId != null">
+                #{classId,jdbcType=VARCHAR},
+            </if>
+            <if test="calssname != null">
+                #{calssname,jdbcType=VARCHAR},
+            </if>
+            <if test="teacherName != null">
+                #{teacherName,jdbcType=VARCHAR},
+            </if>
+            <if test="teacherId != null">
+                #{teacherId,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyId != null">
+                #{agencyId,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyName != null">
+                #{agencyName,jdbcType=VARCHAR},
+            </if>
+            <if test="normalCount != null">
+                #{normalCount,jdbcType=INTEGER},
+            </if>
+            <if test="beLateCount != null">
+                #{beLateCount,jdbcType=INTEGER},
+            </if>
+            <if test="leaveEarlyCount != null">
+                #{leaveEarlyCount,jdbcType=INTEGER},
+            </if>
+            <if test="absentCount != null">
+                #{absentCount,jdbcType=INTEGER},
+            </if>
+            <if test="addedCount != null">
+                #{addedCount,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.mohress.training.entity.attendance.TblAttendanceStatistics">
+        update tbl_attendance_statistics
+        <set>
+            <if test="classId != null">
+                class_id = #{classId,jdbcType=VARCHAR},
+            </if>
+            <if test="calssname != null">
+                calssname = #{calssname,jdbcType=VARCHAR},
+            </if>
+            <if test="teacherName != null">
+                teacher_name = #{teacherName,jdbcType=VARCHAR},
+            </if>
+            <if test="teacherId != null">
+                teacher_id = #{teacherId,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyId != null">
+                agency_id = #{agencyId,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyName != null">
+                agency_name = #{agencyName,jdbcType=VARCHAR},
+            </if>
+            <if test="normalCount != null">
+                normal_count = #{normalCount,jdbcType=INTEGER},
+            </if>
+            <if test="beLateCount != null">
+                be_late_count = #{beLateCount,jdbcType=INTEGER},
+            </if>
+            <if test="leaveEarlyCount != null">
+                leave_early_count = #{leaveEarlyCount,jdbcType=INTEGER},
+            </if>
+            <if test="absentCount != null">
+                absent_count = #{absentCount,jdbcType=INTEGER},
+            </if>
+            <if test="addedCount != null">
+                added_count = #{addedCount,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

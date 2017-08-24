@@ -109,4 +109,8 @@ public class AttendanceServiceImpl implements BaseManageService {
         }
         return TblAttendance.Status.NORMAL;
     }
+
+    public List<TblAttendance> queryByStudentId(String studentId, int status, Date startTime, Date endTime) {
+        return tblAttendanceDao.selectByStudentId(studentId,status,startTime,endTime);
+    }
 }

@@ -3,6 +3,7 @@ package com.mohress.training.service.mclass;
 import com.mohress.training.dao.TblClassDao;
 import com.mohress.training.dao.TblClassMemberDao;
 import com.mohress.training.dto.mclass.ClassApplyDto;
+import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.entity.mclass.TblClassMember;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.audit.action.InitAction;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,8 +64,12 @@ public class ClassServiceImpl implements BaseManageService {
         return (List<T>) tblClassDao.selectByKeyword((ClassQuery) query);
     }
 
-    public void apply(ClassApplyDto classApplyDto){
+    public void apply(ClassApplyDto classApplyDto) {
         InitAction initAction = new InitAction(classApplyDto.getApplicant(), "", "Class_audit_template", classApplyDto.getClassId());
         initAction.execute();
+    }
+
+    public List<TblClass> queryClassByRangeTime(String agencyId, Date startTime, Date endTime) {
+        return tblClassDao.selectByRangeTime(agencyId, startTime, endTime);
     }
 }
