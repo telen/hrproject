@@ -61,6 +61,15 @@ public class LedgerItemDto implements Serializable{
     private String attendanceRate;
 
     /**
+     * 台账审核状态
+     * 0=初始化(默认值)
+     * 1=等待审核
+     * 2=审核通过
+     * 3=审核驳回
+     */
+    private Integer auditStatus;
+
+    /**
      * 申请人姓名
      */
     private String applicantName;

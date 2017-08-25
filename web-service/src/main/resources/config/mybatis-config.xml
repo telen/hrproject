@@ -30,5 +30,6 @@
         <typeAlias alias="TblLedger" type="com.mohress.training.entity.ledger.TblLedger"/>
         <typeAlias alias="TblLedgerGraduateSnapshot" type="com.mohress.training.entity.ledger.TblLedgerGraduateSnapshot"/>
         <typeAlias alias="TblLedgerAuditRecord" type="com.mohress.training.entity.audit.TblLedgerAuditRecord"/>
+        <typeAlias alias="TblAccountAgency" type="com.mohress.training.entity.agency.TblAccountAgency"/>
     </typeAliases>
 </configuration>

@@ -18,14 +18,14 @@
     </resultMap>
 
     <sql id="columnList">
-        (id, ledger_id, record_id, flow_id, ledger_id, agency_id, course_id, class_id, audit_status, key_word, audit_role_id, auditor, audit_result)
+        id, ledger_id, record_id, flow_id, ledger_id, agency_id, course_id, class_id, audit_status, key_word, audit_role_id, auditor, audit_result
     </sql>
 
     <insert id="insert" parameterType="TblLedgerAuditRecord">
         INSERT INTO tb_ledger_audit_record
-        (ledger_id, recordId, flow_id, ledger_id, agency_id, course_id, class_id, audit_status, key_word, audit_role_id, auditor, audit_result)
+        (ledger_id, record_id, flow_id, agency_id, course_id, class_id, audit_status, key_word, audit_role_id, auditor, audit_result)
         VALUE
-        (#{ledgerId}, #{recordId}, #{flowId}, #{ledgerId}, #{agencyId}, #{courseId}, #{classId}, #{auditStatus}, #{keyWord}, #{auditRoleId}, #{auditor}, #{auditResult})
+        (#{ledgerId}, #{recordId}, #{flowId}, #{agencyId}, #{courseId}, #{classId}, #{auditStatus}, #{keyWord}, #{auditRoleId}, #{auditor}, #{auditResult})
     </insert>
 
     <select id="selectByFlowIdAndRoleId" resultMap="resultMap">
@@ -37,7 +37,21 @@
 
     <update id="updateByPrimaryKey" parameterType="TblLedgerAuditRecord">
         UPDATE tb_ledger_audit_record
-        SET audit_status = #{auditStatus}, auditor = #{auditor}, audit_result = {auditResult}
+        SET audit_status = #{auditStatus}, auditor = #{auditor}, audit_result = #{auditResult}
         WHERE flow_id = #{flowId} AND audit_role_id = #{auditRoleId}
     </update>
+
+    <select id="selectPageByRoleId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_ledger_audit_record
+        WHERE 1=1
+        <if test="agencyId != null">
+            AND agency_id = #{agencyId}
+        </if>
+        <if test="auditRoleId != null">
+            AND audit_role_id = #{auditRoleId}
+        </if>
+        ORDER BY id DESC
+    </select>
 </mapper>

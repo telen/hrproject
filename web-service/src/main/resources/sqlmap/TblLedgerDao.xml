@@ -17,7 +17,7 @@
     </resultMap>
 
     <sql id="columnList">
-        (id, ledger_id, agency_id, course_id, class_id, graduate_numbers, attendance_rate, audit_status, key_word, applicant)
+        id, ledger_id, agency_id, course_id, class_id, graduate_numbers, attendance_rate, audit_status, key_word, applicant, create_time, update_time
     </sql>
 
     <insert id="insert" parameterType="TblExamScore">
@@ -29,15 +29,15 @@
 
     <update id="updateStatusByLedgerId" >
         UPDATE tb_ledger
-        SET status = #{status}
+        SET audit_status = #{status}
         WHERE ledger_id = #{ledgerId}
     </update>
 
-    <select id="countByClassIdAndStatus" resultMap="resultMap">
+    <select id="countByClassIdAndStatus" resultType="java.lang.Integer">
         SELECT
         count(1)
         FROM tb_ledger
-        WHERE ledger_id = #{ledgerId}
+        WHERE class_id = #{classId} AND audit_status = #{status}
     </select>
 
     <select id="selectByLedgerId" resultMap="resultMap">

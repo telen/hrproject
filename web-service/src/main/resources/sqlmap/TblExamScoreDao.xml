@@ -12,7 +12,7 @@
     </resultMap>
 
     <sql id="columnList">
-        (id, student_id, class_id, theory_score, practice_score, certificate, certificate_id)
+        id, student_id, class_id, theory_score, practice_score, certificate, certificate_id
     </sql>
 
     <insert id="insert" parameterType="TblExamScore">
@@ -73,16 +73,23 @@
                 certificate = #{certificate},
             </if>
             <if test="certificateId != null">
-                #{certificateId},
+                certificate_id = #{certificateId},
             </if>
         </set>
         WHERE student_id = #{studentId} AND class_id = #{classId}
     </update>
 
-    <select id="selectPageByClassId" >
+    <select id="selectPageByClassId" resultMap="resultMap">
         SELECT
         <include refid="columnList"/>
         FROM tb_exam_score
         WHERE class_id = #{classId}
+    </select>
+
+    <select id="selectByClassIdAndStudentId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_exam_score
+        WHERE class_id = #{classId} AND student_id = #{studentId}
     </select>
 </mapper>

@@ -27,6 +27,11 @@ public class TblLedgerGraduateSnapshot {
     private String studentName;
 
     /**
+     * 学生Id
+     */
+    private String studentId;
+
+    /**
      * 身份证号
      */
     private String idNumber;

@@ -22,4 +22,6 @@ public interface TblAttendanceDao {
     int updateByPrimaryKeySelective(TblAttendance attendance);
 
     List<TblAttendance> selectByStudentId(@Param("studentId") String studentId, @Param("status") int status, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    int countAbsentDay(String classId, String studentId);
 }

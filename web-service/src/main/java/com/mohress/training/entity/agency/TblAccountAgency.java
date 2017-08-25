@@ -9,6 +9,8 @@ import lombok.Data;
 @Data
 public class TblAccountAgency {
 
+    private Long id;
+
     /**
      * 用户Id
      */

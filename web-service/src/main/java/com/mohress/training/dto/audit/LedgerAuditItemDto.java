@@ -1,11 +1,14 @@
 package com.mohress.training.dto.audit;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
  * 台账审核展示条目
  *
  */
+@Data
 public class LedgerAuditItemDto implements Serializable {
 
     /**
@@ -51,7 +54,7 @@ public class LedgerAuditItemDto implements Serializable {
     /**
      * 毕业人数
      */
-    private String graduateNumbers;
+    private Integer graduateNumbers;
 
     /**
      * 毕业时间
@@ -72,4 +75,9 @@ public class LedgerAuditItemDto implements Serializable {
      * 申请人手机号
      */
     private String applicantMobile;
+
+    /**
+     * 审核状态
+     */
+    private Integer auditStatus;
 }

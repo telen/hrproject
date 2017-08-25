@@ -1,15 +1,15 @@
 package com.mohress.training.controller;
 
 import com.google.common.collect.Lists;
-import com.mohress.training.dto.audit.AuditActionDto;
+import com.mohress.training.dto.audit.*;
 import com.mohress.training.dto.Response;
-import com.mohress.training.dto.audit.ClassAuditItemDto;
-import com.mohress.training.dto.audit.ClassAuditQueryDto;
 import com.mohress.training.entity.audit.TblClassAuditRecord;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.service.audit.AuditService;
 import com.mohress.training.service.audit.action.*;
 import com.mohress.training.service.audit.impl.ClassAuditRecordServiceImpl;
+import com.mohress.training.service.audit.impl.LedgerAuditRecordServiceImpl;
+import com.mohress.training.service.security.AccountManager;
 import com.mohress.training.util.DateUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -37,6 +37,11 @@ public class AuditController {
     @Resource
     private ClassAuditRecordServiceImpl classAuditRecordService;
 
+    @Resource
+    private LedgerAuditRecordServiceImpl ledgerAuditRecordService;
+
+    @Resource
+    private AccountManager accountManager;
 
     /**
      * 审核通过
@@ -126,6 +131,22 @@ public class AuditController {
         }
 
         return new Response<>(ResultCode.SUCCESS.getCode(), "", result);
+    }
+
+
+    @ResponseBody
+    @RequestMapping("manager/ledgerAudit")
+    public Response<List<LedgerAuditItemDto>> queryLedgerAuditRecord(String agencyId, Integer pageSize, Integer pageIndex){
+        LedgerAuditQueryDto ledgerAuditQueryDto = new LedgerAuditQueryDto();
+
+        ledgerAuditQueryDto.setAgencyId(agencyId);
+        ledgerAuditQueryDto.setAuditRoleId("17081610225621055996");
+        ledgerAuditQueryDto.setPageSize(pageSize);
+        ledgerAuditQueryDto.setPageIndex(pageIndex);
+
+        List<LedgerAuditItemDto> ledgerAuditItemDtoList = ledgerAuditRecordService.queryByPage(ledgerAuditQueryDto);
+
+        return new Response<>(ResultCode.SUCCESS.getCode(), "", ledgerAuditItemDtoList);
     }
 
     private Response audit(AuditAction auditAction){

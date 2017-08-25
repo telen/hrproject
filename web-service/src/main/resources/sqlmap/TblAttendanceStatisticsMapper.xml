@@ -30,6 +30,13 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
+    <select id="selectByClassId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_attendance_statistics
+        where class_id = #{classId}
+    </select>
+
     <select id="selectByQuery" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>

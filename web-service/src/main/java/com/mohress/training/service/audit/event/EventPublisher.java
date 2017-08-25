@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 public class EventPublisher implements Publisher{
 
-    private EventBus eventBus = new EventBus(new ExceptionThrowableHandler());
+    private EventBus eventBus = new EventBus("audit");
 
     private List<Subscriber> subscribers;
 
@@ -34,14 +34,5 @@ public class EventPublisher implements Publisher{
     @Override
     public void push(ApplicationEvent event) {
         eventBus.post(event);
-    }
-
-    static class ExceptionThrowableHandler implements SubscriberExceptionHandler{
-
-        @Override
-        public void handleException(Throwable exception, SubscriberExceptionContext context) {
-            log.error("Could not dispatch event: {} to {}", context.getSubscriber(), context.getSubscriberMethod(), exception);
-            throw new BusinessException(ResultCode.AUDIT_FAIL, "审核失败，请重新审核。", exception);
-        }
     }
 }

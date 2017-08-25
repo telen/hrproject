@@ -17,7 +17,7 @@ public interface TblLedgerDao {
 
     int updateStatusByLedgerId(@Param("ledgerId") String ledgerId, @Param("status") int status);
 
-    int countByClassIdAndStatus(String classId, int status);
+    int countByClassIdAndStatus(@Param("classId") String classId, @Param("status")int status);
 
     TblLedger selectByLedgerId(String ledgerId);
 

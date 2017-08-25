@@ -17,15 +17,15 @@
     </resultMap>
 
     <sql id="columnList">
-        (id, ledger_id, student_id, student_name, id_number, student_cat, absent_count, theory_score, practice_score, insuredStatus, certificate, certificate_id)
+        id, ledger_id, student_id, student_name, id_number, student_cat, absent_count, theory_score, practice_score, insured_status, certificate, certificate_id
     </sql>
 
-    <insert id="insertBatch">
+    <insert id="insertBatch" parameterType="java.util.List">
         INSERT INTO tb_ledger_graduate_snapshot
-        (ledger_id, student_id, student_name, id_number, student_cat, absent_count, theory_score, practice_score, insuredStatus, certificate, certificate_id)
+        (ledger_id, student_id, student_name, id_number, student_cat, absent_count, theory_score, practice_score, insured_status, certificate, certificate_id)
         VALUES
         <foreach collection="list" item="item" separator=",">
-            (#{ledgerId}, #{studentId}, #{studentName}, #{idNumber}, #{studentCat}, #{absentCount}, #{theoryScore}, #{practiceScore}, #{insuredStatus}, #{certificate}, #{certificateId})
+            (#{item.ledgerId}, #{item.studentId}, #{item.studentName}, #{item.idNumber}, #{item.studentCat}, #{item.absentCount}, #{item.theoryScore}, #{item.practiceScore}, #{item.insuredStatus}, #{item.certificate}, #{item.certificateId})
         </foreach>
     </insert>
 
