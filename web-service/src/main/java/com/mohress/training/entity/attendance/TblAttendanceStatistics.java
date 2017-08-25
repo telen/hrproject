@@ -16,13 +16,15 @@ public class TblAttendanceStatistics {
 
     private String classname;
 
-    private Integer teacherName;
+    private String teacherName;
 
     private String teacherId;
 
     private String agencyId;
 
     private String agencyName;
+
+    private Integer totalCount;
 
     /**
      * 考勤正常人数

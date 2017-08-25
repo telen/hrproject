@@ -29,4 +29,9 @@ public class QueryDto implements Serializable {
      */
     private String name;
 
+    /**
+     * 传递至service的操作者ID
+     */
+    private String agencyId;
+
 }

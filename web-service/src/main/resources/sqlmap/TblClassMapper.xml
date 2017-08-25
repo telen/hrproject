@@ -55,6 +55,7 @@
         <if test="agencyId != null">
             and agency_id = #{agencyId}
         </if>
+        and create_time between #{startTime} and #{endTime}
     </select>
 
     <insert id="insertSelective" parameterType="com.mohress.training.entity.mclass.TblClass">

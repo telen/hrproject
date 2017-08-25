@@ -129,7 +129,11 @@ public class AttendanceStatisticsService implements BaseManageService {
                 statistics.setAgencyName(agencyList.get(0).getAgencyName());
             }
 
+            statistics.setTotalCount(classMemCount);
             statistics.setTeacherId(teacherId);
+            statistics.setTeacherName(teacherName);
+            statistics.setClassId(classNo);
+            statistics.setClassname(classname);
             statistics.setAbsentCount(absentCount);
             statistics.setAddedCount(addedCount);
             statistics.setAddedCount(addedCount);
@@ -144,7 +148,7 @@ public class AttendanceStatisticsService implements BaseManageService {
     private boolean hasSpecialDays(TblClassMember member, TblClass tblClass, int status) {
         List<TblAttendance> attendances = attendanceServiceImpl.queryByStudentId
                 (member.getStudentId(), status, tblClass.getStartTime(), tblClass.getEndTime());
-        return CollectionUtils.isEmpty(attendances);
+        return !CollectionUtils.isEmpty(attendances);
     }
 
     private AgencyQuery buildAgencyQuery(String agencyId) {

@@ -6,7 +6,6 @@ import com.mohress.training.util.BusiVerify;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
 
 /**
  * job
@@ -18,15 +17,15 @@ public class JobService {
     @Resource
     private TblJobTimeDao tblJobTimeDao;
 
-    public TblJobTime queryOrInsertJob(String jobName) {
-        TblJobTime tblJobTime = tblJobTimeDao.selectByJobName(jobName);
-        if (tblJobTime == null) {
-            tblJobTime = new TblJobTime();
-            tblJobTime.setTimeValue(new Date());
-            BusiVerify.verify(tblJobTimeDao.insertSelective(tblJobTime) > 0, "新增 jobTime SQL失败");
-            tblJobTime.setTimeValue(new Date(0));
-        }
+    public TblJobTime queryJob(String jobName) {
+        return tblJobTimeDao.selectByJobName(jobName);
+    }
 
-        return tblJobTime;
+    public void newJob(TblJobTime tblJobTime) {
+        BusiVerify.verify(tblJobTimeDao.insertSelective(tblJobTime) > 0, "新增 jobTime SQL失败");
+    }
+
+    public void updateJob(TblJobTime tblJobTime) {
+        BusiVerify.verify(tblJobTimeDao.updateByPrimaryKeySelective(tblJobTime) > 0, "更新 jobTime SQL失败");
     }
 }

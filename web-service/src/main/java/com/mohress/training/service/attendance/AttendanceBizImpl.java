@@ -3,16 +3,16 @@ package com.mohress.training.service.attendance;
 import com.google.common.base.Preconditions;
 import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.attendance.AttendanceRequestDto;
-import com.mohress.training.entity.student.TblStudent;
 import com.mohress.training.dto.attendance.AttendanceStatisticItemDto;
 import com.mohress.training.entity.TblJobTime;
 import com.mohress.training.entity.attendance.TblAttendance;
+import com.mohress.training.entity.attendance.TblAttendanceStatistics;
 import com.mohress.training.entity.mclass.TblClass;
+import com.mohress.training.entity.student.TblStudent;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.ModuleBiz;
 import com.mohress.training.service.mclass.ClassServiceImpl;
 import com.mohress.training.service.student.StudentQuery;
-import com.mohress.training.util.*;
 import com.mohress.training.util.BusiVerify;
 import com.mohress.training.util.Checker;
 import com.mohress.training.util.Convert;
@@ -128,16 +128,40 @@ public class AttendanceBizImpl implements ModuleBiz {
     public List<AttendanceStatisticItemDto> queryStatistic(QueryDto pageDto) {
         //查询上次查询到本次查询时间内有无新建班级，有则统计之后录入统计表；无则查询.通过查询人找出所属人群，机构则需查本机构的
 
-        TblJobTime tblJobTime = jobService.queryOrInsertJob(JOB_NAME);
+        TblJobTime tblJobTime = jobService.queryJob(JOB_NAME);
+
+
+        Date timeValue;
+        if (tblJobTime == null) {
+            timeValue = new Date(0);
+        } else {
+            timeValue = tblJobTime.getTimeValue();
+        }
 
         //todo 找到该用户agencyId
-        List<TblClass> tblClasses = classServiceImpl.queryClassByRangeTime(null, tblJobTime.getTimeValue(), new Date());
+        Date endTime = new Date();
+        List<TblClass> tblClasses = classServiceImpl.queryClassByRangeTime(null, timeValue, endTime);
         if (!CollectionUtils.isEmpty(tblClasses)) {
             //统计
             attendanceStatisticsService.buildStatistics(tblClasses, null);
         }
 
-        return attendanceStatisticsService.query(buildAttendanceStatisticQuery(pageDto));
+        List<TblAttendanceStatistics> statisticItems = attendanceStatisticsService.query(buildAttendanceStatisticQuery(pageDto));
+
+        if (timeValue.getTime() == 0) {
+            jobService.newJob(newJob(JOB_NAME));
+        } else {
+            tblJobTime.setTimeValue(endTime);
+            jobService.updateJob(tblJobTime);
+        }
+        return Convert.convertStatistic(statisticItems);
+    }
+
+    private TblJobTime newJob(String jobName) {
+        TblJobTime jobTime = new TblJobTime();
+        jobTime.setTimeValue(new Date());
+        jobTime.setJobName(jobName);
+        return jobTime;
     }
 
     private AttendanceStatisticsQuery buildAttendanceStatisticQuery(QueryDto pageDto) {

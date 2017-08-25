@@ -8,6 +8,7 @@ create table tbl_attendance_statistics(
   agency_id VARCHAR(64) NOT NULL DEFAULT '' COMMENT '机构ID',
   agency_name VARCHAR(64) NOT NULL DEFAULT '' COMMENT '机构名称',
   normal_count INTEGER NOT NULL DEFAULT 0 COMMENT '考勤正常人数',
+  total_count INTEGER NOT NULL DEFAULT 0 COMMENT '班级人数',
   be_late_count INTEGER NOT NULL DEFAULT 0 COMMENT '考勤迟到人数',
   leave_early_count INTEGER NOT NULL DEFAULT 0 COMMENT '考勤早退',
   absent_count INTEGER NOT NULL DEFAULT 0 COMMENT '缺勤人数',

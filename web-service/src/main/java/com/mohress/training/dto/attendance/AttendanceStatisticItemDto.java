@@ -13,11 +13,13 @@ public class AttendanceStatisticItemDto implements Serializable {
 
     private String classId;
 
-    private String className;
+    private String classname;
 
-    private Integer teacherName;
+    private String teacherName;
 
     private String teacherId;
+
+    private Integer totalCount;
 
     /**
      * 考勤正常人数

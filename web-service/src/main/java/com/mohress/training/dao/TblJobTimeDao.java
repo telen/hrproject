@@ -12,6 +12,6 @@ public interface TblJobTimeDao {
 
     TblJobTime selectByJobName(String jobName);
 
-    int updateSelectiveByPrimaryId(TblJobTime tblJobTime);
+    int updateByPrimaryKeySelective(TblJobTime tblJobTime);
 
 }

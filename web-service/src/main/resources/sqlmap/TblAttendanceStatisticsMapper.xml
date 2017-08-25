@@ -9,6 +9,7 @@
         <result column="teacher_id" property="teacherId" jdbcType="VARCHAR"/>
         <result column="agency_id" property="agencyId" jdbcType="VARCHAR"/>
         <result column="agency_name" property="agencyName" jdbcType="VARCHAR"/>
+        <result column="total_count" property="totalCount" jdbcType="INTEGER"/>
         <result column="normal_count" property="normalCount" jdbcType="INTEGER"/>
         <result column="be_late_count" property="beLateCount" jdbcType="INTEGER"/>
         <result column="leave_early_count" property="leaveEarlyCount" jdbcType="INTEGER"/>
@@ -18,7 +19,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    id, class_id, classname, teacher_name, teacher_id, agency_id, agency_name, normal_count, 
+    id, class_id, classname, teacher_name, teacher_id, agency_id, agency_name, normal_count, total_count,
     be_late_count, leave_early_count, absent_count, added_count, create_time
   </sql>
 
@@ -37,11 +38,9 @@
         <if test="agencyId != null">
             and agency_id = #{agencyId}
         </if>
-        <if test="agencyName != null">
-            and agency_name like concat(concat('%',#{agencyName}),'%')
-        </if>
-        <if test="classname != null">
-            and classname like concat(concat('%',#{classname}),'%')
+        <if test="agencyName != null || classname != null">
+            and ((agency_name like concat(concat('%',#{agencyName}),'%')) or
+            (classname like concat('%',#{classname},'%')))
         </if>
         limit #{pageIndex},#{pageSize}
     </select>
@@ -72,6 +71,9 @@
             </if>
             <if test="normalCount != null">
                 normal_count,
+            </if>
+            <if test="totalCount != null">
+                total_count,
             </if>
             <if test="beLateCount != null">
                 be_late_count,
@@ -113,6 +115,9 @@
             </if>
             <if test="normalCount != null">
                 #{normalCount,jdbcType=INTEGER},
+            </if>
+            <if test="totalCount != null">
+                #{totalCount},
             </if>
             <if test="beLateCount != null">
                 #{beLateCount,jdbcType=INTEGER},

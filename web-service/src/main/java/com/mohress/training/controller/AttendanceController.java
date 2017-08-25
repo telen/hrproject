@@ -5,9 +5,10 @@ import com.mohress.training.dto.Response;
 import com.mohress.training.dto.Responses;
 import com.mohress.training.dto.attendance.AttendanceStatisticItemDto;
 import com.mohress.training.service.attendance.AttendanceBizImpl;
+import com.mohress.training.util.CipherUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,7 +30,7 @@ public class AttendanceController {
 
     @ResponseBody
     @RequestMapping(value = "statistic")
-    public Response<List<AttendanceStatisticItemDto>> statistic(QueryDto pageDto) {
+    public Response<List<AttendanceStatisticItemDto>> statistic(@CookieValue(name = "token") String encryptedName, QueryDto pageDto) {
         if (pageDto == null) {
             pageDto = new QueryDto();
         }
@@ -39,8 +40,8 @@ public class AttendanceController {
         } else {
             pageDto.setPage(pageDto.getPage() - 1);
         }
-//        String userId = CipherUtil.decryptName(encryptedName);
-        String userId = null;
+        String userId = CipherUtil.decryptName(encryptedName);
+//        String userId = null;
         pageDto.setUserId(userId);
         log.info("userId-{}, 考勤统计查询,查询条件 {}", userId, pageDto);
 
