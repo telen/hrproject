@@ -24,7 +24,6 @@ import java.util.List;
 @Slf4j
 @Service
 public class ClassServiceImpl implements BaseManageService {
-    private static final int DELETE_STATUS = 1;
 
     @Resource
     private TblClassDao tblClassDao;
@@ -45,7 +44,7 @@ public class ClassServiceImpl implements BaseManageService {
     @Transactional
     public void delete(List<String> ids) {
         for (String id : ids) {
-            BusiVerify.verify(tblClassDao.updateStatus(id, DELETE_STATUS) > 0, "更新班级删除状态SQL失败");
+            BusiVerify.verify(tblClassDao.updateStatus(id, TblClass.Status.DELETE) > 0, "更新班级删除状态SQL失败");
         }
     }
 

@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.mohress.training.entity.attendance.TblAttendanceStatistics">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="class_id" property="classId" jdbcType="VARCHAR"/>
-        <result column="calssname" property="calssname" jdbcType="VARCHAR"/>
+        <result column="classname" property="classname" jdbcType="VARCHAR"/>
         <result column="teacher_name" property="teacherName" jdbcType="VARCHAR"/>
         <result column="teacher_id" property="teacherId" jdbcType="VARCHAR"/>
         <result column="agency_id" property="agencyId" jdbcType="VARCHAR"/>
@@ -18,7 +18,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    id, class_id, calssname, teacher_name, teacher_id, agency_id, agency_name, normal_count, 
+    id, class_id, classname, teacher_name, teacher_id, agency_id, agency_name, normal_count, 
     be_late_count, leave_early_count, absent_count, added_count, create_time
   </sql>
 
@@ -55,8 +55,8 @@
             <if test="classId != null">
                 class_id,
             </if>
-            <if test="calssname != null">
-                calssname,
+            <if test="classname != null">
+                classname,
             </if>
             <if test="teacherName != null">
                 teacher_name,
@@ -96,8 +96,8 @@
             <if test="classId != null">
                 #{classId,jdbcType=VARCHAR},
             </if>
-            <if test="calssname != null">
-                #{calssname,jdbcType=VARCHAR},
+            <if test="classname != null">
+                #{classname,jdbcType=VARCHAR},
             </if>
             <if test="teacherName != null">
                 #{teacherName,jdbcType=VARCHAR},
@@ -138,8 +138,8 @@
             <if test="classId != null">
                 class_id = #{classId,jdbcType=VARCHAR},
             </if>
-            <if test="calssname != null">
-                calssname = #{calssname,jdbcType=VARCHAR},
+            <if test="classname != null">
+                classname = #{classname,jdbcType=VARCHAR},
             </if>
             <if test="teacherName != null">
                 teacher_name = #{teacherName,jdbcType=VARCHAR},

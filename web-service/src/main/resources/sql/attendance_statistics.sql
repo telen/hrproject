@@ -2,7 +2,7 @@ drop TABLE IF EXISTS tbl_attendance_statistics;
 create table tbl_attendance_statistics(
   id INTEGER UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'ID',
   class_id VARCHAR(64) NOT NULL DEFAULT '' COMMENT '班级ID',
-  calssname VARCHAR(64) NOT NULL DEFAULT '' COMMENT '班级名称',
+  classname VARCHAR(64) NOT NULL DEFAULT '' COMMENT '班级名称',
   teacher_name VARCHAR(64) NOT NULL DEFAULT '' COMMENT '教师名称',
   teacher_id VARCHAR(64) NOT NULL DEFAULT '' COMMENT '教师ID',
   agency_id VARCHAR(64) NOT NULL DEFAULT '' COMMENT '机构ID',

@@ -20,6 +20,13 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="selectByJobName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tbl_job_time
+    where job_name=#{jobName}
+  </select>
+
   <insert id="insertSelective" parameterType="com.mohress.training.entity.TblJobTime" >
     insert into tbl_job_time
     <trim prefix="(" suffix=")" suffixOverrides="," >

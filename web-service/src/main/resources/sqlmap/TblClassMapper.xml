@@ -12,6 +12,8 @@
         <result column="proposer_mobile" property="proposerMobile" jdbcType="VARCHAR"/>
         <result column="teach_plan_file_path" property="teachPlanFilePath" jdbcType="VARCHAR"/>
         <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="inspection_count" property="inspectionCount" jdbcType="INTEGER"/>
+        <result column="inspection_status" property="inspectionStatus" jdbcType="TINYINT"/>
         <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
         <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
         <result column="on_class_time" property="onClassTime" jdbcType="TIMESTAMP"/>
@@ -22,7 +24,7 @@
     <sql id="Base_Column_List">
     id, course_id, class_id, classname, affiliated_profession, predicted_count, proposer, 
     proposer_mobile, teach_plan_file_path, status, start_time, end_time, on_class_time, off_class_time, create_time,
-    update_time
+    update_time,inspection_count,inspection_status
   </sql>
     <select id="selectByClassId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -35,7 +37,7 @@
         select
         <include refid="Base_Column_List"/>
         from tbl_class
-        where status = 0
+        where status != 4
         <if test="agencyId != null">
             and agency_id = #{agencyId}
         </if>
@@ -49,14 +51,10 @@
         select
         <include refid="Base_Column_List"/>
         from tbl_class
-        where status = 0
+        where status != 4
         <if test="agencyId != null">
             and agency_id = #{agencyId}
         </if>
-        <if test="classname != null">
-            and classname like concat(concat('%',#{classname}),'%')
-        </if>
-        limit #{pageIndex},#{pageSize}
     </select>
 
     <insert id="insertSelective" parameterType="com.mohress.training.entity.mclass.TblClass">
@@ -91,6 +89,12 @@
             </if>
             <if test="status != null">
                 status,
+            </if>
+            <if test="inspectionStatus != null">
+                inspection_status,
+            </if>
+            <if test="inspectionCount != null">
+                inspection_count,
             </if>
             <if test="startTime != null">
                 start_time,
@@ -141,6 +145,12 @@
             </if>
             <if test="status != null">
                 #{status,jdbcType=TINYINT},
+            </if>
+            <if test="inspectionStatus != null">
+                #{inspectionStatus},
+            </if>
+            <if test="inspectionCount != null">
+                #{inspectionCount},
             </if>
             <if test="startTime != null">
                 #{startTime,jdbcType=TIMESTAMP},
@@ -210,6 +220,12 @@
             </if>
             <if test="updateTime != null">
                 update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="inspectionStatus != null">
+                inspection_status = #{inspectionStatus},
+            </if>
+            <if test="inspectionCount != null">
+                inspection_count = #{inspectionCount},
             </if>
         </set>
         where class_id = #{classId}

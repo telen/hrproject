@@ -27,9 +27,9 @@ public class AttendanceController {
     @Resource
     private AttendanceBizImpl attendanceBizImpl;
 
-    @RequestMapping(name = "statistic")
     @ResponseBody
-    public Response<List<AttendanceStatisticItemDto>> statistic(@RequestBody QueryDto pageDto) {
+    @RequestMapping(value = "statistic")
+    public Response<List<AttendanceStatisticItemDto>> statistic(QueryDto pageDto) {
         if (pageDto == null) {
             pageDto = new QueryDto();
         }

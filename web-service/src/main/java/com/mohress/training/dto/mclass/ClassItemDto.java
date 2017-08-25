@@ -53,5 +53,15 @@ public class ClassItemDto implements Serializable {
 
     private Integer status;
 
+    /**
+     * 抽查状态
+     */
+    private Integer inspectionStatus;
+
+    /**
+     * 抽查次数
+     */
+    private Integer inspectionCount;
+
     private List<String> studentIds;
 }

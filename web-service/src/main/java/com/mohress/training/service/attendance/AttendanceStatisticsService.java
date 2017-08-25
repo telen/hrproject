@@ -132,6 +132,11 @@ public class AttendanceStatisticsService implements BaseManageService {
             statistics.setTeacherId(teacherId);
             statistics.setAbsentCount(absentCount);
             statistics.setAddedCount(addedCount);
+            statistics.setAddedCount(addedCount);
+            statistics.setAbsentCount(absentCount);
+            statistics.setBeLateCount(beLateCount);
+            statistics.setLeaveEarlyCount(leaveEarlyCount);
+            statistics.setNormalCount(normalCount);
             BusiVerify.verify(tblAttendanceStatisticsDao.insertSelective(statistics) > 0, "新增考勤统计SQL异常");
         }
     }
