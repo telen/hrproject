@@ -41,4 +41,9 @@ public class QueryDto implements Serializable {
      */
     private Integer stage;
 
+    /**
+     * 根据班级ID查询学生
+     */
+    private String classId;
+
 }

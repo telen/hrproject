@@ -86,6 +86,28 @@
         limit #{pageIndex},#{pageSize}
     </select>
 
+    <select id="queryStudentByStudentId" resultMap="BaseResultMap"
+            parameterType="com.mohress.training.service.student.StudentQuery">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_student
+        where status = 0
+        <if test="keyword != null">
+            and agency_name like concat(concat('%',#{keyword}),'%')
+        </if>
+        <if test="courseId != null">
+            and course_id = #{courseId}
+        </if>
+        <if test="idNumber != null">
+            and id_number = #{idNumber}
+        </if>
+        and student_id in
+        <foreach collection="studentIds" item="item" separator="," open="(" close=")" index="index">
+            #{item}
+        </foreach>
+        limit #{pageIndex},#{pageSize}
+    </select>
+
     <insert id="insertSelective" parameterType="com.mohress.training.entity.student.TblStudent">
         insert into tbl_student
         <trim prefix="(" suffix=")" suffixOverrides=",">

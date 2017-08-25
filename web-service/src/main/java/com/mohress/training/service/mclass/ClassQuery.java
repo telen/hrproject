@@ -2,6 +2,8 @@ package com.mohress.training.service.mclass;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * Created by qx.wang on 2017/8/17.
  */

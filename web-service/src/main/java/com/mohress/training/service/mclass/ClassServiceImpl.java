@@ -1,5 +1,6 @@
 package com.mohress.training.service.mclass;
 
+import com.google.common.collect.Lists;
 import com.mohress.training.dao.TblClassDao;
 import com.mohress.training.dao.TblClassMemberDao;
 import com.mohress.training.dto.mclass.ClassApplyDto;
@@ -57,6 +58,7 @@ public class ClassServiceImpl implements BaseManageService {
 
     @Override
     public <T, M> List<T> query(M query) {
+
         return (List<T>) tblClassDao.selectByPage((ClassQuery) query);
     }
 
