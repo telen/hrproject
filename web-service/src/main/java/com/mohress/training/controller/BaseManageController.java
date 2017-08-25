@@ -55,23 +55,23 @@ public class BaseManageController {
 
     @ResponseBody
     @RequestMapping(value = "new", method = RequestMethod.POST)
-//    public Response<Boolean> newModule(@PathVariable String module, @CookieValue(name = "token") String encryptedName, String data) {
-    public Response<Boolean> newModule(@PathVariable String module, @RequestBody String data) {
-//        String userId = CipherUtil.decryptName(encryptedName);
-//        log.info("userId-{},新建培训机构 {}", userId, data);
+    public Response<Boolean> newModule(@PathVariable String module, @CookieValue(name = "token") String encryptedName, @RequestBody String data) {
+//    public Response<Boolean> newModule(@PathVariable String module, @RequestBody String data) {
+        String userId = CipherUtil.decryptName(encryptedName);
+        log.info("userId-{},新建培训机构 {}", userId, data);
 
         moduleMap.get(module).newModule(data);
 
-//        log.info("userId-{}, 新建培训机构成功", userId);
+        log.info("userId-{}, 新建培训机构成功", userId);
         return Responses.succ(Boolean.TRUE);
     }
 
     @ResponseBody
     @RequestMapping(value = "update")
-    public Response<Boolean> update(@PathVariable String module, @RequestBody String data) {
-//    public Response<Boolean> update(@PathVariable String module, @CookieValue(name = "token") String encryptedName, String data) {
-//        String userId = CipherUtil.decryptName(encryptedName);
-        String userId = null;
+//    public Response<Boolean> update(@PathVariable String module, @RequestBody String data) {
+    public Response<Boolean> update(@PathVariable String module, @CookieValue(name = "token") String encryptedName, @RequestBody String data) {
+        String userId = CipherUtil.decryptName(encryptedName);
+//        String userId = null;
         log.info("userId-{}, 更新机构 {}", userId, data);
 
         moduleMap.get(module).update(data);
@@ -83,10 +83,10 @@ public class BaseManageController {
 
     @ResponseBody
     @RequestMapping(value = "delete")
-    public Response<Boolean> delete(@PathVariable String module, @RequestBody List<String> ids) {
-//    public Response<Boolean> delete(@PathVariable String module, @CookieValue(name = "token") String encryptedName, List<String> ids) {
-//        String userId = CipherUtil.decryptName(encryptedName);
-        String userId = null;
+//    public Response<Boolean> delete(@PathVariable String module, @RequestBody List<String> ids) {
+    public Response<Boolean> delete(@PathVariable String module, @CookieValue(name = "token") String encryptedName, @RequestBody List<String> ids) {
+        String userId = CipherUtil.decryptName(encryptedName);
+//        String userId = null;
         log.info("userId-{}, 删除机构 {}", userId, ids);
 
         moduleMap.get(module).delete(ids);
@@ -97,8 +97,8 @@ public class BaseManageController {
 
     @ResponseBody
     @RequestMapping(value = "query")
-    public Response<Object> query(@PathVariable String module, QueryDto pageDto) {
-//    public Response<Object> query(@CookieValue(name = "token") String encryptedName, @PathVariable String module, @RequestBody PageDto pageDto) {
+//    public Response<Object> query(@PathVariable String module, QueryDto pageDto) {
+    public Response<Object> query(@CookieValue(name = "token") String encryptedName, @PathVariable String module, QueryDto pageDto) {
         if(pageDto == null){
             pageDto = new QueryDto();
         }
@@ -108,8 +108,8 @@ public class BaseManageController {
         } else {
             pageDto.setPage(pageDto.getPage() - 1);
         }
-//        String userId = CipherUtil.decryptName(encryptedName);
-        String userId = null;
+        String userId = CipherUtil.decryptName(encryptedName);
+//        String userId = null;
         pageDto.setUserId(userId);
         log.info("userId-{}, 查询 {} ,查询条件 {}", userId, module, pageDto);
 
