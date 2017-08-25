@@ -1,202 +1,205 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mohress.training.dao.TblClassDao" >
-  <resultMap id="BaseResultMap" type="com.mohress.training.entity.mclass.TblClass" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="course_id" property="courseId" jdbcType="VARCHAR" />
-    <result column="class_id" property="classId" jdbcType="VARCHAR" />
-    <result column="classname" property="classname" jdbcType="VARCHAR" />
-    <result column="affiliated_profession" property="affiliatedProfession" jdbcType="VARCHAR" />
-    <result column="predicted_count" property="predictedCount" jdbcType="INTEGER" />
-    <result column="proposer" property="proposer" jdbcType="VARCHAR" />
-    <result column="proposer_mobile" property="proposerMobile" jdbcType="VARCHAR" />
-    <result column="teach_plan_file_path" property="teachPlanFilePath" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="TINYINT" />
-    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
-    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
-    <result column="on_class_time" property="onClassTime" jdbcType="TIMESTAMP" />
-    <result column="off_class_time" property="offClassTime" jdbcType="TIMESTAMP" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.mohress.training.dao.TblClassDao">
+    <resultMap id="BaseResultMap" type="com.mohress.training.entity.mclass.TblClass">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="course_id" property="courseId" jdbcType="VARCHAR"/>
+        <result column="class_id" property="classId" jdbcType="VARCHAR"/>
+        <result column="classname" property="classname" jdbcType="VARCHAR"/>
+        <result column="affiliated_profession" property="affiliatedProfession" jdbcType="VARCHAR"/>
+        <result column="predicted_count" property="predictedCount" jdbcType="INTEGER"/>
+        <result column="proposer" property="proposer" jdbcType="VARCHAR"/>
+        <result column="proposer_mobile" property="proposerMobile" jdbcType="VARCHAR"/>
+        <result column="teach_plan_file_path" property="teachPlanFilePath" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="on_class_time" property="onClassTime" jdbcType="TIMESTAMP"/>
+        <result column="off_class_time" property="offClassTime" jdbcType="TIMESTAMP"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, course_id, class_id, classname, affiliated_profession, predicted_count, proposer, 
     proposer_mobile, teach_plan_file_path, status, start_time, end_time, on_class_time, off_class_time, create_time,
     update_time
   </sql>
-  <select id="selectByClassId" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tbl_class
-    where class_id = #{classId}
-  </select>
+    <select id="selectByClassId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_class
+        where class_id = #{classId}
+    </select>
 
-  <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.mohress.training.service.mclass.ClassQuery" >
-    select
-    <include refid="Base_Column_List" />
-    from tbl_class
-    where status != 4
-    <if test="agencyId != null">
-      and agency_id = #{agencyId}
-    </if>
-    limit #{pageIndex},#{pageSize}
-  </select>
+    <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.mohress.training.service.mclass.ClassQuery">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_class
+        where status = 0
+        <if test="agencyId != null">
+            and agency_id = #{agencyId}
+        </if>
+        <if test="classname != null">
+            and classname like concat(concat('%',#{classname}),'%')
+        </if>
+        limit #{pageIndex},#{pageSize}
+    </select>
 
-  <insert id="insertSelective" parameterType="com.mohress.training.entity.mclass.TblClass" >
-    insert into tbl_class
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="courseId != null" >
-        course_id,
-      </if>
-      <if test="classId != null" >
-        class_id,
-      </if>
-      <if test="classname != null" >
-        classname,
-      </if>
-      <if test="affiliatedProfession != null" >
-        affiliated_profession,
-      </if>
-      <if test="predictedCount != null" >
-        predicted_count,
-      </if>
-      <if test="proposer != null" >
-        proposer,
-      </if>
-      <if test="proposerMobile != null" >
-        proposer_mobile,
-      </if>
-      <if test="teachPlanFilePath != null" >
-        teach_plan_file_path,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="startTime != null" >
-        start_time,
-      </if>
-      <if test="endTime != null" >
-        end_time,
-      </if>
-      <if test="onClassTime != null" >
-        on_class_time,
-      </if>
-      <if test="endTime != null" >
-        off_class_time,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="courseId != null" >
-        #{courseId,jdbcType=VARCHAR},
-      </if>
-      <if test="classId != null" >
-        #{classId,jdbcType=VARCHAR},
-      </if>
-      <if test="classname != null" >
-        #{classname,jdbcType=VARCHAR},
-      </if>
-      <if test="affiliatedProfession != null" >
-        #{affiliatedProfession,jdbcType=VARCHAR},
-      </if>
-      <if test="predictedCount != null" >
-        #{predictedCount,jdbcType=INTEGER},
-      </if>
-      <if test="proposer != null" >
-        #{proposer,jdbcType=VARCHAR},
-      </if>
-      <if test="proposerMobile != null" >
-        #{proposerMobile,jdbcType=VARCHAR},
-      </if>
-      <if test="teachPlanFilePath != null" >
-        #{teachPlanFilePath,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=TINYINT},
-      </if>
-      <if test="startTime != null" >
-        #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="onClassTime != null" >
-        #{onClassTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        #{offClassTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="com.mohress.training.entity.mclass.TblClass">
+        insert into tbl_class
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="courseId != null">
+                course_id,
+            </if>
+            <if test="classId != null">
+                class_id,
+            </if>
+            <if test="classname != null">
+                classname,
+            </if>
+            <if test="affiliatedProfession != null">
+                affiliated_profession,
+            </if>
+            <if test="predictedCount != null">
+                predicted_count,
+            </if>
+            <if test="proposer != null">
+                proposer,
+            </if>
+            <if test="proposerMobile != null">
+                proposer_mobile,
+            </if>
+            <if test="teachPlanFilePath != null">
+                teach_plan_file_path,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="onClassTime != null">
+                on_class_time,
+            </if>
+            <if test="endTime != null">
+                off_class_time,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="courseId != null">
+                #{courseId,jdbcType=VARCHAR},
+            </if>
+            <if test="classId != null">
+                #{classId,jdbcType=VARCHAR},
+            </if>
+            <if test="classname != null">
+                #{classname,jdbcType=VARCHAR},
+            </if>
+            <if test="affiliatedProfession != null">
+                #{affiliatedProfession,jdbcType=VARCHAR},
+            </if>
+            <if test="predictedCount != null">
+                #{predictedCount,jdbcType=INTEGER},
+            </if>
+            <if test="proposer != null">
+                #{proposer,jdbcType=VARCHAR},
+            </if>
+            <if test="proposerMobile != null">
+                #{proposerMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="teachPlanFilePath != null">
+                #{teachPlanFilePath,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="onClassTime != null">
+                #{onClassTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{offClassTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
 
-  <update id="updateSelectiveByClassId" parameterType="com.mohress.training.entity.mclass.TblClass" >
-    update tbl_class
-    <set >
-      <if test="courseId != null" >
-        course_id = #{courseId,jdbcType=VARCHAR},
-      </if>
-      <if test="classId != null" >
-        class_id = #{classId,jdbcType=VARCHAR},
-      </if>
-      <if test="classname != null" >
-        classname = #{classname,jdbcType=VARCHAR},
-      </if>
-      <if test="affiliatedProfession != null" >
-        affiliated_profession = #{affiliatedProfession,jdbcType=VARCHAR},
-      </if>
-      <if test="predictedCount != null" >
-        predicted_count = #{predictedCount,jdbcType=INTEGER},
-      </if>
-      <if test="proposer != null" >
-        proposer = #{proposer,jdbcType=VARCHAR},
-      </if>
-      <if test="proposerMobile != null" >
-        proposer_mobile = #{proposerMobile,jdbcType=VARCHAR},
-      </if>
-      <if test="teachPlanFilePath != null" >
-        teach_plan_file_path = #{teachPlanFilePath,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="startTime != null" >
-        start_time = #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        end_time = #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="onClassTime != null" >
-        on_class_time = #{onClassTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        off_class_time = #{offClassTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where class_id = #{classId}
-  </update>
+    <update id="updateSelectiveByClassId" parameterType="com.mohress.training.entity.mclass.TblClass">
+        update tbl_class
+        <set>
+            <if test="courseId != null">
+                course_id = #{courseId,jdbcType=VARCHAR},
+            </if>
+            <if test="classId != null">
+                class_id = #{classId,jdbcType=VARCHAR},
+            </if>
+            <if test="classname != null">
+                classname = #{classname,jdbcType=VARCHAR},
+            </if>
+            <if test="affiliatedProfession != null">
+                affiliated_profession = #{affiliatedProfession,jdbcType=VARCHAR},
+            </if>
+            <if test="predictedCount != null">
+                predicted_count = #{predictedCount,jdbcType=INTEGER},
+            </if>
+            <if test="proposer != null">
+                proposer = #{proposer,jdbcType=VARCHAR},
+            </if>
+            <if test="proposerMobile != null">
+                proposer_mobile = #{proposerMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="teachPlanFilePath != null">
+                teach_plan_file_path = #{teachPlanFilePath,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="onClassTime != null">
+                on_class_time = #{onClassTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                off_class_time = #{offClassTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where class_id = #{classId}
+    </update>
 
   <update id="updateStatus" >
     update tbl_class
