@@ -12,14 +12,14 @@
         <result column="proposer_mobile" property="proposerMobile" jdbcType="VARCHAR"/>
         <result column="teach_plan_file_path" property="teachPlanFilePath" jdbcType="VARCHAR"/>
         <result column="status" property="status" jdbcType="TINYINT"/>
-        <result column="inspection_count" property="inspectionCount" jdbcType="INTEGER"/>
-        <result column="inspection_status" property="inspectionStatus" jdbcType="TINYINT"/>
         <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
         <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
         <result column="on_class_time" property="onClassTime" jdbcType="TIMESTAMP"/>
         <result column="off_class_time" property="offClassTime" jdbcType="TIMESTAMP"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="inspection_count" property="inspectionCount" jdbcType="INTEGER"/>
+        <result column="inspection_status" property="inspectionStatus" jdbcType="TINYINT"/>
     </resultMap>
     <sql id="Base_Column_List">
     id, course_id, class_id, classname, affiliated_profession, predicted_count, proposer, 
@@ -43,6 +43,9 @@
         </if>
         <if test="classname != null">
             and classname like concat(concat('%',#{classname}),'%')
+        </if>
+        <if test="stage != null">
+            and inspection_status = #{stage}
         </if>
         limit #{pageIndex},#{pageSize}
     </select>
@@ -232,13 +235,19 @@
         where class_id = #{classId}
     </update>
 
-  <update id="updateStatus" >
+    <update id="updateStatus">
     update tbl_class
     set status = #{toStatus}
     where class_id=#{classId}
   </update>
 
-  <update id="updateByClassId" >
+    <update id="updateStatusByClassId">
+    update tbl_class
+    set inspection_status = #{inspectionStatus},inspection_count = inspection_count+1
+    where class_id=#{classId}
+  </update>
+
+    <update id="updateByClassId">
     update tbl_class
     set status = #{toStatus}
     where class_id=#{classId} and status = #{beforeStatus}

@@ -63,5 +63,7 @@ public class ClassItemDto implements Serializable {
      */
     private Integer inspectionCount;
 
+    private String agencyName;
+
     private List<String> studentIds;
 }

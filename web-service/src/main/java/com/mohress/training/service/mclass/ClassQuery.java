@@ -18,6 +18,8 @@ public class ClassQuery {
 
     private String classname;
 
+    private Integer stage;
+
     public ClassQuery(Integer pageSize, Integer pageIndex) {
         this.pageSize = pageSize;
         this.pageIndex = pageIndex;

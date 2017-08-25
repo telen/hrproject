@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.w3c.dom.ranges.RangeException;
 
 import javax.annotation.Resource;
 
@@ -53,21 +54,15 @@ public class ClassController {
     public Response<Boolean> apply(@CookieValue("token") String userId, @RequestBody ClassRequestDto dto) {
         Preconditions.checkNotNull(dto);
         Preconditions.checkArgument(dto.getInspectionStatus() != null, "抽查状态为空");
-        ClassRequestDto classRequestDto = null;
-        try {
-            classRequestDto = JsonUtil.getInstance().convertToBean(ClassRequestDto.class, String.valueOf(dto));
-        } catch (Exception e) {
-            log.error("新建机构反序列化失败 {}", dto, e);
-        }
-        classService.update(buildUpdateClass(classRequestDto));
+        classService.updateStatus(buildUpdateClass(dto));
         return Responses.succ(Boolean.TRUE);
     }
 
-    private ClassStudent buildUpdateClass(ClassRequestDto classRequestDto) {
+    private TblClass buildUpdateClass(ClassRequestDto classRequestDto) {
         TblClass tblClass = new TblClass();
         tblClass.setClassId(classRequestDto.getClassId());
         tblClass.setInspectionStatus(classRequestDto.getInspectionStatus());
-        return new ClassStudent(tblClass, null);
+        return tblClass;
     }
 
     @ResponseBody

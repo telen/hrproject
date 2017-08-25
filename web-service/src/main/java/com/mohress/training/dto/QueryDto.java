@@ -34,4 +34,11 @@ public class QueryDto implements Serializable {
      */
     private String agencyId;
 
+    /**
+     * 0-开班检查
+     * 1-过程检查
+     * 2-结业检查
+     */
+    private Integer stage;
+
 }

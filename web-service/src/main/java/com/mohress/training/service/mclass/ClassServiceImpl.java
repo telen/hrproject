@@ -99,4 +99,8 @@ public class ClassServiceImpl implements BaseManageService {
     public List<TblClass> queryClassByRangeTime(String agencyId, Date startTime, Date endTime) {
         return tblClassDao.selectByRangeTime(agencyId, startTime, endTime);
     }
+
+    public void updateStatus(TblClass tblClass) {
+        BusiVerify.verify(tblClassDao.updateStatusByClassId(tblClass)>0,"更新检查状态SQL失败");
+    }
 }
