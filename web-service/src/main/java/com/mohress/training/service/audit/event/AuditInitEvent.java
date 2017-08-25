@@ -1,15 +1,14 @@
 package com.mohress.training.service.audit.event;
 
 import com.mohress.training.service.audit.action.InitAction;
-import lombok.Data;
+import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
 /**
  * 审核流程初始化事件
  *
- * Created by youtao.wan on 2017/8/23.
  */
-@Data
+@Getter
 public class AuditInitEvent extends ApplicationEvent {
 
     private String recordId;

@@ -10,9 +10,9 @@ public enum ResultCode {
 
     FAIL("000001", "失败"),
 
-    AUDIT_SUCCESS("", "审核成功"),
+    AUDIT_SUCCESS("500000", "审核成功"),
 
-    AUDIT_FAIL("", "审核失败"),
+    AUDIT_FAIL("500001", "审核失败"),
 
     AUDIT_NO_PRIVILEGE("", "审核无权限"),
 

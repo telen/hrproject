@@ -4,6 +4,7 @@ import com.mohress.training.entity.security.TblRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,5 +17,5 @@ public class RoleAuthority {
 
     private TblRole role;
 
-    private Set<AuthorityAction> authorityAction;
+    private List<AuthorityAction> authorityAction;
 }

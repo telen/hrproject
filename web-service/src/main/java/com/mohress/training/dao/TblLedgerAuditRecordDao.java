@@ -9,4 +9,8 @@ import com.mohress.training.entity.audit.TblLedgerAuditRecord;
 public interface TblLedgerAuditRecordDao {
 
     int insert(TblLedgerAuditRecord tblLedgerAuditRecord);
+
+    TblLedgerAuditRecord selectByFlowIdAndRoleId(String flowId, String roleId);
+
+    int updateByPrimaryKey(TblLedgerAuditRecord tblLedgerAuditRecord);
 }

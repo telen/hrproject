@@ -6,7 +6,6 @@ import com.google.common.base.Verify;
 import com.mohress.training.dao.TblAttendanceDao;
 import com.mohress.training.dao.TblClassDao;
 import com.mohress.training.dao.TblStudentDao;
-import com.mohress.training.entity.TblStudent;
 import com.mohress.training.entity.attendance.TblAttendance;
 import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.service.BaseManageService;

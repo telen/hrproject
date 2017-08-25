@@ -18,10 +18,9 @@ import java.util.Date;
 import static com.mohress.training.enums.AuditStatus.AUDIT_REJECT;
 
 /**
- * 审核-否决动作
+ * 审核-驳回动作
  * 将步骤直接结束，执行结束动作拒绝活动，不再进行操作，或者回退至第一步骤；
  *
- * Created by youtao.wan on 2017/8/10.
  */
 public class RejectAction extends AbstractAuditAction {
 

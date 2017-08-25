@@ -2,6 +2,8 @@ package com.mohress.training.entity.audit;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * 课程审核记录
  *
@@ -64,4 +66,8 @@ public class TblClassAuditRecord {
      */
     private Integer auditStatus;
 
+    /**
+     * 申请时间
+     */
+    private Date applyTime;
 }

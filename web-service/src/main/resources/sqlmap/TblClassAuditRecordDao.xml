@@ -13,17 +13,18 @@
         <result column="auditor" property="auditor" jdbcType="VARCHAR"/>
         <result column="audit_result" property="auditResult" jdbcType="VARCHAR"/>
         <result column="audit_status" property="auditStatus" jdbcType="TINYINT"/>
+        <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="columnList">
-        id, record_id, flow_id, class_id, class_name, agency_id, agency_name, audit_role_id, auditor, audit_result, audit_status
+        id, record_id, flow_id, class_id, class_name, agency_id, agency_name, audit_role_id, auditor, audit_result, audit_status, apply_time
     </sql>
 
     <insert id="insert" parameterType="TblClassAuditRecord">
         INSERT INTO tb_class_audit_record
-        (record_id, flow_id, class_id, class_name, agency_id, agency_name, audit_role_id, auditor, audit_result, audit_status)
+        (record_id, flow_id, class_id, class_name, agency_id, agency_name, audit_role_id, auditor, audit_result, audit_status, apply_time)
         VALUE
-        (#{recordId}, #{flowId}, #{classId}, #{className}, #{agencyId}, #{agencyName}, #{auditRoleId}, #{auditor}, #{auditResult}, #{auditStatus})
+        (#{recordId}, #{flowId}, #{classId}, #{className}, #{agencyId}, #{agencyName}, #{auditRoleId}, #{auditor}, #{auditResult}, #{auditStatus}, #{applyTime})
     </insert>
 
     <select id="selectByFlowIdAndAuditRoleId" resultMap="resultMap">
@@ -31,6 +32,20 @@
         <include refid="columnList"/>
         FROM tb_class_audit_record
         WHERE flow_id = #{flowId} AND audit_role_id = #{auditRoleId}
+    </select>
+
+    <select id="selectPageByAgencyId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_class_audit_record
+        WHERE 1=1
+        <if test="agencyId != null">
+            AND agency_id = #{agencyId}
+        </if>
+        <if test="auditRoleId != null">
+            AND audit_role_id = #{auditRoleId}
+        </if>
+        ORDER BY id DESC
     </select>
 
     <update id="updateByFlowIdAndAuditRoleId" parameterType="TblClassAuditRecord">
