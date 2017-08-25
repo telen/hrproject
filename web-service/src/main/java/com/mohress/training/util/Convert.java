@@ -6,6 +6,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.mohress.training.dto.agency.AgencyItemDto;
 import com.mohress.training.dto.attendance.AttendanceItemDto;
+import com.mohress.training.dto.attendance.AttendanceStatisticItemDto;
 import com.mohress.training.dto.course.CourseItemDto;
 import com.mohress.training.dto.ledger.GraduateSnapshotItemDto;
 import com.mohress.training.dto.ledger.LedgerItemDto;
@@ -20,7 +21,9 @@ import com.mohress.training.entity.student.TblStudent;
 import com.mohress.training.entity.TblTeacher;
 import com.mohress.training.entity.agency.TblAgency;
 import com.mohress.training.entity.attendance.TblAttendance;
+import com.mohress.training.entity.attendance.TblAttendanceStatistics;
 import com.mohress.training.entity.mclass.TblClass;
+import com.mohress.training.entity.student.TblStudent;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -72,7 +75,7 @@ public class Convert {
             return null;
         }
 
-        return Lists.transform(tblClasses, new Function<TblClass, ClassItemDto>() {
+        return Lists.newArrayList(Lists.transform(tblClasses, new Function<TblClass, ClassItemDto>() {
             @Override
             public ClassItemDto apply(TblClass input) {
                 ClassItemDto dto = new ClassItemDto();
@@ -83,7 +86,7 @@ public class Convert {
                 dto.setOffClassTime(input.getOffClassTime().getTime());
                 return dto;
             }
-        });
+        }));
 
     }
 
@@ -174,5 +177,19 @@ public class Convert {
         tblExamScore.setCertificate(graduateDto.getCertificate());
         tblExamScore.setCertificateId("");
         return tblExamScore;
+    }
+    public static List<AttendanceStatisticItemDto> convertStatistic(List<TblAttendanceStatistics> statisticItems) {
+        if (CollectionUtils.isEmpty(statisticItems)) {
+            return null;
+        }
+
+        return Lists.newArrayList(Lists.transform(statisticItems, new Function<TblAttendanceStatistics, AttendanceStatisticItemDto>() {
+            @Override
+            public AttendanceStatisticItemDto apply(TblAttendanceStatistics input) {
+                AttendanceStatisticItemDto dto = new AttendanceStatisticItemDto();
+                BeanUtils.copyProperties(input, dto);
+                return dto;
+            }
+        }));
     }
 }

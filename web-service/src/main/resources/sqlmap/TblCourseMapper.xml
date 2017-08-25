@@ -38,6 +38,9 @@
         <if test="agencyId != null">
             and agency_id = #{agencyId}
         </if>
+        <if test="courseId != null">
+            and course_id = #{courseId}
+        </if>
         limit #{pageIndex},#{pageSize}
     </select>
 

@@ -1,18 +1,25 @@
 package com.mohress.training.controller;
 
+import com.google.common.base.Preconditions;
 import com.mohress.training.dto.Response;
+import com.mohress.training.dto.Responses;
 import com.mohress.training.dto.mclass.ClassApplyDto;
 import com.mohress.training.dto.mclass.ClassGraduateDto;
 import com.mohress.training.dto.student.GraduateItemDto;
 import com.mohress.training.dto.student.GraduateQueryDto;
+import com.mohress.training.dto.mclass.ClassRequestDto;
+import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.service.mclass.ClassServiceImpl;
+import com.mohress.training.service.mclass.ClassStudent;
+import com.mohress.training.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.w3c.dom.ranges.RangeException;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -37,7 +44,7 @@ public class ClassController {
      */
     @ResponseBody
     @RequestMapping("apply")
-    public Response apply(@CookieValue("token") String userId, @RequestBody ClassApplyDto classApplyDto){
+    public Response apply(@CookieValue("token") String userId, @RequestBody ClassApplyDto classApplyDto) {
 
         classApplyDto.setApplicant("17081815504021040603");
 
@@ -52,6 +59,22 @@ public class ClassController {
      * @param classGraduateDto
      * @return
      */
+    @ResponseBody
+    @RequestMapping("inspection")
+    public Response<Boolean> apply(@CookieValue("token") String userId, @RequestBody ClassRequestDto dto) {
+        Preconditions.checkNotNull(dto);
+        Preconditions.checkArgument(dto.getInspectionStatus() != null, "抽查状态为空");
+        classService.updateStatus(buildUpdateClass(dto));
+        return Responses.succ(Boolean.TRUE);
+    }
+
+    private TblClass buildUpdateClass(ClassRequestDto classRequestDto) {
+        TblClass tblClass = new TblClass();
+        tblClass.setClassId(classRequestDto.getClassId());
+        tblClass.setInspectionStatus(classRequestDto.getInspectionStatus());
+        return tblClass;
+    }
+
     @ResponseBody
     @RequestMapping("graduate")
     public Response graduate(@RequestBody ClassGraduateDto classGraduateDto){

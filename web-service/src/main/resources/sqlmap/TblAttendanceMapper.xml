@@ -26,12 +26,12 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
-    <select id="selectByDate" resultMap="BaseResultMap" >
+    <select id="selectByDate" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from tbl_attendance
         where user_id = #{userId}
-          and create_time between #{todayStart} and #{todayEnd}
+        and create_time between #{todayStart} and #{todayEnd}
     </select>
 
     <select id="selectByKeyword" resultMap="BaseResultMap"
@@ -47,6 +47,16 @@
             and course_id = #{courseId}
         </if>
         limit #{pageIndex},#{pageSize}
+    </select>
+
+    <select id="selectByStudentId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_attendance
+        where
+        user_id = #{studentId}
+        and status = #{status}
+        and create_time between #{startTime} and #{endTime}
     </select>
 
     <insert id="insertSelective" parameterType="com.mohress.training.entity.attendance.TblAttendance">

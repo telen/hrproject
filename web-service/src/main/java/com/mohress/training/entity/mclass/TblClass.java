@@ -52,9 +52,28 @@ public class TblClass {
 
     private Integer status;
 
+    /**
+     * 抽查次数
+     */
+    private Integer inspectionCount;
+
+    /**
+     * 抽查是否通过
+     */
+    private Integer inspectionStatus;
+
     private Date createTime;
 
     private Date updateTime;
+
+    public class InspectionStatus {
+
+        public static final int NOT_CHECK = 0;
+
+        public static final int PASSED = 1;
+
+        public static final int NOT_PASS = 2;
+    }
 
     public class Status {
         public static final int INIT = 0;

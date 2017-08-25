@@ -44,6 +44,11 @@ public class ClassRequestDto implements Serializable {
     private Long offClassTime;
 
     /**
+     * 抽查状态
+     */
+    private Integer inspectionStatus;
+
+    /**
      * 申请人
      */
     private String proposer;
