@@ -20,4 +20,6 @@ public interface TblAttendanceDao {
     TblAttendance selectByDate(@Param("userId") String userId, @Param("todayStart") Date todayStart, @Param("todayEnd") Date todayEnd);
 
     int updateByPrimaryKeySelective(TblAttendance attendance);
+
+    List<TblAttendance> selectByStudentId(@Param("studentId") String studentId, @Param("status") int status, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 }

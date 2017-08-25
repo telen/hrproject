@@ -10,6 +10,7 @@ import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.entity.mclass.TblClassMember;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.ModuleBiz;
+import com.mohress.training.service.agency.AgencyServiceImpl;
 import com.mohress.training.util.Convert;
 import com.mohress.training.util.JsonUtil;
 import com.mohress.training.util.SequenceCreator;
@@ -35,6 +36,9 @@ public class ClassBizImpl implements ModuleBiz {
     private BaseManageService classServiceImpl;
     @Resource
     private TblClassMemberDao tblClassMemberDao;
+
+    @Resource
+    private AgencyServiceImpl agencyService;
 
     @Override
     public void newModule(String o) {
@@ -72,6 +76,9 @@ public class ClassBizImpl implements ModuleBiz {
         Preconditions.checkArgument(pageDto.getPage() >= 0);
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
         List<TblClass> tblClasses = classServiceImpl.query(buildClassQuery(pageDto));
+        for (TblClass tblClass : tblClasses) {
+            String courseId = tblClass.getCourseId();
+        }
 
         List<ClassItemDto> classItemDtos = Convert.convertClass(tblClasses);
 
@@ -103,6 +110,7 @@ public class ClassBizImpl implements ModuleBiz {
     private ClassQuery buildClassQuery(QueryDto pageDto) {
         ClassQuery classQuery = new ClassQuery(pageDto.getPageSize(), pageDto.getPage());
         classQuery.setClassname(pageDto.getClassname());
+        classQuery.setStage(pageDto.getStage());
         return classQuery;
     }
 

@@ -4,6 +4,7 @@ import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.service.mclass.ClassQuery;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,4 +28,8 @@ public interface TblClassDao {
     List<TblClass> selectByKeyword(ClassQuery query);
 
     TblClass selectByClassId(String classId);
+
+    List<TblClass> selectByRangeTime(@Param("agencyId") String agencyId, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    int updateStatusByClassId(TblClass tblClass);
 }

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,7 +26,6 @@ import java.util.List;
 @Slf4j
 @Service
 public class ClassServiceImpl implements BaseManageService {
-    private static final int DELETE_STATUS = 1;
 
     @Resource
     private TblClassDao tblClassDao;
@@ -46,7 +46,7 @@ public class ClassServiceImpl implements BaseManageService {
     @Transactional
     public void delete(List<String> ids) {
         for (String id : ids) {
-            BusiVerify.verify(tblClassDao.updateStatus(id, DELETE_STATUS) > 0, "更新班级删除状态SQL失败");
+            BusiVerify.verify(tblClassDao.updateStatus(id, TblClass.Status.DELETE) > 0, "更新班级删除状态SQL失败");
         }
     }
 
@@ -94,5 +94,13 @@ public class ClassServiceImpl implements BaseManageService {
         if(TblClass.Status.APPLIED == tblClass.getStatus()){
             throw new BusinessException(ResultCode.FAIL, "开班申请已提交，请勿重复申请");
         }
+    }
+
+    public List<TblClass> queryClassByRangeTime(String agencyId, Date startTime, Date endTime) {
+        return tblClassDao.selectByRangeTime(agencyId, startTime, endTime);
+    }
+
+    public void updateStatus(TblClass tblClass) {
+        BusiVerify.verify(tblClassDao.updateStatusByClassId(tblClass)>0,"更新检查状态SQL失败");
     }
 }
