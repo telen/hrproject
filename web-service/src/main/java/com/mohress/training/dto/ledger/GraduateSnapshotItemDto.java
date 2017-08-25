@@ -2,11 +2,13 @@ package com.mohress.training.dto.ledger;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * Created by youtao.wan on 2017/8/25.
  */
 @Data
-public class GraduateSnapshotItemDto {
+public class GraduateSnapshotItemDto implements Serializable{
 
     /**
      * 台账Id

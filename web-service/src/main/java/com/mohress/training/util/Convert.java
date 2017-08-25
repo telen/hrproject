@@ -172,11 +172,7 @@ public class Convert {
         tblExamScore.setTheoryScore(new BigDecimal(graduateDto.getTheoryScore()));
         tblExamScore.setPracticeScore(new BigDecimal(graduateDto.getPracticeScore()));
         tblExamScore.setCertificate(graduateDto.getCertificate());
+        tblExamScore.setCertificateId("");
         return tblExamScore;
     }
-
-    public static LedgerItemDto tblLedger2ledgerItemDto(TblLedger tblLedger){
-        return new LedgerItemDto();
-    }
-
 }

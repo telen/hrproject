@@ -58,7 +58,7 @@ public class ClassController {
 
         classService.graduate(classGraduateDto);
 
-        return new Response(ResultCode.SUCCESS.getCode(), "结业信息已保存。");
+        return new Response(ResultCode.SUCCESS.getCode(), "结业信息已保存");
     }
 
     /**

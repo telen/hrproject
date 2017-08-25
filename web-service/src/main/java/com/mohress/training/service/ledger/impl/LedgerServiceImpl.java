@@ -8,14 +8,16 @@ import com.mohress.training.entity.agency.TblAgency;
 import com.mohress.training.entity.ledger.TblLedger;
 import com.mohress.training.entity.ledger.TblLedgerGraduateSnapshot;
 import com.mohress.training.entity.mclass.TblClass;
+import com.mohress.training.entity.security.TblAccount;
 import com.mohress.training.enums.AuditStatus;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
 import com.mohress.training.service.audit.action.InitAction;
 import com.mohress.training.service.ledger.LedgerService;
-import com.mohress.training.util.Convert;
+import com.mohress.training.util.DateUtil;
 import com.mohress.training.util.constant.AuditConstant;
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -76,7 +78,7 @@ public class LedgerServiceImpl implements LedgerService{
 
         List<LedgerItemDto> ledgerItemDtoList = Lists.newArrayList();
         for (TblLedger it : tblLedgerList){
-            LedgerItemDto ledgerItemDto = Convert.tblLedger2ledgerItemDto(it);
+            LedgerItemDto ledgerItemDto = newLedgerItemDto(it);
             ledgerItemDtoList.add(ledgerItemDto);
         }
         return ledgerItemDtoList;
@@ -95,6 +97,7 @@ public class LedgerServiceImpl implements LedgerService{
 
         for (TblLedgerGraduateSnapshot it: tblLedgerGraduateSnapshotList){
             GraduateSnapshotItemDto graduateSnapshotItemDto = newGraduateSnapshotItemDto(it);
+            graduateSnapshotItemDto.setLedgerId(graduateSnapshotQueryDto.getLedgerId());
             list.add(graduateSnapshotItemDto);
         }
         return list;
@@ -154,7 +157,36 @@ public class LedgerServiceImpl implements LedgerService{
         }
     }
 
+    private LedgerItemDto newLedgerItemDto(TblLedger tblLedger){
+        LedgerItemDto ledgerItemDto = new LedgerItemDto();
+
+        ledgerItemDto.setAgencyId(tblLedger.getLedgerId());
+        ledgerItemDto.setAgencyId(tblLedger.getAgencyId());
+        ledgerItemDto.setCourseId(tblLedger.getCourseId());
+        ledgerItemDto.setClassId(tblLedger.getClassId());
+        ledgerItemDto.setGraduateNumbers(tblLedger.getGraduateNumbers());
+        ledgerItemDto.setGraduateTime(DateUtil.format(tblLedger.getCreateTime(), "yyyy-MM-dd"));
+        ledgerItemDto.setAttendanceRate(tblLedger.getAttendanceRate().toString());
+
+        List<String> list = AuditConstant.SPLITTER.splitToList(tblLedger.getKeyWord());
+        ledgerItemDto.setAgencyName(list.get(0));
+        ledgerItemDto.setCourseName(list.get(1));
+        ledgerItemDto.setClassName(list.get(2));
+
+        TblAccount tblAccount = tblAccountDao.selectByUserId(tblLedger.getApplicant());
+
+        ledgerItemDto.setApplicantName(tblAccount.getUserName());
+        ledgerItemDto.setApplicantMobile(tblAccount.getMobile());
+        return ledgerItemDto;
+    }
+
     private GraduateSnapshotItemDto newGraduateSnapshotItemDto(TblLedgerGraduateSnapshot tblLedgerGraduateSnapshot){
-        return new GraduateSnapshotItemDto();
+        GraduateSnapshotItemDto graduateSnapshotItemDto = new GraduateSnapshotItemDto();
+        BeanUtils.copyProperties(graduateSnapshotItemDto, tblLedgerGraduateSnapshot, "theoryScore", "practiceScore");
+
+        graduateSnapshotItemDto.setTheoryScore(tblLedgerGraduateSnapshot.getTheoryScore().toString());
+        graduateSnapshotItemDto.setPracticeScore(tblLedgerGraduateSnapshot.getPracticeScore().toString());
+
+        return graduateSnapshotItemDto;
     }
 }
