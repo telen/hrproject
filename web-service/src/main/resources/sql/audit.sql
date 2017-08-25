@@ -16,9 +16,9 @@ CREATE TABLE `tb_audit_flow` (
   `version`     INT(11)             NOT NULL DEFAULT '0'
   COMMENT '版本号',
   `node_status` TINYINT(11)         NOT NULL DEFAULT '0'
-  COMMENT '当前节点状态，0=待审核，1=审核通过， 2=审核不通过',
+  COMMENT '当前节点状态，1=待审核，2=审核通过， 3=审核不通过',
   `flow_status` TINYINT(11)         NOT NULL DEFAULT '0'
-  COMMENT '当前流程审核状态，0=待审核，1=审核通过， 2=审核不通过',
+  COMMENT '当前流程审核状态，1=待审核，2=审核通过， 3=审核不通过',
   `create_time` TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
   COMMENT '创建时间',
   `update_time` TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -139,13 +139,16 @@ CREATE TABLE `tb_class_audit_record` (
   `audit_result`  VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '审核结果',
   `audit_status`  TINYINT(11)         NOT NULL DEFAULT '1'
-  COMMENT '审核状态，0=等待审核， 1=审核通过，2=审核不通过',
+  COMMENT '审核状态，1=等待审核， 2=审核通过，3=审核不通过',
+  `apply_time`   TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
+  COMMENT '申请时间',
   `create_time`   TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
   COMMENT '创建时间',
   `update_time`   TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uniq_audit_role_id_flow_id` (`audit_role_id`, `flow_id`)
+  UNIQUE KEY `uniq_audit_role_id_flow_id` (`audit_role_id`, `flow_id`),
+  KEY idx_audit_role_id_agency_id(`audit_role_id`, `agency_id`, `id`)
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 30

@@ -4,7 +4,9 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.ForwardingLoadingCache;
 import com.google.common.cache.LoadingCache;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mohress.training.dao.*;
 import com.mohress.training.util.AccountAuthority;
@@ -82,10 +84,10 @@ public class AccountAuthorityCache extends ForwardingLoadingCache<String, Accoun
 
         List<TblAccountRole> accountRoleList = tblAccountRoleDao.selectByUserId(tblAccount.getUserId());
         if (CollectionUtils.isEmpty(accountRoleList)){
-            return new AccountAuthority(tblAccount, ImmutableSet.<RoleAuthority>of());
+            return new AccountAuthority(tblAccount, ImmutableList.<RoleAuthority>of());
         }
 
-        Set<RoleAuthority> roleAuthoritySet = Sets.newHashSet();
+        List<RoleAuthority> roleAuthoritySet = Lists.newArrayList();
         for (TblAccountRole it : accountRoleList){
             RoleAuthority roleAuthority = loadRoleAuthority(it.getRoleId());
             if (roleAuthority != null){
@@ -109,7 +111,7 @@ public class AccountAuthorityCache extends ForwardingLoadingCache<String, Accoun
         }
 
         // 1.加载角色本身权限
-        Set<AuthorityAction> authoritySet = Sets.newHashSet(loadAuthority(roleId));
+        List<AuthorityAction> authoritySet = Lists.newArrayList(loadAuthority(roleId));
         // 2.加载子角色权限
         authoritySet.addAll(loadChildRoleAuthority(role));
         return new RoleAuthority(role, authoritySet);

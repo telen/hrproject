@@ -1,6 +1,6 @@
 package com.mohress.training.dao;
 
-import com.mohress.training.entity.TblStudent;
+import com.mohress.training.entity.student.TblStudent;
 import com.mohress.training.service.student.StudentQuery;
 import org.apache.ibatis.annotations.Param;
 

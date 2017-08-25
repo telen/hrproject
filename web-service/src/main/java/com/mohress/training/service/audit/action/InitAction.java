@@ -35,7 +35,6 @@ public class InitAction extends AbstractAuditAction {
         this.auditTemplateId = auditTemplateId;
     }
 
-    @Override
     public TblAuditFlow getAuditFlow() {
         if (auditFlow == null){
             return initAuditFlow();
@@ -44,7 +43,6 @@ public class InitAction extends AbstractAuditAction {
     }
 
     @Transactional
-    @Override
     protected void doExecute() {
         TblAuditFlow tblAuditFlow = getAuditFlow();
 

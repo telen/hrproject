@@ -1,8 +1,7 @@
 package com.mohress.training.service.student;
 
-import com.google.common.base.Verify;
 import com.mohress.training.dao.TblStudentDao;
-import com.mohress.training.entity.TblStudent;
+import com.mohress.training.entity.student.TblStudent;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.util.BusiVerify;
 import lombok.extern.slf4j.Slf4j;

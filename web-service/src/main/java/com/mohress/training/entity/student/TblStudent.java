@@ -1,4 +1,4 @@
-package com.mohress.training.entity;
+package com.mohress.training.entity.student;
 
 import lombok.Data;
 

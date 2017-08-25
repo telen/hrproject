@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationEvent;
 /**
  * 审核通过事件
  *
- * Created by youtao.wan on 2017/8/21.
  */
 @Getter
 public class AuditPassEvent extends ApplicationEvent{

@@ -1,4 +1,4 @@
-package com.mohress.training.dto;
+package com.mohress.training.dto.audit;
 
 import lombok.Data;
 

@@ -5,6 +5,8 @@ import com.mohress.training.dao.TblClassMemberDao;
 import com.mohress.training.dto.mclass.ClassApplyDto;
 import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.entity.mclass.TblClassMember;
+import com.mohress.training.enums.ResultCode;
+import com.mohress.training.exception.BusinessException;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.audit.action.InitAction;
 import com.mohress.training.util.BusiVerify;
@@ -63,9 +65,35 @@ public class ClassServiceImpl implements BaseManageService {
         return (List<T>) tblClassDao.selectByKeyword((ClassQuery) query);
     }
 
-    public void apply(ClassApplyDto classApplyDto) {
+    /**
+     * 开班申请
+     *
+     * @param classApplyDto
+     */
+    public void apply(ClassApplyDto classApplyDto){
+        TblClass tblClass = tblClassDao.selectByClassId(classApplyDto.getClassId());
+
+        // 1.申请校验
+        applyVerify(tblClass);
+
+        // 2.发起审核动作
         InitAction initAction = new InitAction(classApplyDto.getApplicant(), "", "Class_audit_template", classApplyDto.getClassId());
         initAction.execute();
+    }
+
+    /**
+     * 开班申请校验
+     *
+     * @param tblClass
+     */
+    private void applyVerify(TblClass tblClass){
+        if (tblClass == null){
+            throw new BusinessException(ResultCode.FAIL, "班级不存在");
+        }
+
+        if(TblClass.Status.APPLIED == tblClass.getStatus()){
+            throw new BusinessException(ResultCode.FAIL, "开班申请已提交，请勿重复申请");
+        }
     }
 
     public List<TblClass> queryClassByRangeTime(String agencyId, Date startTime, Date endTime) {

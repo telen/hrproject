@@ -52,9 +52,9 @@ public class AccountController {
         userDto.setUserId(userId);
         userDto.setUserName(accountAuthority.getAccount().getUserName());
 
-        List<RoleAuthority> roleAuthorityList = Lists.newArrayList(accountAuthority.getAuthoritySet());
+        List<RoleAuthority> roleAuthorityList = Lists.newArrayList(accountAuthority.getAuthorityList());
 
-        if (CollectionUtils.isEmpty(accountAuthority.getAuthoritySet())){
+        if (CollectionUtils.isEmpty(accountAuthority.getAuthorityList())){
             return new Response<>(ResultCode.SUCCESS.getCode(), "用户信息查询成功", userDto);
         }
 

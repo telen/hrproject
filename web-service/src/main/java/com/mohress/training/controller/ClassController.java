@@ -69,4 +69,10 @@ public class ClassController {
         tblClass.setInspectionStatus(classRequestDto.getInspectionStatus());
         return new ClassStudent(tblClass, null);
     }
+
+    @ResponseBody
+    @RequestMapping("graduate")
+    public Response graduate(){
+        return null;
+    }
 }

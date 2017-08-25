@@ -11,7 +11,7 @@ import com.mohress.training.dto.mclass.ClassItemDto;
 import com.mohress.training.dto.student.StudentItemDto;
 import com.mohress.training.dto.teacher.TeacherItemDto;
 import com.mohress.training.entity.TblCourse;
-import com.mohress.training.entity.TblStudent;
+import com.mohress.training.entity.student.TblStudent;
 import com.mohress.training.entity.TblTeacher;
 import com.mohress.training.entity.agency.TblAgency;
 import com.mohress.training.entity.attendance.TblAttendance;

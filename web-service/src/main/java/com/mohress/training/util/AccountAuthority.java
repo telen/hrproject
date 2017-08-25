@@ -4,7 +4,7 @@ import com.mohress.training.entity.security.TblAccount;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * 权限管理-账号权限集合
@@ -16,5 +16,5 @@ public class AccountAuthority {
 
     private TblAccount account;
 
-    private Set<RoleAuthority> authoritySet;
+    private List<RoleAuthority> authorityList;
 }
