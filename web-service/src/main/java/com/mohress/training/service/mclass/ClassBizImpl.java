@@ -77,7 +77,7 @@ public class ClassBizImpl implements ModuleBiz {
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
         List<TblClass> tblClasses = classServiceImpl.query(buildClassQuery(pageDto));
         for (TblClass tblClass : tblClasses) {
-
+            String courseId = tblClass.getCourseId();
         }
 
         List<ClassItemDto> classItemDtos = Convert.convertClass(tblClasses);
