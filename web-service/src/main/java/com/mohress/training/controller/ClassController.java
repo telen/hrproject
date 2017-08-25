@@ -41,4 +41,10 @@ public class ClassController {
 
         return new Response(ResultCode.SUCCESS.getCode(), "开班审核已提交，等待审核。");
     }
+
+    @ResponseBody
+    @RequestMapping("graduate")
+    public Response graduate(){
+        return null;
+    }
 }

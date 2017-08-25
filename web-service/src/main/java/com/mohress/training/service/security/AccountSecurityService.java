@@ -19,7 +19,6 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 加载账号信息和账号权限信息
@@ -53,14 +52,14 @@ public class AccountSecurityService implements UserDetailsService{
 
 
     private List<GrantedAuthority> loadAuthority(AccountAuthority accountAuthority){
-        Set<RoleAuthority> roleAuthoritySet = accountAuthority.getAuthoritySet();
-        if(CollectionUtils.isEmpty(roleAuthoritySet)){
+        List<RoleAuthority> roleAuthorityList = accountAuthority.getAuthorityList();
+        if(CollectionUtils.isEmpty(roleAuthorityList)){
             return ImmutableList.of();
         }
 
         // 加载角色关联的权限Id
         List<GrantedAuthority> authorityList = Lists.newArrayList();
-        for (RoleAuthority it: roleAuthoritySet){
+        for (RoleAuthority it: roleAuthorityList){
             if (CollectionUtils.isEmpty(it.getAuthorityAction())){
                 continue;
             }
