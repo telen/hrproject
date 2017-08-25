@@ -5,6 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
+ *
  * Created by qx.wang on 2017/8/17.
  */
 @Data
@@ -21,6 +22,8 @@ public class ClassQuery {
     private String classname;
 
     private Integer stage;
+
+    private List<String> classIds;
 
     public ClassQuery(Integer pageSize, Integer pageIndex) {
         this.pageSize = pageSize;

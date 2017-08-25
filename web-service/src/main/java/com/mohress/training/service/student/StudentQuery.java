@@ -23,5 +23,7 @@ public class StudentQuery {
 
     private String classId;
 
+    private String agencyId;
+
     private List<String> studentIds;
 }

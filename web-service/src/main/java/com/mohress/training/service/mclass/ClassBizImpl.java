@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Collections;
@@ -41,7 +42,7 @@ public class ClassBizImpl implements ModuleBiz {
     private AgencyServiceImpl agencyService;
 
     @Override
-    public void newModule(String o) {
+    public void newModule(String o, String agencyId) {
         Preconditions.checkNotNull(o);
         ClassRequestDto classRequestDto = null;
         try {
@@ -107,9 +108,18 @@ public class ClassBizImpl implements ModuleBiz {
         throw new RuntimeException("暂不支持");
     }
 
+    @Override
+    public void checkDelete(String agencyId, List<String> ids) {
+//        List<TblClass> tblClasses = classServiceImpl.query(buildClassQueryWithIds(ids));
+//        for(TblClass tblClass:tblClasses){
+//            if(agencyId != null && agencyId.equals(tblClass.get
+//        }
+    }
+
     private ClassQuery buildClassQuery(QueryDto pageDto) {
         ClassQuery classQuery = new ClassQuery(pageDto.getPageSize(), pageDto.getPage());
         classQuery.setClassname(pageDto.getClassname());
+        classQuery.setAgencyId(pageDto.getAgencyId());
         classQuery.setStage(pageDto.getStage());
         return classQuery;
     }

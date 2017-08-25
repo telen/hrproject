@@ -83,6 +83,9 @@
         <if test="idNumber != null">
             and id_number = #{idNumber}
         </if>
+        <if test="agencyId != null">
+            and course_id in (select course_id from tbl_course where agency_id = #{agencyId})
+        </if>
         limit #{pageIndex},#{pageSize}
     </select>
 
@@ -100,6 +103,9 @@
         </if>
         <if test="idNumber != null">
             and id_number = #{idNumber}
+        </if>
+        <if test="agencyId != null">
+            and course_id in (select course_id from tbl_course where agency_id = #{agencyId})
         </if>
         and student_id in
         <foreach collection="studentIds" item="item" separator="," open="(" close=")" index="index">

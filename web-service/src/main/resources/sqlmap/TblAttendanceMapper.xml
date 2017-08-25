@@ -6,6 +6,7 @@
         <result column="attendance_id" property="attendanceId" jdbcType="VARCHAR"/>
         <result column="course_id" property="courseId" jdbcType="VARCHAR"/>
         <result column="class_id" property="classId" jdbcType="VARCHAR"/>
+        <result column="agency_id" property="agencyId" jdbcType="VARCHAR"/>
         <result column="device_id" property="deviceId" jdbcType="VARCHAR"/>
         <result column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
@@ -15,7 +16,7 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, attendance_id, course_id, class_id, device_id, user_id, username, remark, attendance_time, 
+    id, attendance_id, course_id, class_id, device_id,agency_id, user_id, username, remark, attendance_time,
     status, create_time
   </sql>
 
@@ -45,6 +46,9 @@
         </if>
         <if test="courseId != null">
             and course_id = #{courseId}
+        </if>
+        <if test="agencyId !=null">
+            and course_id in (select course_id from tbl_course where agency_id = #{agencyId})
         </if>
         limit #{pageIndex},#{pageSize}
     </select>

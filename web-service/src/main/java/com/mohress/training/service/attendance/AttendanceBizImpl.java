@@ -52,7 +52,7 @@ public class AttendanceBizImpl implements ModuleBiz {
     private AttendanceStatisticsService attendanceStatisticsService;
 
     @Override
-    public void newModule(String o) {
+    public void newModule(String o, String agencyId) {
         Preconditions.checkNotNull(o);
         AttendanceRequestDto attendanceRequestDto;
         try {
@@ -62,7 +62,7 @@ public class AttendanceBizImpl implements ModuleBiz {
         }
 
         Checker.checkNewAttendance(attendanceRequestDto);
-        TblAttendance attendance = buildInsertTblAttendance(attendanceRequestDto);
+        TblAttendance attendance = buildInsertTblAttendance(attendanceRequestDto,agencyId);
 
         StudentQuery query = new StudentQuery();
         query.setPageIndex(0);
@@ -71,10 +71,9 @@ public class AttendanceBizImpl implements ModuleBiz {
         List<TblStudent> students = studentServiceImpl.query(query);
         BusiVerify.verify(!CollectionUtils.isEmpty(students), "考勤学生未查询到");
         //判断该学生是否是该机构
-        String agencyId = students.get(0).getAgencyId();
         //如果补打卡，判断是否为一个机构
         if (TblAttendance.Status.PATCH_CLOCK.equals(attendance.getStatus())) {
-
+            BusiVerify.verify(students.get(0).getAgencyId().equals(agencyId), "学生不是该机构，不可进行此操作" + o + agencyId);
         }
 
         attendanceServiceImpl.newModule(attendance);
@@ -113,14 +112,20 @@ public class AttendanceBizImpl implements ModuleBiz {
         return Convert.convertAttendance(tblAgencies);
     }
 
+    @Override
+    public void checkDelete(String agencyId, List<String> ids) {
+        return;
+    }
+
     private AttendanceQuery buildAttendanceQuery(QueryDto dto) {
         AttendanceQuery attendanceQuery = new AttendanceQuery(dto.getPage(), dto.getPageSize());
         BeanUtils.copyProperties(dto, attendanceQuery);
         return attendanceQuery;
     }
 
-    private TblAttendance buildInsertTblAttendance(AttendanceRequestDto attendanceRequestDto) {
+    private TblAttendance buildInsertTblAttendance(AttendanceRequestDto attendanceRequestDto,String agencyId) {
         TblAttendance attendance = new TblAttendance();
+        attendance.setAgencyId(agencyId);
         BeanUtils.copyProperties(attendanceRequestDto, attendance);
         return attendance;
     }
