@@ -2,24 +2,27 @@ package com.mohress.training.service.ledger.impl;
 
 import com.google.common.collect.Lists;
 import com.mohress.training.dao.*;
-import com.mohress.training.dto.ledger.LedgerApplyDto;
+import com.mohress.training.dto.ledger.*;
 import com.mohress.training.entity.agency.TblAccountAgency;
 import com.mohress.training.entity.agency.TblAgency;
 import com.mohress.training.entity.ledger.TblLedger;
-import com.mohress.training.entity.ledger.TblLedgerStudent;
+import com.mohress.training.entity.ledger.TblLedgerGraduateSnapshot;
 import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.enums.AuditStatus;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.exception.BusinessException;
 import com.mohress.training.service.audit.action.InitAction;
 import com.mohress.training.service.ledger.LedgerService;
+import com.mohress.training.util.Convert;
 import com.mohress.training.util.constant.AuditConstant;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 台账服务
@@ -31,7 +34,7 @@ public class LedgerServiceImpl implements LedgerService{
     private TblLedgerDao tblLedgerDao;
 
     @Resource
-    private TblLedgerStudentDao tblLedgerStudentDao;
+    private TblLedgerGraduateSnapshotDao tblLedgerGraduateSnapshotDao;
 
     @Resource
     private TblAgencyDao tblAgencyDao;
@@ -60,17 +63,48 @@ public class LedgerServiceImpl implements LedgerService{
 
         // 4.拼装数据
         TblLedger tblLedger = packLedgerData();
-        List<TblLedgerStudent> tblLedgerStudentList = packStudentData();
+        List<TblLedgerGraduateSnapshot> tblLedgerGraduateSnapshotList = packGraduateSnapshotData();
 
         // 5.发起审核
-        doApply(ledgerApplyDto, tblLedger, tblLedgerStudentList);
+        doApply(ledgerApplyDto, tblLedger, tblLedgerGraduateSnapshotList);
+    }
+
+    @Override
+    public List<LedgerItemDto> queryLedger(LedgerQueryDto ledgerQueryDto) {
+
+        List<TblLedger> tblLedgerList = tblLedgerDao.selectPageByAgencyId(ledgerQueryDto.getAgencyId(), new RowBounds(ledgerQueryDto.getOffset(), ledgerQueryDto.getPageSize()));
+
+        List<LedgerItemDto> ledgerItemDtoList = Lists.newArrayList();
+        for (TblLedger it : tblLedgerList){
+            LedgerItemDto ledgerItemDto = Convert.tblLedger2ledgerItemDto(it);
+            ledgerItemDtoList.add(ledgerItemDto);
+        }
+        return ledgerItemDtoList;
+    }
+
+    @Override
+    public List<GraduateSnapshotItemDto> queryLedgerGraduateSnapshot(GraduateSnapshotQueryDto graduateSnapshotQueryDto) {
+
+        List<TblLedgerGraduateSnapshot> tblLedgerGraduateSnapshotList = tblLedgerGraduateSnapshotDao.selectPageByLedgerId(graduateSnapshotQueryDto.getLedgerId(), new RowBounds(graduateSnapshotQueryDto.getOffset(), graduateSnapshotQueryDto.getPageSize()));
+
+        if (CollectionUtils.isEmpty(tblLedgerGraduateSnapshotList)){
+            return Lists.newArrayList();
+        }
+
+        List<GraduateSnapshotItemDto> list = Lists.newArrayList();
+
+        for (TblLedgerGraduateSnapshot it: tblLedgerGraduateSnapshotList){
+            GraduateSnapshotItemDto graduateSnapshotItemDto = newGraduateSnapshotItemDto(it);
+            list.add(graduateSnapshotItemDto);
+        }
+        return list;
     }
 
     @Transactional
-    private void doApply(LedgerApplyDto ledgerApplyDto, TblLedger tblLedger, List<TblLedgerStudent> ledgerStudentList){
+    private void doApply(LedgerApplyDto ledgerApplyDto, TblLedger tblLedger, List<TblLedgerGraduateSnapshot> ledgerStudentList){
         // 1.保存数据
         tblLedgerDao.insert(tblLedger);
-        tblLedgerStudentDao.insertBatch(ledgerStudentList);
+        tblLedgerGraduateSnapshotDao.insertBatch(ledgerStudentList);
 
         // 2.发起审核流程
         InitAction initAction = new InitAction(ledgerApplyDto.getApplicant(), "", AuditConstant.LEDGER_AUDIT_TEMPLATE_ID, "");
@@ -86,7 +120,12 @@ public class LedgerServiceImpl implements LedgerService{
         return new TblLedger();
     }
 
-    private List<TblLedgerStudent> packStudentData(){
+    /**
+     * 生成快照数据
+     *
+     * @return
+     */
+    private List<TblLedgerGraduateSnapshot> packGraduateSnapshotData(){
         return Lists.newArrayList();
     }
 
@@ -100,7 +139,7 @@ public class LedgerServiceImpl implements LedgerService{
             throw new BusinessException(ResultCode.FAIL, "");
         }
 
-        if (tblAccountAgency.getAgencyId() != tblAgency.getAgencyId()){
+        if (!Objects.equals(tblAccountAgency.getAgencyId() , tblAgency.getAgencyId())){
             throw new BusinessException(ResultCode.FAIL, "");
         }
     }
@@ -109,9 +148,13 @@ public class LedgerServiceImpl implements LedgerService{
      * 台账重复申请校验
      */
     private void duplicateApplyVerify(LedgerApplyDto ledgerApplyDto){
-        List<TblLedger> tblLedgerList = tblLedgerDao.selectByClassIdAndStatus(ledgerApplyDto.getClassId(), AuditStatus.AUDIT_WAIT.getStatus());
-        if (!CollectionUtils.isEmpty(tblLedgerList)){
+        int count = tblLedgerDao.countByClassIdAndStatus(ledgerApplyDto.getClassId(), AuditStatus.AUDIT_WAIT.getStatus());
+        if (count > 0){
             throw new BusinessException(ResultCode.FAIL, "班级台账重复申请");
         }
+    }
+
+    private GraduateSnapshotItemDto newGraduateSnapshotItemDto(TblLedgerGraduateSnapshot tblLedgerGraduateSnapshot){
+        return new GraduateSnapshotItemDto();
     }
 }

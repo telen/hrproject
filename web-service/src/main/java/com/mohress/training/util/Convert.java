@@ -7,10 +7,15 @@ import com.google.common.collect.Lists;
 import com.mohress.training.dto.agency.AgencyItemDto;
 import com.mohress.training.dto.attendance.AttendanceItemDto;
 import com.mohress.training.dto.course.CourseItemDto;
+import com.mohress.training.dto.ledger.GraduateSnapshotItemDto;
+import com.mohress.training.dto.ledger.LedgerItemDto;
 import com.mohress.training.dto.mclass.ClassItemDto;
+import com.mohress.training.dto.student.GraduateDto;
 import com.mohress.training.dto.student.StudentItemDto;
 import com.mohress.training.dto.teacher.TeacherItemDto;
 import com.mohress.training.entity.TblCourse;
+import com.mohress.training.entity.ledger.TblLedger;
+import com.mohress.training.entity.student.TblExamScore;
 import com.mohress.training.entity.student.TblStudent;
 import com.mohress.training.entity.TblTeacher;
 import com.mohress.training.entity.agency.TblAgency;
@@ -19,6 +24,7 @@ import com.mohress.training.entity.mclass.TblClass;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -151,6 +157,26 @@ public class Convert {
                 }
             }
         });
+    }
+
+
+    public static TblExamScore graduateRequestDto2TblExamScore(GraduateDto graduateDto){
+        BusiVerify.verifyNotEmpty(graduateDto.getStudentId(), "学生Id不能为空");
+        BusiVerify.verifyNotEmpty(graduateDto.getTheoryScore(), "理论成绩不能为空");
+        BusiVerify.verifyNotEmpty(graduateDto.getPracticeScore(), "实践成绩不能为空");
+        BusiVerify.verifyNotEmpty(graduateDto.getCertificate(), "结业证书不能为空");
+
+        TblExamScore tblExamScore = new TblExamScore();
+
+        tblExamScore.setStudentId(graduateDto.getStudentId());
+        tblExamScore.setTheoryScore(new BigDecimal(graduateDto.getTheoryScore()));
+        tblExamScore.setPracticeScore(new BigDecimal(graduateDto.getPracticeScore()));
+        tblExamScore.setCertificate(graduateDto.getCertificate());
+        return tblExamScore;
+    }
+
+    public static LedgerItemDto tblLedger2ledgerItemDto(TblLedger tblLedger){
+        return new LedgerItemDto();
     }
 
 }

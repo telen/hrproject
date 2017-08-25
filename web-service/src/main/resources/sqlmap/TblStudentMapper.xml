@@ -68,6 +68,13 @@
         where id_number = #{idNumber}
     </select>
 
+    <select id="selectByStudentId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_student
+        where student_id = #{studentId}
+    </select>
+
     <select id="queryStudentList" resultMap="BaseResultMap"
             parameterType="com.mohress.training.service.student.StudentQuery">
         select

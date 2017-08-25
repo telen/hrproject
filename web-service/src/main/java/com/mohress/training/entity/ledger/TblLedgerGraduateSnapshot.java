@@ -1,20 +1,25 @@
-package com.mohress.training.dto.ledger;
+package com.mohress.training.entity.ledger;
+
+import lombok.Data;
+
+import java.math.BigDecimal;
 
 /**
- * 台账审核关联的学生信息
+ * 台账-毕业生审核快照
  *
  */
-public class LedgerStudentItemDto {
+@Data
+public class TblLedgerGraduateSnapshot {
 
     /**
-     * 台账记录Id
+     * 主键ID
+     */
+    private Long id;
+
+    /**
+     * 台账Id
      */
     private String ledgerId;
-
-    /**
-     * 学生Id
-     */
-    private String studentId;
 
     /**
      * 学生姓名
@@ -22,12 +27,12 @@ public class LedgerStudentItemDto {
     private String studentName;
 
     /**
-     * 学生身份证号
+     * 身份证号
      */
     private String idNumber;
 
     /**
-     * 学员类型
+     * 人员类型
      */
     private String studentCat;
 
@@ -39,27 +44,27 @@ public class LedgerStudentItemDto {
     /**
      * 理论成绩
      */
-    private String theoryScore;
+    private BigDecimal theoryScore;
 
     /**
      * 实践成绩
      */
-    private String practiceScore;
+    private BigDecimal practiceScore;
 
     /**
-     * 参保情况
+     * 是否参保
      * 0-参保
      * 1-未参保
      */
     private Integer insuredStatus;
 
     /**
-     * 培训证书类型
+     * 结业证书
      */
     private String certificate;
-    /**
-     * 培训证书等级
-     */
-    private String certificateLevel;
 
+    /**
+     * 结业证书编号
+     */
+    private String certificateId;
 }

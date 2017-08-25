@@ -2,7 +2,9 @@ package com.mohress.training.dao;
 
 import com.mohress.training.entity.ledger.TblLedger;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
+import java.math.RoundingMode;
 import java.util.List;
 
 /**
@@ -15,7 +17,9 @@ public interface TblLedgerDao {
 
     int updateStatusByLedgerId(@Param("ledgerId") String ledgerId, @Param("status") int status);
 
+    int countByClassIdAndStatus(String classId, int status);
+
     TblLedger selectByLedgerId(String ledgerId);
 
-    List<TblLedger> selectByClassIdAndStatus(String classId, int status);
+    List<TblLedger> selectPageByAgencyId(String agencyId, RowBounds rowBounds);
 }
