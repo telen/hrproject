@@ -3,9 +3,11 @@ package com.mohress.training.service.mclass;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.mohress.training.dao.TblClassMemberDao;
+import com.mohress.training.dao.TblCourseDao;
 import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.mclass.ClassItemDto;
 import com.mohress.training.dto.mclass.ClassRequestDto;
+import com.mohress.training.entity.TblCourse;
 import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.entity.mclass.TblClassMember;
 import com.mohress.training.service.BaseManageService;
@@ -37,9 +39,8 @@ public class ClassBizImpl implements ModuleBiz {
     private BaseManageService classServiceImpl;
     @Resource
     private TblClassMemberDao tblClassMemberDao;
-
     @Resource
-    private AgencyServiceImpl agencyService;
+    private TblCourseDao tblCourseDao;
 
     @Override
     public void newModule(String o, String agencyId) {
@@ -79,6 +80,8 @@ public class ClassBizImpl implements ModuleBiz {
         List<TblClass> tblClasses = classServiceImpl.query(buildClassQuery(pageDto));
         for (TblClass tblClass : tblClasses) {
             String courseId = tblClass.getCourseId();
+            TblCourse tblCourse = tblCourseDao.selectByCourseId(courseId);
+//            tblClass;
         }
 
         List<ClassItemDto> classItemDtos = Convert.convertClass(tblClasses);

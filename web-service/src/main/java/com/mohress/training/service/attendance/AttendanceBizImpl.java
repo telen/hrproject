@@ -62,7 +62,7 @@ public class AttendanceBizImpl implements ModuleBiz {
         }
 
         Checker.checkNewAttendance(attendanceRequestDto);
-        TblAttendance attendance = buildInsertTblAttendance(attendanceRequestDto,agencyId);
+        TblAttendance attendance = buildInsertTblAttendance(attendanceRequestDto, agencyId);
 
         StudentQuery query = new StudentQuery();
         query.setPageIndex(0);
@@ -94,8 +94,6 @@ public class AttendanceBizImpl implements ModuleBiz {
         Preconditions.checkNotNull(pageDto);
         Preconditions.checkArgument(pageDto.getPage() >= 0);
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
-//        Preconditions.checkNotNull(pageDto.getUserId());
-        //todo 增加机构参数
         List<TblAttendance> tblAgencies = attendanceServiceImpl.query(buildAttendanceQuery(pageDto));
         return Convert.convertAttendance(tblAgencies);
     }
@@ -105,7 +103,6 @@ public class AttendanceBizImpl implements ModuleBiz {
         Preconditions.checkNotNull(queryDto);
         Preconditions.checkArgument(queryDto.getPage() >= 0);
         Preconditions.checkArgument(queryDto.getPageSize() > 0);
-        //todo 增加机构参数
 
         BusiVerify.verifyNotEmpty(queryDto.getKeyword(), "关键词为空");
         List<TblAttendance> tblAgencies = attendanceServiceImpl.query(buildAttendanceQuery(queryDto));
@@ -123,7 +120,7 @@ public class AttendanceBizImpl implements ModuleBiz {
         return attendanceQuery;
     }
 
-    private TblAttendance buildInsertTblAttendance(AttendanceRequestDto attendanceRequestDto,String agencyId) {
+    private TblAttendance buildInsertTblAttendance(AttendanceRequestDto attendanceRequestDto, String agencyId) {
         TblAttendance attendance = new TblAttendance();
         attendance.setAgencyId(agencyId);
         BeanUtils.copyProperties(attendanceRequestDto, attendance);
@@ -143,12 +140,11 @@ public class AttendanceBizImpl implements ModuleBiz {
             timeValue = tblJobTime.getTimeValue();
         }
 
-        //todo 找到该用户agencyId
         Date endTime = new Date();
-        List<TblClass> tblClasses = classServiceImpl.queryClassByRangeTime(null, timeValue, endTime);
+        List<TblClass> tblClasses = classServiceImpl.queryClassByRangeTime(pageDto.getAgencyId(), timeValue, endTime);
         if (!CollectionUtils.isEmpty(tblClasses)) {
             //统计
-            attendanceStatisticsService.buildStatistics(tblClasses, null);
+            attendanceStatisticsService.buildStatistics(tblClasses, pageDto.getAgencyId());
         }
 
         List<TblAttendanceStatistics> statisticItems = attendanceStatisticsService.query(buildAttendanceStatisticQuery(pageDto));
@@ -175,7 +171,7 @@ public class AttendanceBizImpl implements ModuleBiz {
         query.setAgencyName(pageDto.getKeyword());
         query.setPageIndex(pageDto.getPage());
         query.setPageSize(pageDto.getPageSize());
-        //todo 找到该用户agencyId
+        query.setAgencyId(pageDto.getAgencyId());
         return query;
     }
 }

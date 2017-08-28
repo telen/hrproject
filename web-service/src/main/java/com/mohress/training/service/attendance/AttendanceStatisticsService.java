@@ -33,13 +33,7 @@ import java.util.List;
 public class AttendanceStatisticsService implements BaseManageService {
 
     @Resource
-    private TblAttendanceStatisticsDao tblAttendanceStatisticsDao;
-
-    @Resource
     private TblClassMemberDao tblClassMemberDao;
-
-    @Resource
-    private TeacherServiceImpl teacherServiceImpl;
 
     @Resource
     private CourseServiceImpl courseServiceImpl;
@@ -48,7 +42,13 @@ public class AttendanceStatisticsService implements BaseManageService {
     private AgencyServiceImpl agencyServiceImpl;
 
     @Resource
+    private TeacherServiceImpl teacherServiceImpl;
+
+    @Resource
     private AttendanceServiceImpl attendanceServiceImpl;
+
+    @Resource
+    private TblAttendanceStatisticsDao tblAttendanceStatisticsDao;
 
     @Override
     public <T> void newModule(T statistics) {
