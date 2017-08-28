@@ -6,10 +6,8 @@ import com.mohress.training.dto.course.CourseItemDto;
 import com.mohress.training.dto.course.CourseRequestDto;
 import com.mohress.training.entity.TblCourse;
 import com.mohress.training.entity.TblTeacher;
-import com.mohress.training.exception.BusinessException;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.ModuleBiz;
-import com.mohress.training.service.mclass.ClassQuery;
 import com.mohress.training.service.teacher.TeacherQuery;
 import com.mohress.training.service.teacher.TeacherServiceImpl;
 import com.mohress.training.util.Checker;
@@ -39,7 +37,7 @@ public class CourseBizImpl implements ModuleBiz {
     private TeacherServiceImpl teacherServiceImpl;
 
     @Override
-    public void newModule(String o) {
+    public void newModule(String o, String agencyId) {
         Preconditions.checkArgument(o != null);
         CourseRequestDto courseRequestDto;
         try {
@@ -50,7 +48,7 @@ public class CourseBizImpl implements ModuleBiz {
 
         Checker.checkNewCourse(courseRequestDto);
         //todo 校验教师合理性
-        courseServiceImpl.newModule(buildInsertTblCourse(courseRequestDto));
+        courseServiceImpl.newModule(buildInsertTblCourse(courseRequestDto, agencyId));
     }
 
     @Override
@@ -81,16 +79,16 @@ public class CourseBizImpl implements ModuleBiz {
         List<TblCourse> tblCourses = courseServiceImpl.query(buildCourseQuery(pageDto));
 
         List<CourseItemDto> courseItemDtos = Convert.convertCourse(tblCourses);
-        if (CollectionUtils.isEmpty(courseItemDtos)){
+        if (CollectionUtils.isEmpty(courseItemDtos)) {
             return courseItemDtos;
         }
-        for(CourseItemDto dto:courseItemDtos){
+        for (CourseItemDto dto : courseItemDtos) {
             TeacherQuery query = new TeacherQuery();
             query.setTeacherId(dto.getTeacherId());
             query.setPageIndex(0);
             query.setPageSize(10);
             List<TblTeacher> teachers = teacherServiceImpl.query(query);
-            if(!CollectionUtils.isEmpty(teachers)){
+            if (!CollectionUtils.isEmpty(teachers)) {
                 dto.setTeacherName(teachers.get(0).getName());
             }
         }
@@ -106,6 +104,11 @@ public class CourseBizImpl implements ModuleBiz {
         return Convert.convertCourse(tblCourses);
     }
 
+    @Override
+    public void checkDelete(String agencyId, List<String> ids) {
+        //todo
+    }
+
     private CourseQuery buildCourseQueryByKey(QueryDto dto) {
         CourseQuery query = new CourseQuery();
         query.setKeyword(dto.getKeyword());
@@ -116,17 +119,17 @@ public class CourseBizImpl implements ModuleBiz {
 
     private CourseQuery buildCourseQuery(QueryDto dto) {
         CourseQuery query = new CourseQuery();
-        //todo 查询为agencyId下的
-//        query.setAgencyId(dto.get);
+        query.setAgencyId(dto.getAgencyId());
         query.setPageIndex(dto.getPage());
         query.setPageSize(dto.getPageSize());
         return query;
     }
 
-    private TblCourse buildInsertTblCourse(CourseRequestDto courseRequestDto) {
+    private TblCourse buildInsertTblCourse(CourseRequestDto courseRequestDto, String agencyId) {
         TblCourse course = new TblCourse();
         BeanUtils.copyProperties(courseRequestDto, course);
         course.setCourseId(SequenceCreator.getCourseId());
+        course.setAgencyId(agencyId);
         return course;
     }
 

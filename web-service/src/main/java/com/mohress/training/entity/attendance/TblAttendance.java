@@ -57,6 +57,8 @@ public class TblAttendance {
 
     private Date createTime;
 
+    private String agencyId;
+
     public static class Status {
         public static final Integer LEAVE_EARLY = 3;
         public static final Integer BE_LATE = 2;

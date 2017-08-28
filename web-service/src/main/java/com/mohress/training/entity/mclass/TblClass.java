@@ -66,6 +66,8 @@ public class TblClass {
 
     private Date updateTime;
 
+    private String agencyId;
+
     public class InspectionStatus {
 
         public static final int NOT_CHECK = 0;

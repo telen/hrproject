@@ -12,7 +12,7 @@ public interface ModuleBiz {
     /**
      * 新增
      */
-    void newModule(String o);
+    void newModule(String o, String agencyId);
 
     /**
      * 批量删除
@@ -27,4 +27,6 @@ public interface ModuleBiz {
     Object query(QueryDto pageDto);
 
     Object queryByKeyword(QueryDto queryDto);
+
+    void checkDelete(String agencyId, List<String> ids);
 }

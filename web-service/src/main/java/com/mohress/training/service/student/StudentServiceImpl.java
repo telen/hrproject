@@ -1,12 +1,16 @@
 package com.mohress.training.service.student;
 
+import com.google.common.collect.Lists;
+import com.mohress.training.dao.TblClassMemberDao;
 import com.mohress.training.dao.TblStudentDao;
+import com.mohress.training.entity.mclass.TblClassMember;
 import com.mohress.training.entity.student.TblStudent;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.util.BusiVerify;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,6 +27,8 @@ public class StudentServiceImpl implements BaseManageService {
 
     @Resource
     private TblStudentDao tblStudentDao;
+    @Resource
+    private TblClassMemberDao tblClassMemberDao;
 
     @Override
     @Transactional
@@ -44,8 +50,24 @@ public class StudentServiceImpl implements BaseManageService {
     }
 
     @Override
-    public <T, M> List<T> query(M m) {
-        return (List<T>) tblStudentDao.queryStudentList((StudentQuery) m);
+    public <T, M> List<T> query(M query) {
+        StudentQuery q = (StudentQuery) query;
+        if (q.getClassId() != null) {
+            List<TblClassMember> classMembers = tblClassMemberDao.selectByClassId(q.getClassId());
+            List<String> ids = Lists.newArrayList();
+            for (TblClassMember member : classMembers) {
+                ids.add(member.getStudentId());
+            }
+            if (!CollectionUtils.isEmpty(ids)) {
+                q.setStudentIds(ids);
+            } else {
+                return null;
+            }
+
+            return (List<T>) tblStudentDao.queryStudentByStudentId(q);
+
+        }
+        return (List<T>) tblStudentDao.queryStudentList(q);
     }
 
     @Override
