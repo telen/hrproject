@@ -22,4 +22,6 @@ public interface TblStudentDao {
     TblStudent selectByIdNumber(String idNumber);
 
     List<TblStudent> queryStudentByStudentId(StudentQuery query);
+
+    TblStudent selectByStudentId(String studentId);
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mohress.training.dao.TblLedgerAuditRecordDao">
+    <resultMap id="resultMap" type="TblLedgerAuditRecord">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="ledger_id" property="ledgerId" jdbcType="VARCHAR"/>
+        <result column="record_id" property="recordId" jdbcType="VARCHAR"/>
+        <result column="flow_id" property="flowId" jdbcType="VARCHAR"/>
+        <result column="ledger_id" property="ledgerId" jdbcType="VARCHAR"/>
+        <result column="agency_id" property="agencyId" jdbcType="VARCHAR"/>
+        <result column="course_id" property="courseId" jdbcType="VARCHAR"/>
+        <result column="class_id" property="classId" jdbcType="VARCHAR"/>
+        <result column="audit_status" property="auditStatus" jdbcType="TINYINT"/>
+        <result column="key_word" property="keyWord" jdbcType="VARCHAR"/>
+        <result column="audit_role_id" property="auditRoleId" jdbcType="VARCHAR"/>
+        <result column="auditor" property="auditor" jdbcType="VARCHAR"/>
+        <result column="audit_result" property="auditResult" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="columnList">
+        id, ledger_id, record_id, flow_id, ledger_id, agency_id, course_id, class_id, audit_status, key_word, audit_role_id, auditor, audit_result
+    </sql>
+
+    <insert id="insert" parameterType="TblLedgerAuditRecord">
+        INSERT INTO tb_ledger_audit_record
+        (ledger_id, record_id, flow_id, agency_id, course_id, class_id, audit_status, key_word, audit_role_id, auditor, audit_result)
+        VALUE
+        (#{ledgerId}, #{recordId}, #{flowId}, #{agencyId}, #{courseId}, #{classId}, #{auditStatus}, #{keyWord}, #{auditRoleId}, #{auditor}, #{auditResult})
+    </insert>
+
+    <select id="selectByFlowIdAndRoleId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_ledger_audit_record
+        WHERE flow_id = #{flowId} AND audit_role_id = #{auditRoleId}
+    </select>
+
+    <update id="updateByPrimaryKey" parameterType="TblLedgerAuditRecord">
+        UPDATE tb_ledger_audit_record
+        SET audit_status = #{auditStatus}, auditor = #{auditor}, audit_result = #{auditResult}
+        WHERE flow_id = #{flowId} AND audit_role_id = #{auditRoleId}
+    </update>
+
+    <select id="selectPageByRoleId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_ledger_audit_record
+        WHERE 1=1
+        <if test="agencyId != null">
+            AND agency_id = #{agencyId}
+        </if>
+        <if test="auditRoleId != null">
+            AND audit_role_id = #{auditRoleId}
+        </if>
+        ORDER BY id DESC
+    </select>
+</mapper>

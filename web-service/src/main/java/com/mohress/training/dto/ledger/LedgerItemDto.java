@@ -1,20 +1,14 @@
-package com.mohress.training.dto.audit;
+package com.mohress.training.dto.ledger;
 
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
- * 台账审核展示条目
- *
+ * Created by youtao.wan on 2017/8/25.
  */
 @Data
-public class LedgerAuditItemDto implements Serializable {
-
-    /**
-     * 审核流程Id
-     */
-    private String flowId;
+public class LedgerItemDto implements Serializable{
 
     /**
      * 台账唯一标示Id
@@ -67,6 +61,15 @@ public class LedgerAuditItemDto implements Serializable {
     private String attendanceRate;
 
     /**
+     * 台账审核状态
+     * 0=初始化(默认值)
+     * 1=等待审核
+     * 2=审核通过
+     * 3=审核驳回
+     */
+    private Integer auditStatus;
+
+    /**
      * 申请人姓名
      */
     private String applicantName;
@@ -75,9 +78,4 @@ public class LedgerAuditItemDto implements Serializable {
      * 申请人手机号
      */
     private String applicantMobile;
-
-    /**
-     * 审核状态
-     */
-    private Integer auditStatus;
 }

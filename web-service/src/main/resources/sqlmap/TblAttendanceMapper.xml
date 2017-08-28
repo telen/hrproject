@@ -63,6 +63,13 @@
         and create_time between #{startTime} and #{endTime}
     </select>
 
+    <select id="countAbsentDay" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM tbl_attendance
+        WHERE status NOT IN (0, 4)
+    </select>
+
     <insert id="insertSelective" parameterType="com.mohress.training.entity.attendance.TblAttendance">
         insert into tbl_attendance
         <trim prefix="(" suffix=")" suffixOverrides=",">

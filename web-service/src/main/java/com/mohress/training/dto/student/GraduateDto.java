@@ -1,9 +1,12 @@
 package com.mohress.training.dto.student;
 
+import lombok.Data;
+
 /**
  * 结业学生DTO
  *
  */
+@Data
 public class GraduateDto {
 
     /**

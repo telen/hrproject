@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mohress.training.dao.TblExamScoreDao">
+    <resultMap id="resultMap" type="TblExamScore">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="student_id" property="studentId" jdbcType="VARCHAR"/>
+        <result column="class_id" property="classId" jdbcType="VARCHAR"/>
+        <result column="theory_score" property="theoryScore" jdbcType="DECIMAL"/>
+        <result column="practice_score" property="practiceScore" jdbcType="DECIMAL"/>
+        <result column="certificate" property="certificate" jdbcType="VARCHAR"/>
+        <result column="certificate_id" property="certificateId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="columnList">
+        id, student_id, class_id, theory_score, practice_score, certificate, certificate_id
+    </sql>
+
+    <insert id="insert" parameterType="TblExamScore">
+        INSERT INTO tb_exam_score
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId != null">
+                student_id,
+            </if>
+            <if test="classId != null">
+                class_id,
+            </if>
+            <if test="theoryScore != null">
+                theory_score,
+            </if>
+            <if test="practiceScore != null">
+                practice_score,
+            </if>
+            <if test="certificate != null">
+                certificate,
+            </if>
+            <if test="certificateId != null">
+                certificate_id,
+            </if>
+        </trim>
+        VALUE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId != null">
+                #{studentId},
+            </if>
+            <if test="classId != null">
+                #{classId},
+            </if>
+            <if test="theoryScore != null">
+                #{theoryScore},
+            </if>
+            <if test="practiceScore != null">
+                #{practiceScore},
+            </if>
+            <if test="certificate != null">
+                #{certificate},
+            </if>
+            <if test="certificateId != null">
+                #{certificateId},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByClassIdAndStudentId" parameterType="TblExamScore">
+        UPDATE tb_exam_score
+        <set>
+            <if test="theoryScore != null">
+                theory_score = #{theoryScore},
+            </if>
+            <if test="practiceScore != null">
+                practice_score = #{practiceScore},
+            </if>
+            <if test="certificate != null">
+                certificate = #{certificate},
+            </if>
+            <if test="certificateId != null">
+                certificate_id = #{certificateId},
+            </if>
+        </set>
+        WHERE student_id = #{studentId} AND class_id = #{classId}
+    </update>
+
+    <select id="selectPageByClassId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_exam_score
+        WHERE class_id = #{classId}
+    </select>
+
+    <select id="selectByClassIdAndStudentId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_exam_score
+        WHERE class_id = #{classId} AND student_id = #{studentId}
+    </select>
+</mapper>

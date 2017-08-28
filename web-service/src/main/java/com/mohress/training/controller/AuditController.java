@@ -1,18 +1,18 @@
 package com.mohress.training.controller;
 
 import com.google.common.collect.Lists;
-import com.mohress.training.dto.audit.AuditActionDto;
+import com.mohress.training.dto.audit.*;
 import com.mohress.training.dto.Response;
-import com.mohress.training.dto.audit.ClassAuditItemDto;
-import com.mohress.training.dto.audit.ClassAuditQueryDto;
 import com.mohress.training.entity.audit.TblClassAuditRecord;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.service.audit.AuditService;
 import com.mohress.training.service.audit.action.*;
 import com.mohress.training.service.audit.impl.ClassAuditRecordServiceImpl;
+import com.mohress.training.service.audit.impl.LedgerAuditRecordServiceImpl;
 import com.mohress.training.util.DateUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +22,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 import static com.mohress.training.enums.ResultCode.AUDIT_SUCCESS;
+import static com.mohress.training.enums.ResultCode.SUCCESS;
 
 /**
  * 审核接口
@@ -37,6 +38,8 @@ public class AuditController {
     @Resource
     private ClassAuditRecordServiceImpl classAuditRecordService;
 
+    @Resource
+    private LedgerAuditRecordServiceImpl ledgerAuditRecordService;
 
     /**
      * 审核通过
@@ -47,8 +50,9 @@ public class AuditController {
      */
     @ResponseBody
     @RequestMapping("pass")
-    public Response auditPass(@RequestBody AuditActionDto auditActionDto){
-        PassAction passAction = new PassAction(auditActionDto.getFlowId(), "17081815504021040605", "");
+    public Response auditPass(@CookieValue("token") String userId, @RequestBody AuditActionDto auditActionDto){
+        auditActionDto.setAuditor(userId);
+        PassAction passAction = new PassAction(auditActionDto.getFlowId(), auditActionDto.getAuditor(), "");
 
         return audit(passAction);
     }
@@ -62,8 +66,9 @@ public class AuditController {
      */
     @ResponseBody
     @RequestMapping("reject")
-    public Response auditReject(@RequestBody AuditActionDto auditActionDto){
-        RejectAction rejectAction = new RejectAction(auditActionDto.getFlowId(), "17081815504021040605", "");
+    public Response auditReject(@CookieValue("token") String userId, @RequestBody AuditActionDto auditActionDto){
+        auditActionDto.setAuditor(userId);
+        RejectAction rejectAction = new RejectAction(auditActionDto.getFlowId(), auditActionDto.getAuditor(), "");
 
         return audit(rejectAction);
     }
@@ -78,7 +83,8 @@ public class AuditController {
     @Deprecated
     @ResponseBody
     @RequestMapping("retract")
-    public Response auditRetract(@RequestBody AuditActionDto auditActionDto){
+    public Response auditRetract(@CookieValue("token") String userId, @RequestBody AuditActionDto auditActionDto){
+        auditActionDto.setAuditor(userId);
         RetractAction retractAction = new RetractAction(auditActionDto.getFlowId(), auditActionDto.getAuditor(), auditActionDto.getAuditResult());
 
         return audit(retractAction);
@@ -94,7 +100,8 @@ public class AuditController {
     @Deprecated
     @ResponseBody
     @RequestMapping("rollBack")
-    public Response auditRollback(@RequestBody AuditActionDto auditActionDto){
+    public Response auditRollback(@CookieValue("token") String userId, @RequestBody AuditActionDto auditActionDto){
+        auditActionDto.setAuditor(userId);
         RollBackAction rollBackAction = new RollBackAction(auditActionDto.getFlowId(), auditActionDto.getAuditor(), auditActionDto.getAuditResult());
 
         return audit(rollBackAction);
@@ -102,10 +109,10 @@ public class AuditController {
 
     @ResponseBody
     @RequestMapping("manager/classAudit")
-    public Response<List<ClassAuditItemDto>> queryClassAuditRecord(String agencyId, Integer pageSize, Integer pageIndex){
+    public Response<List<ClassAuditItemDto>> queryClassAuditRecord(@CookieValue("token") String userId,  String agencyId, Integer pageSize, Integer pageIndex){
 
         ClassAuditQueryDto classAuditQueryDto = new ClassAuditQueryDto();
-        classAuditQueryDto.setUserId("17081815504021040605");
+        classAuditQueryDto.setUserId(userId);
         classAuditQueryDto.setPageIndex(pageIndex);
         classAuditQueryDto.setPageSize(pageSize);
         classAuditQueryDto.setAgencyId(agencyId);
@@ -128,10 +135,26 @@ public class AuditController {
         return new Response<>(ResultCode.SUCCESS.getCode(), "", result);
     }
 
+
+    @ResponseBody
+    @RequestMapping("manager/ledgerAudit")
+    public Response<List<LedgerAuditItemDto>> queryLedgerAuditRecord(@CookieValue("token") String userId, String agencyId, Integer pageSize, Integer pageIndex){
+        LedgerAuditQueryDto ledgerAuditQueryDto = new LedgerAuditQueryDto();
+
+        ledgerAuditQueryDto.setAgencyId(agencyId);
+        ledgerAuditQueryDto.setAuditRoleId(userId);
+        ledgerAuditQueryDto.setPageSize(pageSize);
+        ledgerAuditQueryDto.setPageIndex(pageIndex);
+
+        List<LedgerAuditItemDto> ledgerAuditItemDtoList = ledgerAuditRecordService.queryByPage(ledgerAuditQueryDto);
+
+        return new Response<>(ResultCode.SUCCESS.getCode(), "", ledgerAuditItemDtoList);
+    }
+
     private Response audit(AuditAction auditAction){
 
         auditService.audit(auditAction);
 
-        return new Response(AUDIT_SUCCESS.getCode(), AUDIT_SUCCESS.getDesc());
+        return new Response(SUCCESS.getCode(), AUDIT_SUCCESS.getDesc());
     }
 }

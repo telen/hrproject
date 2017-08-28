@@ -6,7 +6,7 @@ CREATE TABLE tb_account (
   COMMENT '用户Id',
   `account`      VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '登录账号',
-  `password`     VARCHAR(32)         NOT NULL DEFAULT ''
+  `password`     VARCHAR(128)         NOT NULL DEFAULT ''
   COMMENT '登录密码(密文)',
   `user_name`    VARCHAR(32)         NOT NULL DEFAULT ''
   COMMENT '用户姓名',

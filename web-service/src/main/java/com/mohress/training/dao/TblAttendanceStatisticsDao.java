@@ -15,4 +15,6 @@ public interface TblAttendanceStatisticsDao {
 
     List<TblAttendanceStatistics> selectByQuery(AttendanceStatisticsQuery query);
 
+    TblAttendanceStatistics selectByClassId(String classId);
+
 }

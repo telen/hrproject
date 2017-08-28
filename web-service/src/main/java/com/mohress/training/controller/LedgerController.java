@@ -1,15 +1,20 @@
 package com.mohress.training.controller;
 
 import com.mohress.training.dto.Response;
-import com.mohress.training.dto.ledger.LedgerApplyDto;
+import com.mohress.training.dto.ledger.*;
+import com.mohress.training.entity.agency.TblAccountAgency;
+import com.mohress.training.entity.agency.TblAgency;
 import com.mohress.training.enums.ResultCode;
 import com.mohress.training.service.ledger.LedgerService;
+import com.mohress.training.service.security.AccountManager;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 台账API接口
@@ -23,6 +28,9 @@ public class LedgerController {
     @Resource
     private LedgerService ledgerService;
 
+    @Resource
+    private AccountManager accountManager;
+
     /**
      * 培训机构发起台账审核
      *
@@ -31,9 +39,8 @@ public class LedgerController {
      */
     @ResponseBody
     @RequestMapping("apply")
-    public Response apply(@RequestBody LedgerApplyDto ledgerApplyDto){
+    public Response apply(@CookieValue("token") String userId, @RequestBody LedgerApplyDto ledgerApplyDto){
 
-        String userId = "";
         ledgerApplyDto.setApplicant(userId);
 
         ledgerService.apply(ledgerApplyDto);
@@ -47,19 +54,38 @@ public class LedgerController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("queryLedger")
-    public Response queryLedger(){
-        return null;
+    @RequestMapping("query")
+    public Response<List<LedgerItemDto>> queryLedger(@CookieValue("token") String userId, Integer pageIndex ,Integer pageSize){
+        TblAgency tblAccountAgency = accountManager.queryAgencyByUserId(userId);
+
+        LedgerQueryDto ledgerQueryDto = new LedgerQueryDto();
+        ledgerQueryDto.setPageIndex(pageIndex);
+        ledgerQueryDto.setPageSize(pageSize);
+        ledgerQueryDto.setAgencyId(tblAccountAgency.getAgencyId());
+
+
+        List<LedgerItemDto> ledgerItemDtoList = ledgerService.queryLedger(ledgerQueryDto);
+
+        return new Response<>(ResultCode.SUCCESS.getCode(), "", ledgerItemDtoList);
     }
 
+
     /**
-     * 查询台账关联的学生信息
+     * 查询毕业生台账快照
      *
      * @return
      */
     @ResponseBody
-    @RequestMapping("queryLedgerStudent")
-    public Response queryLedgerStudent(){
-        return null;
+    @RequestMapping("snapshot")
+    public Response<List<GraduateSnapshotItemDto>> queryLedgerGraduateSnapshot(String ledgerId, Integer pageSize, Integer pageIndex){
+
+        GraduateSnapshotQueryDto graduateSnapshotQueryDto = new GraduateSnapshotQueryDto();
+        graduateSnapshotQueryDto.setLedgerId(ledgerId);
+        graduateSnapshotQueryDto.setPageSize(pageSize);
+        graduateSnapshotQueryDto.setPageIndex(pageIndex);
+
+        List<GraduateSnapshotItemDto> graduateSnapshotItemDtoList = ledgerService.queryLedgerGraduateSnapshot(graduateSnapshotQueryDto);
+
+        return new Response<>(ResultCode.SUCCESS.getCode(), "毕业生台账查询成功", graduateSnapshotItemDtoList);
     }
 }

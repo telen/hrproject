@@ -155,5 +155,45 @@ CREATE TABLE `tb_class_audit_record` (
   DEFAULT CHARSET = utf8mb4
   COMMENT = '课程审核记录表';
 
+
+  DROP TABLE IF EXISTS tb_ledger_audit_record;
+CREATE TABLE `tb_ledger_audit_record` (
+  `id`            BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT
+  COMMENT '主键Id',
+  `record_id`     VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '记录Id',
+  `flow_id`       VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '审核流程Id',
+  `ledger_id`     VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '台账Id',
+  `agency_id`     VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '机构Id',
+  `course_id`     VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '课程Id',
+  `class_id`      VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '班级Id',
+  `key_word`      VARCHAR(128)        NOT NULL DEFAULT ''
+  COMMENT '搜索关键词，格式定义：培训机构名,培训课程,培训班级',
+  `audit_role_id` VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '审核角色Id',
+  `auditor`       VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '实际审核人',
+  `audit_result`  VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '审核结果',
+  `audit_status`  TINYINT(11)         NOT NULL DEFAULT  1
+  COMMENT '审核状态，1=等待审核， 2=审核通过，3=审核不通过',
+  `create_time`   TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
+  COMMENT '创建时间',
+  `update_time`   TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_audit_role_id_flow_id` (`audit_role_id`, `flow_id`),
+  KEY `idx_audit_role_id_agency_id` (`audit_role_id`, `agency_id`, `id`)
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 31
+  DEFAULT CHARSET = utf8mb4
+  COMMENT = '台账审核记录表';
+
 INSERT INTO mohress_training.tb_audit_node (node_id, node_name, node_desc, previous_node, next_node, audit_role_id) VALUES ('Node_class_audit_people_society', '培训班级-人社局审核节点', '', '', '', '17081610225621055996');
 INSERT INTO mohress_training.tb_audit_template (template_id, template_name, template_desc, start_node, end_node, audit_flow_diagram, create_time, update_time) VALUES ('Class_audit_template', '培训课程审核模板', '', 'Node_class_audit_people_society', '', '', '2017-08-23 17:13:18', '2017-08-23 17:13:46');
