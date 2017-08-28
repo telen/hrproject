@@ -30,7 +30,7 @@ public class AgencyBizImpl implements ModuleBiz {
     private BaseManageService agencyServiceImpl;
 
     @Override
-    public void newModule(String o) {
+    public void newModule(String o, String agencyId) {
         Preconditions.checkNotNull(o);
         AgencyRequestDto agencyRequestDto;
         try {
@@ -73,6 +73,11 @@ public class AgencyBizImpl implements ModuleBiz {
     @Override
     public Object queryByKeyword(QueryDto queryDto) {
         throw new RuntimeException("暂不支持");
+    }
+
+    @Override
+    public void checkDelete(String agencyId, List<String> ids) {
+        return;
     }
 
     private AgencyQuery buildAgencyQuery(QueryDto dto) {

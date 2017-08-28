@@ -18,7 +18,8 @@ CREATE TABLE `tbl_class` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `inspection_count` int(11) NOT NULL DEFAULT '0' COMMENT '抽查次数',
   `inspection_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0-未抽查，1-通过，2-未通过',
+  `agency_id` varchar(64) NOT NULL DEFAULT '' COMMENT '机构ID',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_class_id` (`class_id`),
   KEY `idx_class_id` (`class_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='班级表'
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COMMENT='班级表'

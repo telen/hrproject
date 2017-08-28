@@ -33,7 +33,7 @@ public class StudentBizImpl implements ModuleBiz {
     private BaseManageService studentServiceImpl;
 
     @Override
-    public void newModule(String o) {
+    public void newModule(String o, String agencyId) {
         Preconditions.checkArgument(o != null);
         StudentRequestDto studentRequestDto;
         try {
@@ -44,7 +44,7 @@ public class StudentBizImpl implements ModuleBiz {
         }
 
         Checker.checkNewStudent(studentRequestDto);
-        studentServiceImpl.newModule(buildInsertTblStudent(studentRequestDto));
+        studentServiceImpl.newModule(buildInsertTblStudent(studentRequestDto, agencyId));
     }
 
     @Override
@@ -87,6 +87,11 @@ public class StudentBizImpl implements ModuleBiz {
         return Convert.convertStudent(tblStudents);
     }
 
+    @Override
+    public void checkDelete(String agencyId, List<String> ids) {
+        //todo
+    }
+
     private StudentQuery buildStudentQueryByKey(QueryDto dto) {
         StudentQuery query = new StudentQuery();
         query.setKeyword(dto.getKeyword());
@@ -100,12 +105,14 @@ public class StudentBizImpl implements ModuleBiz {
         query.setPageIndex(dto.getPage());
         query.setPageSize(dto.getPageSize());
         query.setCourseId(dto.getCourseId());
+        query.setClassId(dto.getClassId());
         return query;
     }
 
-    private TblStudent buildInsertTblStudent(StudentRequestDto studentRequestDto) {
+    private TblStudent buildInsertTblStudent(StudentRequestDto studentRequestDto,String agencyId) {
         TblStudent student = new TblStudent();
         BeanUtils.copyProperties(studentRequestDto, student);
+        student.setAgencyId(agencyId);
         student.setStudentId(SequenceCreator.getStudentId());
         Long birthday = studentRequestDto.getBirthday();
         Long schoolDate = studentRequestDto.getSchoolDate();

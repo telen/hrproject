@@ -31,7 +31,7 @@ public class TeacherBizImpl implements ModuleBiz {
     private BaseManageService teacherServiceImpl;
 
     @Override
-    public void newModule(String o) {
+    public void newModule(String o, String agencyId) {
         Preconditions.checkArgument(o != null);
         TeacherRequestDto teacherRequestDto = null;
         try {
@@ -41,7 +41,7 @@ public class TeacherBizImpl implements ModuleBiz {
         }
 
         Checker.checkNewTeacher(teacherRequestDto);
-        teacherServiceImpl.newModule(buildInsertTblTeacher(teacherRequestDto));
+        teacherServiceImpl.newModule(buildInsertTblTeacher(teacherRequestDto, agencyId));
     }
 
     @Override
@@ -82,6 +82,11 @@ public class TeacherBizImpl implements ModuleBiz {
         return Convert.convertTeacher(tblTeachers);
     }
 
+    @Override
+    public void checkDelete(String agencyId, List<String> ids) {
+        //todo
+    }
+
     private TeacherQuery buildTeacherQueryByKey(QueryDto dto) {
         TeacherQuery query = new TeacherQuery();
         //todo 设置查询者的agency
@@ -103,11 +108,12 @@ public class TeacherBizImpl implements ModuleBiz {
         return query;
     }
 
-    private TblTeacher buildInsertTblTeacher(TeacherRequestDto teacherRequestDto) {
+    private TblTeacher buildInsertTblTeacher(TeacherRequestDto teacherRequestDto, String agencyId) {
         TblTeacher teacher = new TblTeacher();
         BeanUtils.copyProperties(teacherRequestDto, teacher, "birthday");
         teacher.setBirthday(new Date(teacherRequestDto.getBirthday()));
         teacher.setTeacherId(SequenceCreator.getTeacherId());
+        teacher.setAgencyId(agencyId);
         return teacher;
     }
 

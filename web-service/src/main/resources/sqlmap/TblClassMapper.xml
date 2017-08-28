@@ -5,6 +5,7 @@
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="course_id" property="courseId" jdbcType="VARCHAR"/>
         <result column="class_id" property="classId" jdbcType="VARCHAR"/>
+        <result column="agency_id" property="agencyId" jdbcType="VARCHAR"/>
         <result column="classname" property="classname" jdbcType="VARCHAR"/>
         <result column="affiliated_profession" property="affiliatedProfession" jdbcType="VARCHAR"/>
         <result column="predicted_count" property="predictedCount" jdbcType="INTEGER"/>
@@ -22,7 +23,7 @@
         <result column="inspection_status" property="inspectionStatus" jdbcType="TINYINT"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, course_id, class_id, classname, affiliated_profession, predicted_count, proposer, 
+    id, course_id, class_id, agency_id, classname, affiliated_profession, predicted_count, proposer,
     proposer_mobile, teach_plan_file_path, status, start_time, end_time, on_class_time, off_class_time, create_time,
     update_time,inspection_count,inspection_status
   </sql>
@@ -39,7 +40,7 @@
         from tbl_class
         where status != 4
         <if test="agencyId != null">
-            and agency_id = #{agencyId}
+            and course_id in (select course_id from tbl_course where agency_id = #{agencyId})
         </if>
         <if test="classname != null">
             and classname like concat(concat('%',#{classname}),'%')

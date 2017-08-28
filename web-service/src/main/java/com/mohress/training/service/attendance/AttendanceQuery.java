@@ -21,6 +21,8 @@ public class AttendanceQuery {
 
     private String courseId;
 
+    private String agencyId;
+
     public AttendanceQuery (Integer pageIndex,Integer pageSize){
         this.pageIndex = pageIndex;
         this.pageSize = pageSize;

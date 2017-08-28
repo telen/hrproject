@@ -90,6 +90,34 @@
         <if test="idNumber != null">
             and id_number = #{idNumber}
         </if>
+        <if test="agencyId != null">
+            and course_id in (select course_id from tbl_course where agency_id = #{agencyId})
+        </if>
+        limit #{pageIndex},#{pageSize}
+    </select>
+
+    <select id="queryStudentByStudentId" resultMap="BaseResultMap"
+            parameterType="com.mohress.training.service.student.StudentQuery">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_student
+        where status = 0
+        <if test="keyword != null">
+            and agency_name like concat(concat('%',#{keyword}),'%')
+        </if>
+        <if test="courseId != null">
+            and course_id = #{courseId}
+        </if>
+        <if test="idNumber != null">
+            and id_number = #{idNumber}
+        </if>
+        <if test="agencyId != null">
+            and course_id in (select course_id from tbl_course where agency_id = #{agencyId})
+        </if>
+        and student_id in
+        <foreach collection="studentIds" item="item" separator="," open="(" close=")" index="index">
+            #{item}
+        </foreach>
         limit #{pageIndex},#{pageSize}
     </select>
 
