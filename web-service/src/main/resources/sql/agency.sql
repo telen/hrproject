@@ -14,3 +14,14 @@ CREATE TABLE `tbl_agency` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_agency_id` (`agency_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='机构基本信息表';
+
+
+DROP TABLE IF EXISTS tb_account_agency;
+CREATE TABLE `tb_account_agency` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键Id',
+  `user_id` varchar(32) NOT NULL DEFAULT '' COMMENT '用户Id',
+  `agency_id` varchar(32) NOT NULL DEFAULT '' COMMENT '角色Id',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_role_id` (`agency_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='账号机构关联表';

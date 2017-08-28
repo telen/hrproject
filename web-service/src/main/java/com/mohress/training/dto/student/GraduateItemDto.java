@@ -1,15 +1,14 @@
-package com.mohress.training.dto.ledger;
+package com.mohress.training.dto.student;
+
+import lombok.Data;
+
 
 /**
- * 台账审核关联的学生信息
+ * 毕业生信息
  *
  */
-public class LedgerStudentItemDto {
-
-    /**
-     * 台账记录Id
-     */
-    private String ledgerId;
+@Data
+public class GraduateItemDto {
 
     /**
      * 学生Id
@@ -22,12 +21,12 @@ public class LedgerStudentItemDto {
     private String studentName;
 
     /**
-     * 学生身份证号
+     * 身份证号
      */
     private String idNumber;
 
     /**
-     * 学员类型
+     * 人员类型
      */
     private String studentCat;
 
@@ -47,19 +46,19 @@ public class LedgerStudentItemDto {
     private String practiceScore;
 
     /**
-     * 参保情况
+     * 是否参保
      * 0-参保
      * 1-未参保
      */
     private Integer insuredStatus;
 
     /**
-     * 培训证书类型
+     * 结业证书
      */
     private String certificate;
-    /**
-     * 培训证书等级
-     */
-    private String certificateLevel;
 
+    /**
+     * 结业证书编号
+     */
+    private String certificateId;
 }

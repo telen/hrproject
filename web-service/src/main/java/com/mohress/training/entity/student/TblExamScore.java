@@ -17,11 +17,6 @@ public class TblExamScore {
     private Long id;
 
     /**
-     * 考试成绩Id
-     */
-    private String scoreId;
-
-    /**
      * 学生
      */
     private String studentId;
@@ -45,4 +40,9 @@ public class TblExamScore {
      * 结业证书
      */
     private String certificate;
+
+    /**
+     * 结业证书Id
+     */
+    private String certificateId;
 }

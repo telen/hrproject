@@ -57,6 +57,15 @@ public class TblLedger {
     private Integer auditStatus;
 
     /**
+     * 记录搜索关键字
+     * 格式定义：
+     * 培训机构名,培训课程,培训班级
+     * 示例：
+     * 培训机构-A,护士培训,护士培训第一期
+     */
+    private String keyWord;
+
+    /**
      * 申请人Id
      */
     private String applicant;

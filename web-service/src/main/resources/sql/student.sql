@@ -45,4 +45,34 @@ CREATE TABLE `tbl_student` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_student_id` (`student_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='考勤表'
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='考勤表';
+
+
+DROP TABLE IF EXISTS tb_exam_score;
+
+CREATE TABLE `tb_exam_score` (
+  `id`             BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT
+  COMMENT '主键Id',
+  `student_id`     VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '学生Id',
+  `class_id`       VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '班级Id',
+  `theory_score`   DECIMAL             NOT NULL DEFAULT 0.0
+  COMMENT '理论成绩',
+  `practice_score` DECIMAL             NOT NULL DEFAULT 0.0
+  COMMENT '实践成绩',
+  `certificate`    VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '结业证书',
+  `certificate_id` VARCHAR(32)         NOT NULL DEFAULT ''
+  COMMENT '结业证书Id',
+  `create_time`    TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
+  COMMENT '创建时间',
+  `update_time`    TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_student_id_class_id` (`student_id`, `class_id`)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COMMENT = '考试成绩记录表';
+

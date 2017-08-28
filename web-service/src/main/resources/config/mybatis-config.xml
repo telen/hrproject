@@ -26,5 +26,10 @@
         <typeAlias alias="TblAuditTemplate" type="com.mohress.training.entity.audit.TblAuditTemplate"/>
         <typeAlias alias="TblAuditLog" type="com.mohress.training.entity.audit.TblAuditLog"/>
         <typeAlias alias="TblClassAuditRecord" type="com.mohress.training.entity.audit.TblClassAuditRecord"/>
+        <typeAlias alias="TblExamScore" type="com.mohress.training.entity.student.TblExamScore"/>
+        <typeAlias alias="TblLedger" type="com.mohress.training.entity.ledger.TblLedger"/>
+        <typeAlias alias="TblLedgerGraduateSnapshot" type="com.mohress.training.entity.ledger.TblLedgerGraduateSnapshot"/>
+        <typeAlias alias="TblLedgerAuditRecord" type="com.mohress.training.entity.audit.TblLedgerAuditRecord"/>
+        <typeAlias alias="TblAccountAgency" type="com.mohress.training.entity.agency.TblAccountAgency"/>
     </typeAliases>
 </configuration>
