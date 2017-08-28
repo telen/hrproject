@@ -8,6 +8,7 @@ import com.mohress.training.enums.ResultCode;
 import com.mohress.training.service.ledger.LedgerService;
 import com.mohress.training.service.security.AccountManager;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,9 +39,8 @@ public class LedgerController {
      */
     @ResponseBody
     @RequestMapping("apply")
-    public Response apply(@RequestBody LedgerApplyDto ledgerApplyDto){
+    public Response apply(@CookieValue("token") String userId, @RequestBody LedgerApplyDto ledgerApplyDto){
 
-        String userId = "17081815504021040603";
         ledgerApplyDto.setApplicant(userId);
 
         ledgerService.apply(ledgerApplyDto);
@@ -55,8 +55,8 @@ public class LedgerController {
      */
     @ResponseBody
     @RequestMapping("query")
-    public Response<List<LedgerItemDto>> queryLedger(Integer pageIndex ,Integer pageSize){
-        TblAgency tblAccountAgency = accountManager.queryAgencyByUserId("17081815504021040603");
+    public Response<List<LedgerItemDto>> queryLedger(@CookieValue("token") String userId, Integer pageIndex ,Integer pageSize){
+        TblAgency tblAccountAgency = accountManager.queryAgencyByUserId(userId);
 
         LedgerQueryDto ledgerQueryDto = new LedgerQueryDto();
         ledgerQueryDto.setPageIndex(pageIndex);
