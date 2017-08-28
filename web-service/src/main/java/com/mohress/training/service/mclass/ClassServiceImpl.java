@@ -1,6 +1,5 @@
 package com.mohress.training.service.mclass;
 
-import com.google.common.collect.Lists;
 import com.mohress.training.dao.TblClassDao;
 import com.mohress.training.dao.TblClassMemberDao;
 import com.mohress.training.dto.mclass.ClassApplyDto;
@@ -35,6 +34,7 @@ public class ClassServiceImpl implements BaseManageService {
     private TblClassMemberDao tblClassMemberDao;
 
     @Override
+    @Transactional
     public <T> void newModule(T t) {
         BusiVerify.verify(tblClassDao.insertSelective(((ClassStudent) t).getTblClass()) > 0, "新增班级SQL异常");
         List<TblClassMember> tblClassMembers = ((ClassStudent) t).getTblClassMembers();
@@ -52,8 +52,15 @@ public class ClassServiceImpl implements BaseManageService {
     }
 
     @Override
+    @Transactional
     public <T> void update(T t) {
-        BusiVerify.verify(tblClassDao.updateSelectiveByClassId(((ClassStudent) t).getTblClass()) > 0, "更新班级SQL异常");
+        TblClass tblClass = ((ClassStudent) t).getTblClass();
+        BusiVerify.verify(tblClassDao.updateSelectiveByClassId(tblClass) > 0, "更新班级SQL异常");
+        BusiVerify.verify(tblClassMemberDao.deleteByClassId(tblClass.getClassId()) > 0, "删除班级关联学生SQL失败");
+        List<TblClassMember> tblClassMembers = ((ClassStudent) t).getTblClassMembers();
+        if (!CollectionUtils.isEmpty(tblClassMembers)) {
+            BusiVerify.verify(tblClassMemberDao.insertBatchSelective(tblClassMembers) > 0, "新增班级SQL异常");
+        }
     }
 
     @Override
@@ -72,7 +79,7 @@ public class ClassServiceImpl implements BaseManageService {
      *
      * @param classApplyDto
      */
-    public void apply(ClassApplyDto classApplyDto){
+    public void apply(ClassApplyDto classApplyDto) {
         TblClass tblClass = tblClassDao.selectByClassId(classApplyDto.getClassId());
 
         // 1.申请校验
@@ -88,12 +95,12 @@ public class ClassServiceImpl implements BaseManageService {
      *
      * @param tblClass
      */
-    private void applyVerify(TblClass tblClass){
-        if (tblClass == null){
+    private void applyVerify(TblClass tblClass) {
+        if (tblClass == null) {
             throw new BusinessException(ResultCode.FAIL, "班级不存在");
         }
 
-        if(TblClass.Status.APPLIED == tblClass.getStatus()){
+        if (TblClass.Status.APPLIED == tblClass.getStatus()) {
             throw new BusinessException(ResultCode.FAIL, "开班申请已提交，请勿重复申请");
         }
     }
@@ -103,6 +110,6 @@ public class ClassServiceImpl implements BaseManageService {
     }
 
     public void updateStatus(TblClass tblClass) {
-        BusiVerify.verify(tblClassDao.updateStatusByClassId(tblClass)>0,"更新检查状态SQL失败");
+        BusiVerify.verify(tblClassDao.updateStatusByClassId(tblClass) > 0, "更新检查状态SQL失败");
     }
 }
