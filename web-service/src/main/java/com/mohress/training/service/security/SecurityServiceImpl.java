@@ -128,7 +128,7 @@ public class SecurityServiceImpl implements SecurityService{
 
         tblAccountRoleDao.insert(tblAccountRole);
 
-        if (!Strings.isNullOrEmpty(accountAssignRequestDto.getAgencyId()) && RoleConstant.ROOT_ROLE_ID.equals(accountAssignRequestDto.getRoleId())){
+        if (!Strings.isNullOrEmpty(accountAssignRequestDto.getAgencyId()) && RoleConstant.AGENCY_ROLE_ID.equals(accountAssignRequestDto.getRoleId())){
             TblAgency tblAgency = tblAgencyDao.selectByAgencyId(accountAssignRequestDto.getAgencyId());
             if (tblAgency == null){
                 throw new BusinessException(ResultCode.FAIL, "关联培训机构失败，培训机构不存在");
