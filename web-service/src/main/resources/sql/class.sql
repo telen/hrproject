@@ -22,4 +22,4 @@ CREATE TABLE `tbl_class` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_class_id` (`class_id`),
   KEY `idx_class_id` (`class_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COMMENT='班级表'
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COMMENT='班级表';

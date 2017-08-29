@@ -11,6 +11,9 @@ public class LedgerAuditQueryDto extends BaseQuery{
 
     private String agencyId;
 
+
+    private String userId;
+
     /**
      * 审核角色Id
      */

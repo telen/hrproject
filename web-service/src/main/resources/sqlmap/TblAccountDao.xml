@@ -72,4 +72,14 @@
         FROM tb_account
         WHERE account = #{account}
     </select>
+
+    <select id="selectByRoleId" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM
+        (select user_id as uid from tb_account_role where role_id = #{roleId}) as a
+        INNER JOIN
+        tb_account as b
+        where a.uid = b.user_id
+    </select>
 </mapper>

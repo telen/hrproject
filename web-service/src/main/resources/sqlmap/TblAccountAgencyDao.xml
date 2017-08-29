@@ -11,6 +11,13 @@
         id, user_id, agency_id
     </sql>
 
+    <insert id="insert" parameterType="TblAccountAgency">
+        INSERT INTO tb_account_agency
+        (user_id, agency_id)
+        VALUE
+        (#{userId}, #{agencyId})
+    </insert>
+
     <select id="selectByUserId" resultMap="resultMap">
         SELECT
         <include refid="columnList"/>

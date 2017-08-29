@@ -30,7 +30,7 @@
     </delete>
 
     <insert id="insert" parameterType="TblAccountRole">
-        INTO INTO tb_account_role
+        INSERT INTO tb_account_role
         (user_id, role_id)
         VALUE
         (#{userId}, #{roleId})
