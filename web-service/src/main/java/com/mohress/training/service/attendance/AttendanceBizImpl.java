@@ -4,14 +4,11 @@ import com.google.common.base.Preconditions;
 import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.attendance.AttendanceRequestDto;
 import com.mohress.training.dto.attendance.AttendanceStatisticItemDto;
-import com.mohress.training.entity.TblJobTime;
 import com.mohress.training.entity.attendance.TblAttendance;
 import com.mohress.training.entity.attendance.TblAttendanceStatistics;
-import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.entity.student.TblStudent;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.ModuleBiz;
-import com.mohress.training.service.mclass.ClassServiceImpl;
 import com.mohress.training.service.student.StudentQuery;
 import com.mohress.training.util.BusiVerify;
 import com.mohress.training.util.Checker;
@@ -23,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,19 +30,12 @@ import java.util.List;
 @Service
 public class AttendanceBizImpl implements ModuleBiz {
 
-    private static final String JOB_NAME = "attendance";
-
-    @Resource
-    private BaseManageService attendanceServiceImpl;
 
     @Resource
     private BaseManageService studentServiceImpl;
 
     @Resource
-    private JobService jobService;
-
-    @Resource
-    private ClassServiceImpl classServiceImpl;
+    private BaseManageService attendanceServiceImpl;
 
     @Resource
     private AttendanceStatisticsService attendanceStatisticsService;
@@ -65,16 +54,14 @@ public class AttendanceBizImpl implements ModuleBiz {
         TblAttendance attendance = buildInsertTblAttendance(attendanceRequestDto, agencyId);
 
         StudentQuery query = new StudentQuery();
-        query.setPageIndex(0);
-        query.setPageSize(10);
         query.setIdNumber(attendance.getUserId());
         List<TblStudent> students = studentServiceImpl.query(query);
         BusiVerify.verify(!CollectionUtils.isEmpty(students), "考勤学生未查询到");
-        //判断该学生是否是该机构
         //如果补打卡，判断是否为一个机构
         if (TblAttendance.Status.PATCH_CLOCK.equals(attendance.getStatus())) {
             BusiVerify.verify(students.get(0).getAgencyId().equals(agencyId), "学生不是该机构，不可进行此操作" + o + agencyId);
         }
+        attendance.setUserId(students.get(0).getStudentId());
 
         attendanceServiceImpl.newModule(attendance);
     }
@@ -99,19 +86,15 @@ public class AttendanceBizImpl implements ModuleBiz {
     }
 
     @Override
-    public Object queryByKeyword(QueryDto queryDto) {
-        Preconditions.checkNotNull(queryDto);
-        Preconditions.checkArgument(queryDto.getPage() >= 0);
-        Preconditions.checkArgument(queryDto.getPageSize() > 0);
-
-        BusiVerify.verifyNotEmpty(queryDto.getKeyword(), "关键词为空");
-        List<TblAttendance> tblAgencies = attendanceServiceImpl.query(buildAttendanceQuery(queryDto));
-        return Convert.convertAttendance(tblAgencies);
-    }
-
-    @Override
     public void checkDelete(String agencyId, List<String> ids) {
         return;
+    }
+
+    public List<AttendanceStatisticItemDto> queryStatistic(QueryDto pageDto, String agencyId) {
+
+        List<TblAttendanceStatistics> statisticItems = attendanceStatisticsService.query(buildAttendanceStatisticQuery(pageDto, agencyId));
+
+        return Convert.convertStatistic(statisticItems);
     }
 
     private AttendanceQuery buildAttendanceQuery(QueryDto dto) {
@@ -127,51 +110,13 @@ public class AttendanceBizImpl implements ModuleBiz {
         return attendance;
     }
 
-    public List<AttendanceStatisticItemDto> queryStatistic(QueryDto pageDto) {
-        //查询上次查询到本次查询时间内有无新建班级，有则统计之后录入统计表；无则查询.通过查询人找出所属人群，机构则需查本机构的
-
-        TblJobTime tblJobTime = jobService.queryJob(JOB_NAME);
-
-
-        Date timeValue;
-        if (tblJobTime == null) {
-            timeValue = new Date(0);
-        } else {
-            timeValue = tblJobTime.getTimeValue();
-        }
-
-        Date endTime = new Date();
-        List<TblClass> tblClasses = classServiceImpl.queryClassByRangeTime(pageDto.getAgencyId(), timeValue, endTime);
-        if (!CollectionUtils.isEmpty(tblClasses)) {
-            //统计
-            attendanceStatisticsService.buildStatistics(tblClasses, pageDto.getAgencyId());
-        }
-
-        List<TblAttendanceStatistics> statisticItems = attendanceStatisticsService.query(buildAttendanceStatisticQuery(pageDto));
-
-        if (timeValue.getTime() == 0) {
-            jobService.newJob(newJob(JOB_NAME));
-        } else {
-            tblJobTime.setTimeValue(endTime);
-            jobService.updateJob(tblJobTime);
-        }
-        return Convert.convertStatistic(statisticItems);
-    }
-
-    private TblJobTime newJob(String jobName) {
-        TblJobTime jobTime = new TblJobTime();
-        jobTime.setTimeValue(new Date());
-        jobTime.setJobName(jobName);
-        return jobTime;
-    }
-
-    private AttendanceStatisticsQuery buildAttendanceStatisticQuery(QueryDto pageDto) {
+    private AttendanceStatisticsQuery buildAttendanceStatisticQuery(QueryDto pageDto, String agencyId) {
         AttendanceStatisticsQuery query = new AttendanceStatisticsQuery();
+        query.setAgencyId(agencyId);
         query.setClassname(pageDto.getKeyword());
         query.setAgencyName(pageDto.getKeyword());
         query.setPageIndex(pageDto.getPage());
         query.setPageSize(pageDto.getPageSize());
-        query.setAgencyId(pageDto.getAgencyId());
         return query;
     }
 }

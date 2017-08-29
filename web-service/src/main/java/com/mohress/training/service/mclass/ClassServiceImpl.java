@@ -3,8 +3,6 @@ package com.mohress.training.service.mclass;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mohress.training.dao.*;
-import com.mohress.training.dao.TblClassDao;
-import com.mohress.training.dao.TblClassMemberDao;
 import com.mohress.training.dto.mclass.ClassApplyDto;
 import com.mohress.training.dto.mclass.ClassGraduateDto;
 import com.mohress.training.dto.student.GraduateDto;
@@ -29,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -79,7 +76,11 @@ public class ClassServiceImpl implements BaseManageService {
     public <T> void update(T t) {
         TblClass tblClass = ((ClassStudent) t).getTblClass();
         BusiVerify.verify(tblClassDao.updateSelectiveByClassId(tblClass) > 0, "更新班级SQL异常");
-        BusiVerify.verify(tblClassMemberDao.deleteByClassId(tblClass.getClassId()) > 0, "删除班级关联学生SQL失败");
+        //不考虑并发
+        List<TblClassMember> classMembers = tblClassMemberDao.selectByClassId(tblClass.getClassId());
+        if (!CollectionUtils.isEmpty(classMembers)) {
+            BusiVerify.verify(tblClassMemberDao.deleteByClassId(tblClass.getClassId()) > 0, "删除班级关联学生SQL失败");
+        }
         List<TblClassMember> tblClassMembers = ((ClassStudent) t).getTblClassMembers();
         if (!CollectionUtils.isEmpty(tblClassMembers)) {
             BusiVerify.verify(tblClassMemberDao.insertBatchSelective(tblClassMembers) > 0, "新增班级SQL异常");
@@ -88,7 +89,6 @@ public class ClassServiceImpl implements BaseManageService {
 
     @Override
     public <T, M> List<T> query(M query) {
-
         return (List<T>) tblClassDao.selectByPage((ClassQuery) query);
     }
 
@@ -118,19 +118,19 @@ public class ClassServiceImpl implements BaseManageService {
      *
      * @param classGraduateDto
      */
-    public void graduate(ClassGraduateDto classGraduateDto){
+    public void graduate(ClassGraduateDto classGraduateDto) {
 
         List<TblClassMember> tblClassMemberList = tblClassMemberDao.selectByClassId(classGraduateDto.getClassId());
 
         Set<String> classMemberIdSet = Sets.newHashSet();
-        for (TblClassMember it: tblClassMemberList){
-            if (it.getStatus() != null && it.getStatus() == 0){
+        for (TblClassMember it : tblClassMemberList) {
+            if (it.getStatus() != null && it.getStatus() == 0) {
                 classMemberIdSet.add(it.getStudentId());
             }
         }
 
-        for (GraduateDto it: classGraduateDto.getGraduateList()){
-            if (!classMemberIdSet.contains(it.getStudentId())){
+        for (GraduateDto it : classGraduateDto.getGraduateList()) {
+            if (!classMemberIdSet.contains(it.getStudentId())) {
                 throw new BusinessException(ResultCode.FAIL, "");
             }
 
@@ -139,22 +139,22 @@ public class ClassServiceImpl implements BaseManageService {
 
             try {
                 tblExamScoreDao.insert(tblExamScore);
-            }catch (DuplicateKeyException e){
+            } catch (DuplicateKeyException e) {
                 tblExamScoreDao.updateByClassIdAndStudentId(tblExamScore);
             }
         }
     }
 
 
-    public List<GraduateItemDto> queryGraduate(GraduateQueryDto graduateQueryDto){
+    public List<GraduateItemDto> queryGraduate(GraduateQueryDto graduateQueryDto) {
         List<TblExamScore> examScoreList = tblExamScoreDao.selectPageByClassId(graduateQueryDto.getClassId(), new RowBounds(graduateQueryDto.getOffset(), graduateQueryDto.getPageSize()));
 
-        if (CollectionUtils.isEmpty(examScoreList)){
+        if (CollectionUtils.isEmpty(examScoreList)) {
             return Lists.newArrayList();
         }
 
         List<GraduateItemDto> graduateItemDtoList = Lists.newArrayList();
-        for (TblExamScore it: examScoreList){
+        for (TblExamScore it : examScoreList) {
             GraduateItemDto graduateItemDto = newGraduateItemDto(it);
             graduateItemDtoList.add(graduateItemDto);
         }
@@ -172,20 +172,16 @@ public class ClassServiceImpl implements BaseManageService {
             throw new BusinessException(ResultCode.FAIL, "班级不存在");
         }
 
-        if(TblClass.Status.APPLIED == tblClass.getStatus()){
+        if (TblClass.Status.APPLIED == tblClass.getStatus()) {
             throw new BusinessException(ResultCode.FAIL, "开班申请已提交，请勿重复申请");
         }
-    }
-
-    public List<TblClass> queryClassByRangeTime(String agencyId, Date startTime, Date endTime) {
-        return tblClassDao.selectByRangeTime(agencyId, startTime, endTime);
     }
 
     public void updateStatus(TblClass tblClass) {
         BusiVerify.verify(tblClassDao.updateStatusByClassId(tblClass) > 0, "更新检查状态SQL失败");
     }
 
-    private GraduateItemDto newGraduateItemDto(TblExamScore tblExamScore){
+    private GraduateItemDto newGraduateItemDto(TblExamScore tblExamScore) {
 
         TblStudent tblStudent = tblStudentDao.selectByStudentId(tblExamScore.getStudentId());
 

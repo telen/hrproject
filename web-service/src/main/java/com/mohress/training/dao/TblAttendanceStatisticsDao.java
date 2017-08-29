@@ -17,4 +17,6 @@ public interface TblAttendanceStatisticsDao {
 
     TblAttendanceStatistics selectByClassId(String classId);
 
+    int updateByPrimaryKeySelective(TblAttendanceStatistics statistics);
+
 }

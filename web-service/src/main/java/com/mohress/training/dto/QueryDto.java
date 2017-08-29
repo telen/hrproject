@@ -16,8 +16,8 @@ public class QueryDto implements Serializable {
     private String userId;
     private String courseId;
     private String keyword;
-    private Integer page;
-    private Integer pageSize;
+    private Integer page = 0;
+    private Integer pageSize = 10;
 
     /**
      * 班级名称
