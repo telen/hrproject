@@ -87,6 +87,7 @@ public class StudentBizImpl implements ModuleBiz {
         query.setPageSize(dto.getPageSize());
         query.setCourseId(dto.getCourseId());
         query.setClassId(dto.getClassId());
+        query.setAgencyId(dto.getAgencyId());
         return query;
     }
 
