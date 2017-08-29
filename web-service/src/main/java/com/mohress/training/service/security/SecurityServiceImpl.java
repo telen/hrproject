@@ -92,6 +92,7 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
+    @Transactional
     public void assignAccount(String userId, AccountAssignRequestDto accountAssignRequestDto) {
         TblRole tblRole = getHighestPriorityRole(userId);
 
@@ -112,7 +113,6 @@ public class SecurityServiceImpl implements SecurityService{
         newAccount(tblAccount, accountAssignRequestDto);
     }
 
-    @Transactional
     private void newAccount(TblAccount tblAccount, AccountAssignRequestDto accountAssignRequestDto){
 
         try {
