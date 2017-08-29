@@ -8,5 +8,7 @@ import com.mohress.training.entity.agency.TblAccountAgency;
  */
 public interface TblAccountAgencyDao {
 
+    int insert(TblAccountAgency tblAccountAgency);
+
     TblAccountAgency selectByUserId(String userId);
 }

@@ -1,5 +1,7 @@
 package com.mohress.training.service.security;
 
+import com.mohress.training.dto.security.AccountAssignRequestDto;
+import com.mohress.training.dto.security.AccountDetailDto;
 import com.mohress.training.dto.security.AuthorityDto;
 
 import java.util.List;
@@ -18,21 +20,20 @@ public interface SecurityService {
      */
     List<AuthorityDto> queryAuthorityList();
 
-    /**
-     * 分配权限
-     *
-     * @param userId
-     * @param roleId
-     * @return
-     */
-    boolean assignAuthority(String userId, String roleId);
 
     /**
-     * 收回权限
+     * 账号详情
      *
      * @param userId
-     * @param roleId
      * @return
      */
-    boolean retrieveAuthority(String userId, String roleId);
+    List<AccountDetailDto> queryAccountList(String userId);
+
+    /**
+     * 分配账号
+     *
+     * @param userId
+     * @param accountAssignRequestDto
+     */
+    void assignAccount(String userId, AccountAssignRequestDto accountAssignRequestDto);
 }

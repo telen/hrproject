@@ -12,7 +12,7 @@
         <form-login login-processing-url="/api/user/login" authentication-success-handler-ref="loginSuccessHandler" authentication-failure-handler-ref="loginFailHandler"/>
 
         <!--退出登录设置-->
-        <logout logout-url="/api/user/logout" delete-cookies="JSESSIONID,token" success-handler-ref="logoutHandler"/>
+        <logout logout-url="/api/user/logout" delete-cookies="JSESSIONID" success-handler-ref="logoutHandler"/>
 
         <!--同一个账号最多只能同时在线一个-->
         <session-management>

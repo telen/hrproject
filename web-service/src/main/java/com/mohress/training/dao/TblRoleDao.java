@@ -13,4 +13,6 @@ public interface TblRoleDao {
     TblRole selectByRoleId(String roleId);
 
     List<TblRole> selectByParentRoleId(String parentRoleId);
+
+    List<TblRole> selectAtLeastPriority(Integer priority);
 }

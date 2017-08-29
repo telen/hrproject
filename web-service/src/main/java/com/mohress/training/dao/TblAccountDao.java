@@ -4,6 +4,7 @@ import com.mohress.training.entity.security.TblAccount;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户账号
@@ -25,4 +26,6 @@ public interface TblAccountDao {
     TblAccount selectByUserId(String userId);
 
     TblAccount selectByAccount(String account);
+
+    List<TblAccount> selectByRoleId(String roleId);
 }

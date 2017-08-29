@@ -56,6 +56,10 @@ public class SequenceCreator {
         return getSequenceId(SequenceType.LG);
     }
 
+    public static String getUserId(){
+        return getSequenceId(SequenceType.UI);
+    }
+
     static class Sequencer {
         private int sequence;
 
@@ -73,6 +77,6 @@ public class SequenceCreator {
     }
 
     enum SequenceType {
-        AG, TE, AR, CL, ST, CI, AT,AF,LG,
+        AG, TE, AR, CL, ST, CI, AT,AF,LG, UI,
     }
 }
