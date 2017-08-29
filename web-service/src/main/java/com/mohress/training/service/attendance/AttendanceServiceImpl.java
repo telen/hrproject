@@ -51,9 +51,11 @@ public class AttendanceServiceImpl implements BaseManageService {
             newAttendance.setAttendanceId(SequenceCreator.getAttendanceId());
             Verify.verify(tblAttendanceDao.insertSelective(newAttendance) > 0, "新增机构SQL异常");
         } else {
-            String attendanceTime = ((TblAttendance) t).getAttendanceTime();
+            String attendanceTime = newAttendance.getAttendanceTime();
             if (!Strings.isNullOrEmpty(attendanceTime)) {
                 dbAttendance.setAttendanceTime(dbAttendance.getAttendanceTime() + "," + attendanceTime);
+            } else {
+                dbAttendance.setAttendanceTime(newAttendance.getAttendanceTime());
             }
             BusiVerify.verify(tblAttendanceDao.updateByPrimaryKeySelective(dbAttendance) > 0, "更新考勤记录SQL异常");
         }
@@ -110,6 +112,6 @@ public class AttendanceServiceImpl implements BaseManageService {
     }
 
     public List<TblAttendance> queryByStudentId(String studentId, int status, Date startTime, Date endTime) {
-        return tblAttendanceDao.selectByStudentId(studentId,status,startTime,endTime);
+        return tblAttendanceDao.selectByStudentId(studentId, status, startTime, endTime);
     }
 }

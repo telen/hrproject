@@ -13,9 +13,9 @@ public class StudentQuery {
 
     private String keyword;
 
-    private Integer pageSize;
+    private Integer pageSize = 10;
 
-    private Integer pageIndex;
+    private Integer pageIndex = 0;
 
     private String courseId;
 

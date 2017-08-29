@@ -56,10 +56,7 @@
         <include refid="Base_Column_List"/>
         from tbl_class
         where status != 4
-        <if test="agencyId != null">
-            and agency_id = #{agencyId}
-        </if>
-        and create_time between #{startTime} and #{endTime}
+        and end_time > #{timeValue}
     </select>
 
     <insert id="insertSelective" parameterType="com.mohress.training.entity.mclass.TblClass">
@@ -70,6 +67,9 @@
             </if>
             <if test="courseId != null">
                 course_id,
+            </if>
+            <if test="agencyId != null">
+                agency_id,
             </if>
             <if test="classId != null">
                 class_id,
@@ -126,6 +126,9 @@
             </if>
             <if test="courseId != null">
                 #{courseId,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyId != null">
+                #{agencyId},
             </if>
             <if test="classId != null">
                 #{classId,jdbcType=VARCHAR},

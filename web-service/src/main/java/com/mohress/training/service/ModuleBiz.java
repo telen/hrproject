@@ -26,7 +26,5 @@ public interface ModuleBiz {
 
     Object query(QueryDto pageDto);
 
-    Object queryByKeyword(QueryDto queryDto);
-
     void checkDelete(String agencyId, List<String> ids);
 }

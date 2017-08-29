@@ -1,8 +1,10 @@
 package com.mohress.training.service.student;
 
 import com.google.common.collect.Lists;
+import com.mohress.training.dao.TblAgencyDao;
 import com.mohress.training.dao.TblClassMemberDao;
 import com.mohress.training.dao.TblStudentDao;
+import com.mohress.training.entity.agency.TblAgency;
 import com.mohress.training.entity.mclass.TblClassMember;
 import com.mohress.training.entity.student.TblStudent;
 import com.mohress.training.service.BaseManageService;
@@ -26,6 +28,8 @@ public class StudentServiceImpl implements BaseManageService {
     private static final int DELETE_STATUS = 1;
 
     @Resource
+    private TblAgencyDao tblAgencyDao;
+    @Resource
     private TblStudentDao tblStudentDao;
     @Resource
     private TblClassMemberDao tblClassMemberDao;
@@ -33,7 +37,11 @@ public class StudentServiceImpl implements BaseManageService {
     @Override
     @Transactional
     public <T> void newModule(T student) {
-        BusiVerify.verify(tblStudentDao.insertSelective((TblStudent) student) > 0, "新增学生SQL异常");
+        TblStudent s = (TblStudent) student;
+        TblAgency agency = tblAgencyDao.selectByAgencyId(s.getAgencyId());
+        BusiVerify.verify(agency != null, "机构ID对应机构为空" + s.getAgencyId());
+        s.setAgencyName(agency.getAgencyName());
+        BusiVerify.verify(tblStudentDao.insertSelective(s) > 0, "新增学生SQL异常");
     }
 
     @Override

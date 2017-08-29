@@ -4,6 +4,7 @@ import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.Response;
 import com.mohress.training.dto.Responses;
 import com.mohress.training.dto.attendance.AttendanceStatisticItemDto;
+import com.mohress.training.service.AccountSupport;
 import com.mohress.training.service.attendance.AttendanceBizImpl;
 import com.mohress.training.util.CipherUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,9 @@ import java.util.List;
 public class AttendanceController {
 
     @Resource
+    private AccountSupport accountSupport;
+
+    @Resource
     private AttendanceBizImpl attendanceBizImpl;
 
     @ResponseBody
@@ -34,18 +38,14 @@ public class AttendanceController {
         if (pageDto == null) {
             pageDto = new QueryDto();
         }
-        if (pageDto.getPage() == null || pageDto.getPage() < 0) {
-            pageDto.setPage(0);
-            pageDto.setPageSize(10);
-        } else {
+        if (pageDto.getPage() != null) {
             pageDto.setPage(pageDto.getPage() - 1);
         }
         String userId = CipherUtil.decryptName(encryptedName);
-//        String userId = null;
         pageDto.setUserId(userId);
         log.info("userId-{}, 考勤统计查询,查询条件 {}", userId, pageDto);
 
-        List<AttendanceStatisticItemDto> dto = attendanceBizImpl.queryStatistic(pageDto);
+        List<AttendanceStatisticItemDto> dto = attendanceBizImpl.queryStatistic(pageDto, accountSupport.getAgencyId(userId));
         log.info("userId-{} 考勤统计查询 {}，返回 {}", userId, pageDto, dto);
         return Responses.succ(dto);
     }

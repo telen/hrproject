@@ -74,34 +74,12 @@ public class TeacherBizImpl implements ModuleBiz {
     }
 
     @Override
-    public Object queryByKeyword(QueryDto queryDto) {
-        Preconditions.checkNotNull(queryDto.getKeyword());
-
-        //关联机构名称
-        List<TblTeacher> tblTeachers = teacherServiceImpl.queryByKeyword(buildTeacherQueryByKey(queryDto));
-        return Convert.convertTeacher(tblTeachers);
-    }
-
-    @Override
     public void checkDelete(String agencyId, List<String> ids) {
-        //todo
-    }
-
-    private TeacherQuery buildTeacherQueryByKey(QueryDto dto) {
-        TeacherQuery query = new TeacherQuery();
-        //todo 设置查询者的agency
-//        query.setAgencyId();
-        query.setKeyword(dto.getKeyword());
-        query.setPageIndex(dto.getPage());
-        query.setPageSize(dto.getPageSize());
-        query.setName(dto.getName());
-        return query;
     }
 
     private TeacherQuery buildTeacherQuery(QueryDto dto) {
         TeacherQuery query = new TeacherQuery();
-        //todo 设置查询者的agency
-//        query.setAgencyId();
+        query.setAgencyId(dto.getAgencyId());
         query.setPageIndex(dto.getPage());
         query.setPageSize(dto.getPageSize());
         query.setName(dto.getName());

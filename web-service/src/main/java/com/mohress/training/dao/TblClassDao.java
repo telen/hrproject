@@ -29,7 +29,7 @@ public interface TblClassDao {
 
     TblClass selectByClassId(String classId);
 
-    List<TblClass> selectByRangeTime(@Param("agencyId") String agencyId, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+    List<TblClass> selectByRangeTime(@Param("timeValue") Date date);
 
     int updateStatusByClassId(TblClass tblClass);
 }

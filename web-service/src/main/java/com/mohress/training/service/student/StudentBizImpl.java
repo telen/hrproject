@@ -71,7 +71,6 @@ public class StudentBizImpl implements ModuleBiz {
         Preconditions.checkNotNull(pageDto);
         Preconditions.checkArgument(pageDto.getPage() >= 0);
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
-//        Preconditions.checkArgument(pageDto.getUserId() != null);
 
         List<TblStudent> tblStudents = studentServiceImpl.query(buildStudentQuery(pageDto));
 
@@ -79,25 +78,7 @@ public class StudentBizImpl implements ModuleBiz {
     }
 
     @Override
-    public Object queryByKeyword(QueryDto queryDto) {
-        Preconditions.checkNotNull(queryDto.getKeyword());
-
-        //关联机构名称
-        List<TblStudent> tblStudents = studentServiceImpl.queryByKeyword(buildStudentQueryByKey(queryDto));
-        return Convert.convertStudent(tblStudents);
-    }
-
-    @Override
     public void checkDelete(String agencyId, List<String> ids) {
-        //todo
-    }
-
-    private StudentQuery buildStudentQueryByKey(QueryDto dto) {
-        StudentQuery query = new StudentQuery();
-        query.setKeyword(dto.getKeyword());
-        query.setPageIndex(dto.getPage());
-        query.setPageSize(dto.getPageSize());
-        return query;
     }
 
     private StudentQuery buildStudentQuery(QueryDto dto) {

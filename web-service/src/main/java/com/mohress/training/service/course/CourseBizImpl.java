@@ -74,7 +74,6 @@ public class CourseBizImpl implements ModuleBiz {
         Preconditions.checkNotNull(pageDto);
         Preconditions.checkArgument(pageDto.getPage() >= 0);
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
-//        Preconditions.checkArgument(pageDto.getUserId() != null);
 
         List<TblCourse> tblCourses = courseServiceImpl.query(buildCourseQuery(pageDto));
 
@@ -85,8 +84,6 @@ public class CourseBizImpl implements ModuleBiz {
         for (CourseItemDto dto : courseItemDtos) {
             TeacherQuery query = new TeacherQuery();
             query.setTeacherId(dto.getTeacherId());
-            query.setPageIndex(0);
-            query.setPageSize(10);
             List<TblTeacher> teachers = teacherServiceImpl.query(query);
             if (!CollectionUtils.isEmpty(teachers)) {
                 dto.setTeacherName(teachers.get(0).getName());
@@ -96,25 +93,7 @@ public class CourseBizImpl implements ModuleBiz {
     }
 
     @Override
-    public Object queryByKeyword(QueryDto queryDto) {
-        Preconditions.checkNotNull(queryDto.getKeyword());
-
-        //关联机构名称
-        List<TblCourse> tblCourses = courseServiceImpl.queryByKeyword(buildCourseQueryByKey(queryDto));
-        return Convert.convertCourse(tblCourses);
-    }
-
-    @Override
     public void checkDelete(String agencyId, List<String> ids) {
-        //todo
-    }
-
-    private CourseQuery buildCourseQueryByKey(QueryDto dto) {
-        CourseQuery query = new CourseQuery();
-        query.setKeyword(dto.getKeyword());
-        query.setPageIndex(dto.getPage());
-        query.setPageSize(dto.getPageSize());
-        return query;
     }
 
     private CourseQuery buildCourseQuery(QueryDto dto) {

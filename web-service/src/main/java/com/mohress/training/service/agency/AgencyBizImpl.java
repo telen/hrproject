@@ -51,11 +51,11 @@ public class AgencyBizImpl implements ModuleBiz {
     @Override
     public void update(String o) {
         Preconditions.checkNotNull(o);
-        AgencyRequestDto agencyRequestDto = null;
+        AgencyRequestDto agencyRequestDto;
         try {
             agencyRequestDto = JsonUtil.getInstance().convertToBean(AgencyRequestDto.class, String.valueOf(o));
         } catch (Exception e) {
-            log.error("新建机构反序列化失败 {}", o, e);
+            throw new RuntimeException("机构反序列化失败");
         }
         agencyServiceImpl.update(buildUpdateTblAgency(agencyRequestDto));
     }
@@ -68,11 +68,6 @@ public class AgencyBizImpl implements ModuleBiz {
         List<TblAgency> tblAgencies = agencyServiceImpl.query(buildAgencyQuery(pageDto));
         //todo 填充教师人数
         return Convert.convertAgency(tblAgencies);
-    }
-
-    @Override
-    public Object queryByKeyword(QueryDto queryDto) {
-        throw new RuntimeException("暂不支持");
     }
 
     @Override

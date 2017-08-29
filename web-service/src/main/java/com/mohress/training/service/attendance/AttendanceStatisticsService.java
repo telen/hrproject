@@ -1,6 +1,8 @@
 package com.mohress.training.service.attendance;
 
+import com.mohress.training.dao.TblAgencyDao;
 import com.mohress.training.dao.TblAttendanceStatisticsDao;
+import com.mohress.training.dao.TblClassDao;
 import com.mohress.training.dao.TblClassMemberDao;
 import com.mohress.training.entity.TblCourse;
 import com.mohress.training.entity.TblTeacher;
@@ -10,8 +12,6 @@ import com.mohress.training.entity.attendance.TblAttendanceStatistics;
 import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.entity.mclass.TblClassMember;
 import com.mohress.training.service.BaseManageService;
-import com.mohress.training.service.agency.AgencyQuery;
-import com.mohress.training.service.agency.AgencyServiceImpl;
 import com.mohress.training.service.course.CourseQuery;
 import com.mohress.training.service.course.CourseServiceImpl;
 import com.mohress.training.service.teacher.TeacherQuery;
@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,13 +34,16 @@ import java.util.List;
 public class AttendanceStatisticsService implements BaseManageService {
 
     @Resource
+    private TblClassDao tblClassDao;
+
+    @Resource
+    private TblAgencyDao tblAgencyDao;
+
+    @Resource
     private TblClassMemberDao tblClassMemberDao;
 
     @Resource
     private CourseServiceImpl courseServiceImpl;
-
-    @Resource
-    private AgencyServiceImpl agencyServiceImpl;
 
     @Resource
     private TeacherServiceImpl teacherServiceImpl;
@@ -75,10 +79,10 @@ public class AttendanceStatisticsService implements BaseManageService {
         return null;
     }
 
-    public void buildStatistics(List<TblClass> tblClasses, String agencyId) {
+    public void buildStatistics(Date startTime) {
+        List<TblClass> tblClasses = tblClassDao.selectByRangeTime(startTime);
         //针对每一个班级，查询其所有学生，根据班级开班时间与学生考勤记录，统计其记录
         for (TblClass tblClass : tblClasses) {
-            List<TblClassMember> classMembers = tblClassMemberDao.selectByClassId(tblClass.getClassId());
             int classMemCount = 0, beLateCount = 0, leaveEarlyCount = 0, absentCount = 0, addedCount = 0, normalCount = 0;
 
             //查询课程
@@ -99,6 +103,7 @@ public class AttendanceStatisticsService implements BaseManageService {
             String teacherId = tblTeachers.get(0).getTeacherId(), teacherName = tblTeachers.get(0).getName();
             String classNo = tblClass.getClassId(), classname = tblClass.getClassname();
 
+            List<TblClassMember> classMembers = tblClassMemberDao.selectByClassId(tblClass.getClassId());
             //组装统计数量
             if (!CollectionUtils.isEmpty(classMembers)) {
                 classMemCount = classMembers.size();
@@ -122,11 +127,11 @@ public class AttendanceStatisticsService implements BaseManageService {
                 }
             }
 
-            List<TblAgency> agencyList = agencyServiceImpl.query(buildAgencyQuery(tblCourses.get(0).getAgencyId()));
+            TblAgency agency = tblAgencyDao.selectByAgencyId(tblClass.getAgencyId());
             TblAttendanceStatistics statistics = new TblAttendanceStatistics();
-            if (!CollectionUtils.isEmpty(agencyList)) {
-                statistics.setAgencyId(agencyList.get(0).getAgencyId());
-                statistics.setAgencyName(agencyList.get(0).getAgencyName());
+            if (agency != null) {
+                statistics.setAgencyId(agency.getAgencyId());
+                statistics.setAgencyName(agency.getAgencyName());
             }
 
             statistics.setTotalCount(classMemCount);
@@ -136,12 +141,17 @@ public class AttendanceStatisticsService implements BaseManageService {
             statistics.setClassname(classname);
             statistics.setAbsentCount(absentCount);
             statistics.setAddedCount(addedCount);
-            statistics.setAddedCount(addedCount);
             statistics.setAbsentCount(absentCount);
             statistics.setBeLateCount(beLateCount);
             statistics.setLeaveEarlyCount(leaveEarlyCount);
             statistics.setNormalCount(normalCount);
-            BusiVerify.verify(tblAttendanceStatisticsDao.insertSelective(statistics) > 0, "新增考勤统计SQL异常");
+            TblAttendanceStatistics dbStatistic = tblAttendanceStatisticsDao.selectByClassId(statistics.getClassId());
+            if (dbStatistic == null) {
+                BusiVerify.verify(tblAttendanceStatisticsDao.insertSelective(statistics) > 0, "新增考勤统计SQL异常");
+            } else {
+                statistics.setId(dbStatistic.getId());
+                BusiVerify.verify(tblAttendanceStatisticsDao.updateByPrimaryKeySelective(statistics) > 0, "更新考勤统计SQL失败");
+            }
         }
     }
 
@@ -149,12 +159,6 @@ public class AttendanceStatisticsService implements BaseManageService {
         List<TblAttendance> attendances = attendanceServiceImpl.queryByStudentId
                 (member.getStudentId(), status, tblClass.getStartTime(), tblClass.getEndTime());
         return !CollectionUtils.isEmpty(attendances);
-    }
-
-    private AgencyQuery buildAgencyQuery(String agencyId) {
-        AgencyQuery query = new AgencyQuery(0, 10);
-        query.setAgencyId(agencyId);
-        return query;
     }
 
     private TeacherQuery buildTeacherQuery(String teacherId) {

@@ -65,5 +65,11 @@ public class ClassItemDto implements Serializable {
 
     private String agencyName;
 
+    private String agencyId;
+
+    private String teacherName;
+
+    private String courseName;
+
     private List<String> studentIds;
 }
