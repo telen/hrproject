@@ -1,21 +1,14 @@
 package com.mohress.training.controller;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.Response;
 import com.mohress.training.dto.Responses;
-import com.mohress.training.entity.agency.TblAgency;
-import com.mohress.training.entity.security.TblRole;
+import com.mohress.training.service.AccountSupport;
 import com.mohress.training.service.ModuleBiz;
-import com.mohress.training.service.security.AccountManager;
-import com.mohress.training.util.AccountAuthority;
-import com.mohress.training.util.BusiVerify;
 import com.mohress.training.util.CipherUtil;
-import com.mohress.training.util.RoleAuthority;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -33,8 +26,7 @@ import java.util.Map;
 public class BaseManageController {
 
     private static final Map<String, ModuleBiz> moduleMap = Maps.newHashMap();
-    private static final String OFFICIAL_ROLE_ID = "17081610225621055996";
-    private static final String ROOT_ROLE_ID = "17081610225621055995";
+
 
     @Resource
     private ModuleBiz teacherBizImpl;
@@ -55,30 +47,25 @@ public class BaseManageController {
     private ModuleBiz attendanceBizImpl;
 
     @Resource
-    private AccountManager accountManager;
+    private AccountSupport accountSupport;
+
 
     @PostConstruct
     public void init() {
         moduleMap.put("class", classBizImpl);
         moduleMap.put("agency", agencyBizImpl);
+        moduleMap.put("course", courseBizImpl);
         moduleMap.put("teacher", teacherBizImpl);
         moduleMap.put("student", studentBizImpl);
-        moduleMap.put("course", courseBizImpl);
         moduleMap.put("attendance", attendanceBizImpl);
     }
 
     @ResponseBody
     @RequestMapping(value = "new", method = RequestMethod.POST)
     public Response<Boolean> newModule(@PathVariable String module, @CookieValue(name = "token") String encryptedName, @RequestBody String data) {
-//    public Response<Boolean> newModule(@PathVariable String module, @RequestBody String data) {
         String userId = CipherUtil.decryptName(encryptedName);
         log.info("userId-{},新建培训机构 {}", userId, data);
-        String agencyId = null;
-        if (!checkHighAuthority(userId)) {
-            TblAgency agency = accountManager.queryAgencyByUserId(userId);
-            Preconditions.checkNotNull(agency);
-            agencyId = agency.getAgencyId();
-        }
+        String agencyId = accountSupport.getAgencyId(userId);
 
         moduleMap.get(module).newModule(data, agencyId);
 
@@ -88,10 +75,8 @@ public class BaseManageController {
 
     @ResponseBody
     @RequestMapping(value = "update")
-//    public Response<Boolean> update(@PathVariable String module, @RequestBody String data) {
     public Response<Boolean> update(@PathVariable String module, @CookieValue(name = "token") String encryptedName, @RequestBody String data) {
         String userId = CipherUtil.decryptName(encryptedName);
-//        String userId = null;
         log.info("userId-{}, 更新机构 {}", userId, data);
 
         moduleMap.get(module).update(data);
@@ -103,17 +88,15 @@ public class BaseManageController {
 
     @ResponseBody
     @RequestMapping(value = "delete")
-//    public Response<Boolean> delete(@PathVariable String module, @RequestBody List<String> ids) {
     public Response<Boolean> delete(@PathVariable String module, @CookieValue(name = "token") String encryptedName, @RequestBody List<String> ids) {
         String userId = CipherUtil.decryptName(encryptedName);
-//        String userId = null;
         log.info("userId-{}, 删除机构 {}", userId, ids);
 
-        if (!checkHighAuthority(userId)) {
-            TblAgency agency = accountManager.queryAgencyByUserId(userId);
-            Preconditions.checkNotNull(agency);
-            moduleMap.get(module).checkDelete(agency.getAgencyId(), ids);
-        }
+//        if (!accountSupport.checkHighAuthority(userId)) {
+//            TblAgency agency = accountManager.queryAgencyByUserId(userId);
+//            Preconditions.checkNotNull(agency);
+//            moduleMap.get(module).checkDelete(agency.getAgencyId(), ids);
+//        }
 
         moduleMap.get(module).delete(ids);
 
@@ -123,7 +106,6 @@ public class BaseManageController {
 
     @ResponseBody
     @RequestMapping(value = "query")
-//    public Response<Object> query(@PathVariable String module, QueryDto pageDto) {
     public Response<Object> query(@CookieValue(name = "token") String encryptedName, @PathVariable String module, QueryDto pageDto) {
         if (pageDto == null) {
             pageDto = new QueryDto();
@@ -136,12 +118,7 @@ public class BaseManageController {
         }
         String userId = CipherUtil.decryptName(encryptedName);
 
-        if (!checkHighAuthority(userId)) {
-            TblAgency agency = accountManager.queryAgencyByUserId(userId);
-            BusiVerify.verifyNotNull(agency, "用户无归属机构");
-            pageDto.setAgencyId(agency.getAgencyId());
-        }
-//        String userId = null;
+        pageDto.setAgencyId(accountSupport.getAgencyId(userId));
         pageDto.setUserId(userId);
         log.info("userId-{}, 查询 {} ,查询条件 {}", userId, module, pageDto);
 
@@ -149,40 +126,5 @@ public class BaseManageController {
         log.info("userId-{}, 查询 {}，返回 {}", userId, module, dto);
         return Responses.succ(dto);
     }
-
-    /**
-     * 根据关键字查询列表
-     */
-    @ResponseBody
-    @RequestMapping(value = "queryByAgency")
-    public Response<Object> queryByAgency(@CookieValue(name = "token") String encryptedName,
-                                          @PathVariable String module, @RequestBody QueryDto queryDto) {
-        String userId = CipherUtil.decryptName(encryptedName);
-        queryDto.setUserId(userId);
-        log.info("userId-{}, 查询 {}, 查询条件 {}", userId, module, queryDto);
-
-        Object dto = moduleMap.get(module).queryByKeyword(queryDto);
-        log.info("userId-{}, 查询 {}, 查询条件：{}，返回 {}", userId, module, queryDto, dto);
-        return Responses.succ(dto);
-    }
-
-    private boolean checkHighAuthority(String userId) {
-        AccountAuthority accountAuthority = accountManager.queryAccountAuthorityByUserId(userId);
-        BusiVerify.verifyNotNull(accountAuthority, String.format("用户对应账户为空%s", userId));
-        BusiVerify.verify(!CollectionUtils.isEmpty(accountAuthority.getAuthorityList()), String.format("用户对应账户角色为空%s", userId));
-
-        List<RoleAuthority> authorityList = accountAuthority.getAuthorityList();
-        for (RoleAuthority authority : authorityList) {
-            TblRole role = authority.getRole();
-            if (role == null) {
-                continue;
-            }
-            if (OFFICIAL_ROLE_ID.equals(role.getRoleId()) || ROOT_ROLE_ID.equals(role.getRoleId())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
 }

@@ -48,7 +48,7 @@
             and course_id = #{courseId}
         </if>
         <if test="agencyId !=null">
-            and course_id in (select course_id from tbl_course where agency_id = #{agencyId})
+            and agency_id = #{agencyId}
         </if>
         limit #{pageIndex},#{pageSize}
     </select>
@@ -78,6 +78,9 @@
             </if>
             <if test="attendanceId != null">
                 attendance_id,
+            </if>
+            <if test="agencyId != null">
+                agency_id,
             </if>
             <if test="courseId != null">
                 course_id,
@@ -113,6 +116,9 @@
             </if>
             <if test="attendanceId != null">
                 #{attendanceId,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyId != null">
+                #{agencyId},
             </if>
             <if test="courseId != null">
                 #{courseId,jdbcType=VARCHAR},

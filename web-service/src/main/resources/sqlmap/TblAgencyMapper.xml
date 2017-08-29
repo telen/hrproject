@@ -150,7 +150,7 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateByPrimaryAgenctIdSelective" parameterType="com.mohress.training.entity.agency.TblAgency">
+    <update id="updateByPrimaryAgencyIdSelective" parameterType="com.mohress.training.entity.agency.TblAgency">
         update tbl_agency
         <set>
             <if test="agencyId != null">

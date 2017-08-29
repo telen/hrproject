@@ -8,11 +8,15 @@ import com.mohress.training.dto.QueryDto;
 import com.mohress.training.dto.mclass.ClassItemDto;
 import com.mohress.training.dto.mclass.ClassRequestDto;
 import com.mohress.training.entity.TblCourse;
+import com.mohress.training.entity.TblTeacher;
+import com.mohress.training.entity.agency.TblAgency;
 import com.mohress.training.entity.mclass.TblClass;
 import com.mohress.training.entity.mclass.TblClassMember;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.ModuleBiz;
-import com.mohress.training.service.agency.AgencyServiceImpl;
+import com.mohress.training.service.agency.AgencyQuery;
+import com.mohress.training.service.teacher.TeacherQuery;
+import com.mohress.training.util.BusiVerify;
 import com.mohress.training.util.Convert;
 import com.mohress.training.util.JsonUtil;
 import com.mohress.training.util.SequenceCreator;
@@ -20,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Collections;
@@ -36,11 +39,15 @@ import java.util.List;
 public class ClassBizImpl implements ModuleBiz {
 
     @Resource
-    private BaseManageService classServiceImpl;
+    private TblCourseDao tblCourseDao;
     @Resource
     private TblClassMemberDao tblClassMemberDao;
     @Resource
-    private TblCourseDao tblCourseDao;
+    private BaseManageService classServiceImpl;
+    @Resource
+    private BaseManageService agencyServiceImpl;
+    @Resource
+    private BaseManageService teacherServiceImpl;
 
     @Override
     public void newModule(String o, String agencyId) {
@@ -51,7 +58,7 @@ public class ClassBizImpl implements ModuleBiz {
         } catch (Exception e) {
             log.error("新建机构反序列化失败 {}", o, e);
         }
-        classServiceImpl.newModule(buildInsertClass(classRequestDto));
+        classServiceImpl.newModule(buildInsertClass(classRequestDto, agencyId));
     }
 
     @Override
@@ -78,11 +85,6 @@ public class ClassBizImpl implements ModuleBiz {
         Preconditions.checkArgument(pageDto.getPage() >= 0);
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
         List<TblClass> tblClasses = classServiceImpl.query(buildClassQuery(pageDto));
-        for (TblClass tblClass : tblClasses) {
-            String courseId = tblClass.getCourseId();
-            TblCourse tblCourse = tblCourseDao.selectByCourseId(courseId);
-//            tblClass;
-        }
 
         List<ClassItemDto> classItemDtos = Convert.convertClass(tblClasses);
 
@@ -95,7 +97,20 @@ public class ClassBizImpl implements ModuleBiz {
             if (CollectionUtils.isEmpty(classMembers)) {
                 continue;
             }
-
+            String courseId = dto.getCourseId();
+            TblCourse tblCourse = tblCourseDao.selectByCourseId(courseId);
+            BusiVerify.verifyNotNull(tblCourse, "查询关联课程为空" + pageDto);
+            TeacherQuery query = new TeacherQuery();
+            query.setTeacherId(tblCourse.getTeacherId());
+            List<TblTeacher> teachers = teacherServiceImpl.query(query);
+            BusiVerify.verify(!CollectionUtils.isEmpty(teachers), "根据课程ID查询教师为空" + tblCourse.getTeacherId());
+            dto.setTeacherName(teachers.get(0).getName());
+            dto.setCourseName(tblCourse.getCourseName());
+            AgencyQuery agencyQuery = new AgencyQuery(10, 0);
+            agencyQuery.setAgencyId(dto.getAgencyId());
+            List<TblAgency> agencyList = agencyServiceImpl.query(agencyQuery);
+            BusiVerify.verify(!CollectionUtils.isEmpty(agencyList), "机构为空");
+            dto.setAgencyName(agencyList.get(0).getAgencyName());
             List<String> studentIds = Lists.newArrayList();
             for (TblClassMember member : classMembers) {
                 studentIds.add(member.getStudentId());
@@ -104,11 +119,6 @@ public class ClassBizImpl implements ModuleBiz {
             dto.setStudentIds(studentIds);
         }
         return classItemDtos;
-    }
-
-    @Override
-    public Object queryByKeyword(QueryDto queryDto) {
-        throw new RuntimeException("暂不支持");
     }
 
     @Override
@@ -127,7 +137,7 @@ public class ClassBizImpl implements ModuleBiz {
         return classQuery;
     }
 
-    private ClassStudent buildInsertClass(ClassRequestDto classRequestDto) {
+    private ClassStudent buildInsertClass(ClassRequestDto classRequestDto, String agencyId) {
         TblClass tblClass = new TblClass();
         BeanUtils.copyProperties(classRequestDto, tblClass, "startTime", "endTime", "onClassTime", "offClassTime");
         tblClass.setStartTime(new Date(classRequestDto.getStartTime()));
@@ -135,6 +145,7 @@ public class ClassBizImpl implements ModuleBiz {
         tblClass.setOnClassTime(new Date(classRequestDto.getOnClassTime()));
         tblClass.setOffClassTime(new Date(classRequestDto.getOffClassTime()));
         tblClass.setClassId(SequenceCreator.getClassId());
+        tblClass.setAgencyId(agencyId);
 
         if (classRequestDto.getStudentIds() == null) {
             return new ClassStudent(tblClass, Collections.<TblClassMember>emptyList());
@@ -157,6 +168,16 @@ public class ClassBizImpl implements ModuleBiz {
         tblClass.setEndTime(new Date(classRequestDto.getEndTime()));
         tblClass.setOnClassTime(new Date(classRequestDto.getOnClassTime()));
         tblClass.setOffClassTime(new Date(classRequestDto.getOffClassTime()));
-        return new ClassStudent(tblClass, null);
+
+        List<TblClassMember> tblClassMembers = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(classRequestDto.getStudentIds())) {
+            for (String id : classRequestDto.getStudentIds()) {
+                TblClassMember member = new TblClassMember();
+                member.setStudentId(id);
+                member.setClassId(classRequestDto.getClassId());
+                tblClassMembers.add(member);
+            }
+        }
+        return new ClassStudent(tblClass, tblClassMembers);
     }
 }

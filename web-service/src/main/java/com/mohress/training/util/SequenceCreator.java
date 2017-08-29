@@ -64,15 +64,15 @@ public class SequenceCreator {
         private int sequence;
 
         public Sequencer() {
-            this.sequence = (int) (System.currentTimeMillis() % (1000 * 60));
+            this.sequence = (int) (System.currentTimeMillis() % (1000));
         }
 
         public synchronized String getSequence() {
             sequence++;
-            if (sequence > 999999) {
-                sequence = sequence - 1000000;
+            if (sequence > 999) {
+                sequence = sequence - 1000;
             }
-            return LocalMachine.getMachine() + String.format("%06d", sequence);
+            return String.format("%03d", sequence);
         }
     }
 

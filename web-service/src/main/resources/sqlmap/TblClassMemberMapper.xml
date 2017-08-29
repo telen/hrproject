@@ -28,7 +28,7 @@
         where class_id = #{classId}
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <delete id="deleteByClassId" parameterType="java.lang.String">
     delete from tbl_class_member
     where class_id = #{classId}
   </delete>

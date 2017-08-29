@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="com.mohress.training.entity.student.TblStudent">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="course_id" property="courseId" jdbcType="VARCHAR"/>
+        <result column="agency_id" property="agencyId" jdbcType="VARCHAR"/>
         <result column="agency_name" property="agencyName" jdbcType="VARCHAR"/>
         <result column="id_number" property="idNumber" jdbcType="VARCHAR"/>
         <result column="student_name" property="studentName" jdbcType="VARCHAR"/>
@@ -52,20 +53,13 @@
     registered_residence, registered_property, status, bank, bank_account, school_date,
     student_cat, tuition, subsidy_code, subsidy_target, is_dropout, dropout, has_certificate,
     certificate_level, certificate, is_using_coupon, coupon_num, is_compact, compact,
-    create_time, update_time
+    create_time, update_time, agency_id
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from tbl_student
         where id = #{id,jdbcType=INTEGER}
-    </select>
-
-    <select id="selectByIdNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select
-        <include refid="Base_Column_List"/>
-        from tbl_student
-        where id_number = #{idNumber}
     </select>
 
     <select id="selectByStudentId" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -91,7 +85,7 @@
             and id_number = #{idNumber}
         </if>
         <if test="agencyId != null">
-            and course_id in (select course_id from tbl_course where agency_id = #{agencyId})
+            and agency_id = #{agencyId}
         </if>
         limit #{pageIndex},#{pageSize}
     </select>
@@ -250,6 +244,9 @@
             <if test="updateTime != null">
                 update_time,
             </if>
+            <if test="agencyId != null">
+                agency_id,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -377,6 +374,9 @@
             </if>
             <if test="updateTime != null">
                 #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agencyId != null">
+                #{agencyId},
             </if>
         </trim>
     </insert>
