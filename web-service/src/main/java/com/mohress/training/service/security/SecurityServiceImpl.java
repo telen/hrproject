@@ -18,6 +18,7 @@ import com.mohress.training.exception.BusinessException;
 import com.mohress.training.util.AccountAuthority;
 import com.mohress.training.util.DateUtil;
 import com.mohress.training.util.SequenceCreator;
+import com.mohress.training.util.constant.RoleConstant;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -127,7 +128,7 @@ public class SecurityServiceImpl implements SecurityService{
 
         tblAccountRoleDao.insert(tblAccountRole);
 
-        if (!Strings.isNullOrEmpty(accountAssignRequestDto.getAgencyId())){
+        if (!Strings.isNullOrEmpty(accountAssignRequestDto.getAgencyId()) && RoleConstant.ROOT_ROLE_ID.equals(accountAssignRequestDto.getRoleId())){
             TblAgency tblAgency = tblAgencyDao.selectByAgencyId(accountAssignRequestDto.getAgencyId());
             if (tblAgency == null){
                 throw new BusinessException(ResultCode.FAIL, "关联培训机构失败，培训机构不存在");
