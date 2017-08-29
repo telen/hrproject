@@ -12,8 +12,11 @@ import com.mohress.training.entity.audit.TblAuditFlow;
 import com.mohress.training.entity.audit.TblLedgerAuditRecord;
 import com.mohress.training.entity.ledger.TblLedger;
 import com.mohress.training.entity.security.TblAccount;
+import com.mohress.training.entity.security.TblAccountRole;
 import com.mohress.training.service.BaseQuery;
 import com.mohress.training.service.audit.AuditRecordService;
+import com.mohress.training.service.security.AccountManager;
+import com.mohress.training.util.AccountAuthority;
 import com.mohress.training.util.DateUtil;
 import com.mohress.training.util.constant.AuditConstant;
 import org.apache.ibatis.session.RowBounds;
@@ -41,9 +44,15 @@ public class LedgerAuditRecordServiceImpl implements AuditRecordService<LedgerAu
     @Resource
     private TblLedgerDao tblLedgerDao;
 
+    @Resource
+    private AccountManager accountManager;
+
     @Override
     public List<LedgerAuditItemDto> queryByPage(BaseQuery baseQuery) {
         LedgerAuditQueryDto ledgerAuditQueryDto = (LedgerAuditQueryDto) baseQuery;
+
+        AccountAuthority accountAuthority = accountManager.queryAccountAuthorityByUserId(ledgerAuditQueryDto.getUserId());
+        ledgerAuditQueryDto.setAuditRoleId(accountAuthority.getAuthorityList().get(0).getRole().getRoleId());
 
         List<TblLedgerAuditRecord> ledgerAuditRecordList = ledgerAuditRecordDao.selectPageByRoleId(ledgerAuditQueryDto.getAgencyId(), ledgerAuditQueryDto.getAuditRoleId(), new RowBounds(ledgerAuditQueryDto.getOffset(), ledgerAuditQueryDto.getPageSize()));
 

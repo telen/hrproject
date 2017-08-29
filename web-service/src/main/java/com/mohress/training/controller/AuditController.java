@@ -41,6 +41,8 @@ public class AuditController {
     @Resource
     private LedgerAuditRecordServiceImpl ledgerAuditRecordService;
 
+
+
     /**
      * 审核通过
      * 当前步骤处理通过，进入下一步骤，若为末步骤，则流程处理完成；
@@ -142,7 +144,8 @@ public class AuditController {
         LedgerAuditQueryDto ledgerAuditQueryDto = new LedgerAuditQueryDto();
 
         ledgerAuditQueryDto.setAgencyId(agencyId);
-        ledgerAuditQueryDto.setAuditRoleId(userId);
+        ledgerAuditQueryDto.setUserId(userId);
+        ledgerAuditQueryDto.setAuditRoleId("");
         ledgerAuditQueryDto.setPageSize(pageSize);
         ledgerAuditQueryDto.setPageIndex(pageIndex);
 

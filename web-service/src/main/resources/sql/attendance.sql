@@ -16,4 +16,4 @@ CREATE TABLE `tbl_attendance` (
   UNIQUE KEY `uniq_attendance_id` (`attendance_id`),
   KEY `idx_class_id` (`class_id`),
   KEY `idx_course_id` (`course_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='考勤表'
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='考勤表';

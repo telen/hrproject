@@ -37,4 +37,11 @@
         FROM tb_role
         WHERE parent_role_id = #{parentRoleId}
     </select>
+
+    <select id="selectAtLeastPriority" parameterType="java.lang.Integer" resultMap="resultMap">
+        SELECT
+        <include refid="columnList"/>
+        FROM tb_role
+        WHERE priority >= #{priority}
+    </select>
 </mapper>
