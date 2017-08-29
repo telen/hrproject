@@ -28,7 +28,7 @@ public class AgencyItemDto implements Serializable {
      */
     private String agencyMobile;
 
-    private String agencyEmail;
+    private String agencyMail;
 
     /**
      * 机构地址

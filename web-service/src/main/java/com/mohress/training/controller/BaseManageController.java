@@ -113,7 +113,7 @@ public class BaseManageController {
         if (pageDto.getPage() == null || pageDto.getPage() < 0) {
             pageDto.setPage(0);
             pageDto.setPageSize(10);
-        } else {
+        } else if (pageDto.getPage() > 0) {
             pageDto.setPage(pageDto.getPage() - 1);
         }
         String userId = CipherUtil.decryptName(encryptedName);

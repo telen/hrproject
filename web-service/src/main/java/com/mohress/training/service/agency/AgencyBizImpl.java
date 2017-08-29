@@ -2,10 +2,14 @@ package com.mohress.training.service.agency;
 
 import com.google.common.base.Preconditions;
 import com.mohress.training.dto.QueryDto;
+import com.mohress.training.dto.agency.AgencyItemDto;
 import com.mohress.training.dto.agency.AgencyRequestDto;
+import com.mohress.training.entity.TblTeacher;
 import com.mohress.training.entity.agency.TblAgency;
 import com.mohress.training.service.BaseManageService;
 import com.mohress.training.service.ModuleBiz;
+import com.mohress.training.service.teacher.TeacherQuery;
+import com.mohress.training.service.teacher.TeacherServiceImpl;
 import com.mohress.training.util.Checker;
 import com.mohress.training.util.Convert;
 import com.mohress.training.util.JsonUtil;
@@ -28,6 +32,8 @@ public class AgencyBizImpl implements ModuleBiz {
 
     @Resource
     private BaseManageService agencyServiceImpl;
+    @Resource
+    private TeacherServiceImpl teacherServiceImpl;
 
     @Override
     public void newModule(String o, String agencyId) {
@@ -66,8 +72,23 @@ public class AgencyBizImpl implements ModuleBiz {
         Preconditions.checkArgument(pageDto.getPage() >= 0);
         Preconditions.checkArgument(pageDto.getPageSize() > 0);
         List<TblAgency> tblAgencies = agencyServiceImpl.query(buildAgencyQuery(pageDto));
-        //todo 填充教师人数
-        return Convert.convertAgency(tblAgencies);
+
+        List<AgencyItemDto> agencyItemDtos = Convert.convertAgency(tblAgencies);
+        if(CollectionUtils.isEmpty(agencyItemDtos)){
+            return agencyItemDtos;
+        }
+
+        for (AgencyItemDto dto : agencyItemDtos) {
+            TeacherQuery query = new TeacherQuery();
+            query.setPageIndex(0);
+            query.setPageSize(Integer.MAX_VALUE);
+            query.setAgencyId(pageDto.getAgencyId());
+            List<TblTeacher> teachers = teacherServiceImpl.query(query);
+            if (!CollectionUtils.isEmpty(teachers)) {
+                dto.setEmployeesCount(teachers.size());
+            }
+        }
+        return agencyItemDtos;
     }
 
     @Override
@@ -76,7 +97,7 @@ public class AgencyBizImpl implements ModuleBiz {
     }
 
     private AgencyQuery buildAgencyQuery(QueryDto dto) {
-        return new AgencyQuery(dto.getPageSize(),dto.getPage());
+        return new AgencyQuery(dto.getPageSize(), dto.getPage());
     }
 
     private TblAgency buildInsertTblAgency(AgencyRequestDto agencyRequestDto) {

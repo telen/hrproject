@@ -41,14 +41,14 @@ public class Convert {
         if (CollectionUtils.isEmpty(tblAgencies)) {
             return null;
         }
-        return Lists.transform(tblAgencies, new Function<TblAgency, AgencyItemDto>() {
+        return Lists.newArrayList(Lists.transform(tblAgencies, new Function<TblAgency, AgencyItemDto>() {
             @Override
             public AgencyItemDto apply(TblAgency input) {
                 AgencyItemDto dto = new AgencyItemDto();
                 BeanUtils.copyProperties(input, dto);
                 return dto;
             }
-        });
+        }));
     }
 
     public static List<TeacherItemDto> convertTeacher(List<TblTeacher> tblTeachers) {
