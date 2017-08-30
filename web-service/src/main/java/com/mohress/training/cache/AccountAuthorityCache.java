@@ -53,7 +53,7 @@ public class AccountAuthorityCache extends ForwardingLoadingCache<String, Accoun
 
     public AccountAuthorityCache() {
         cache = CacheBuilder.newBuilder()
-                .maximumSize(1000).expireAfterAccess(30, TimeUnit.MINUTES)
+                .maximumSize(1000).expireAfterAccess(5, TimeUnit.MINUTES)
                 .build(new CacheLoader<String, AccountAuthority>() {
                     @Override
                     public AccountAuthority load(String s) throws Exception {
@@ -157,8 +157,11 @@ public class AccountAuthorityCache extends ForwardingLoadingCache<String, Accoun
             }
 
             // 加载与权限关联的动作信息
-            TblAction tblAction = tblActionDao.selectByAuthorityId(tblAuthority.getAuthorityId());
-            authoritySet.add(new AuthorityAction(tblAuthority, tblAction));
+            List<TblAction> tblActionList = tblActionDao.selectByAuthorityId(tblAuthority.getAuthorityId());
+            if (CollectionUtils.isEmpty(tblActionList)){
+                tblActionList = ImmutableList.of();
+            }
+            authoritySet.add(new AuthorityAction(tblAuthority, tblActionList));
         }
         return authoritySet;
     }

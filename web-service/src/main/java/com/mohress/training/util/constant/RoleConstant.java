@@ -4,7 +4,7 @@ package com.mohress.training.util.constant;
  * 角色常量
  *
  */
-public class RoleConstant {
+public final class RoleConstant {
 
     /**
      * root角色Id

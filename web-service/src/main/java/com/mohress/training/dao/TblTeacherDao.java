@@ -21,4 +21,6 @@ public interface TblTeacherDao {
     List<TblTeacher> queryTeacherList(TeacherQuery query);
 
     List<TblTeacher> queryTeacherByKeyword(TeacherQuery query);
+
+    TblTeacher queryByTeacherId(String teacherId);
 }

@@ -25,7 +25,7 @@ public class AuthorizeFailHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
 
-        log.error("访问{}无权限。", request.getRemoteAddr(), e);
+        log.error("访问{}无权限。", request.getRequestURI(), e);
 
         Writer writer = new JsonResponseWriter(response);
         writer.write(new Response(FAIL.getCode(), "访问无权限"));

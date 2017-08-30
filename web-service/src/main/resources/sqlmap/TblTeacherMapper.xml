@@ -30,6 +30,13 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="queryByTeacherId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tbl_teacher
+    where teacher_id = #{teacherId}
+  </select>
+
   <select id="queryTeacherList" resultMap="BaseResultMap" parameterType="com.mohress.training.service.teacher.TeacherQuery" >
     select
     <include refid="Base_Column_List" />
