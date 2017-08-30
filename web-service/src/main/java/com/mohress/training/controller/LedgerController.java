@@ -55,13 +55,14 @@ public class LedgerController {
      */
     @ResponseBody
     @RequestMapping("query")
-    public Response<List<LedgerItemDto>> queryLedger(@CookieValue("token") String userId, Integer pageIndex ,Integer pageSize){
+    public Response<List<LedgerItemDto>> queryLedger(@CookieValue("token") String userId, String keyword, Integer pageIndex ,Integer pageSize){
         TblAgency tblAccountAgency = accountManager.queryAgencyByUserId(userId);
 
         LedgerQueryDto ledgerQueryDto = new LedgerQueryDto();
         ledgerQueryDto.setPageIndex(pageIndex);
         ledgerQueryDto.setPageSize(pageSize);
         ledgerQueryDto.setAgencyId(tblAccountAgency.getAgencyId());
+        ledgerQueryDto.setKeyWord(keyword);
 
 
         List<LedgerItemDto> ledgerItemDtoList = ledgerService.queryLedger(ledgerQueryDto);

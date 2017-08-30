@@ -37,7 +37,7 @@ public class AccountController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/query")
+    @RequestMapping("query")
     public Response<UserDto> user(@CookieValue("token") String userId){
 
         // 1.查询用户信息

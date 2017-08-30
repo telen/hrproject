@@ -21,5 +21,5 @@ public interface TblLedgerDao {
 
     TblLedger selectByLedgerId(String ledgerId);
 
-    List<TblLedger> selectPageByAgencyId(String agencyId, RowBounds rowBounds);
+    List<TblLedger> selectPageByAgencyId(@Param("agencyId") String agencyId, @Param("keyWord")String keyWord, RowBounds rowBounds);
 }

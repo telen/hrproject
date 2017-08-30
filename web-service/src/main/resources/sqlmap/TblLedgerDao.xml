@@ -51,7 +51,11 @@
         SELECT
         <include refid="columnList"/>
         FROM tb_ledger
-        WHERE agency_id = #{agencyId}
+        WHERE
+        agency_id = #{agencyId}
+        <if test="keyWord != null">
+            AND MATCH (key_word) AGAINST (#{keyWord})
+        </if>
     </select>
 
 </mapper>

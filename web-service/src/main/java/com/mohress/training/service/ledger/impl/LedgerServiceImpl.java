@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mohress.training.dao.*;
 import com.mohress.training.dto.ledger.*;
 import com.mohress.training.entity.TblCourse;
+import com.mohress.training.entity.TblTeacher;
 import com.mohress.training.entity.agency.TblAccountAgency;
 import com.mohress.training.entity.agency.TblAgency;
 import com.mohress.training.entity.attendance.TblAttendanceStatistics;
@@ -73,7 +74,11 @@ public class LedgerServiceImpl implements LedgerService{
     @Resource
     private TblExamScoreDao tblExamScoreDao;
 
+    @Resource
+    private TblTeacherDao tblTeacherDao;
+
     @Override
+    @Transactional
     public void apply(LedgerApplyDto ledgerApplyDto) {
         // 1.查询基本信息
         TblClass tblClass = tblClassDao.selectByClassId(ledgerApplyDto.getClassId());
@@ -99,7 +104,7 @@ public class LedgerServiceImpl implements LedgerService{
     @Override
     public List<LedgerItemDto> queryLedger(LedgerQueryDto ledgerQueryDto) {
 
-        List<TblLedger> tblLedgerList = tblLedgerDao.selectPageByAgencyId(ledgerQueryDto.getAgencyId(), new RowBounds(ledgerQueryDto.getOffset(), ledgerQueryDto.getPageSize()));
+        List<TblLedger> tblLedgerList = tblLedgerDao.selectPageByAgencyId(ledgerQueryDto.getAgencyId(), ledgerQueryDto.getKeyWord(), new RowBounds(ledgerQueryDto.getOffset(), ledgerQueryDto.getPageSize()));
 
         List<LedgerItemDto> ledgerItemDtoList = Lists.newArrayList();
         for (TblLedger it : tblLedgerList){
@@ -128,7 +133,6 @@ public class LedgerServiceImpl implements LedgerService{
         return list;
     }
 
-    @Transactional
     private void doApply(LedgerApplyDto ledgerApplyDto, TblLedger tblLedger, List<TblLedgerGraduateSnapshot> ledgerStudentList){
         tblLedger.setGraduateNumbers(ledgerStudentList.size());
 
@@ -228,7 +232,6 @@ public class LedgerServiceImpl implements LedgerService{
 
         ledgerItemDto.setLedgerId(tblLedger.getLedgerId());
 
-        ledgerItemDto.setAgencyId(tblLedger.getLedgerId());
         ledgerItemDto.setAgencyId(tblLedger.getAgencyId());
         ledgerItemDto.setCourseId(tblLedger.getCourseId());
         ledgerItemDto.setClassId(tblLedger.getClassId());
@@ -242,8 +245,13 @@ public class LedgerServiceImpl implements LedgerService{
         ledgerItemDto.setCourseName(list.get(1));
         ledgerItemDto.setClassName(list.get(2));
 
+        TblCourse tblCourse = tblCourseDao.selectByCourseId(ledgerItemDto.getCourseId());
+
+        TblTeacher tblTeacher = tblTeacherDao.queryByTeacherId(tblCourse.getTeacherId());
+
         TblAccount tblAccount = tblAccountDao.selectByUserId(tblLedger.getApplicant());
 
+        ledgerItemDto.setTeacherName(tblTeacher.getName());
         ledgerItemDto.setApplicantName(tblAccount.getUserName());
         ledgerItemDto.setApplicantMobile(tblAccount.getMobile());
         return ledgerItemDto;

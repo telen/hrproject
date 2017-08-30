@@ -52,7 +52,11 @@ public class AccountManager {
      * @return
      */
     public AccountAuthority queryAccountAuthorityByAccount(String account){
-        return cache.getUnchecked(account);
+        try {
+            return cache.get(account);
+        }catch (Exception e){
+            return null;
+        }
     }
 
     /**
