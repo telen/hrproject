@@ -62,6 +62,7 @@ public class AttendanceBizImpl implements ModuleBiz {
             BusiVerify.verify(students.get(0).getAgencyId().equals(agencyId), "学生不是该机构，不可进行此操作" + o + agencyId);
         }
         attendance.setUserId(students.get(0).getStudentId());
+        attendance.setUsername(students.get(0).getStudentName());
 
         attendanceServiceImpl.newModule(attendance);
     }
