@@ -178,6 +178,10 @@ public class ClassServiceImpl implements BaseManageService {
     }
 
     public void updateStatus(TblClass tblClass) {
+        //判断班级是够审核通过状态
+        TblClass dbClass = tblClassDao.selectByClassId(tblClass.getClassId());
+        BusiVerify.verifyNotNull(dbClass, "班级未查询到" + tblClass.getClassId());
+        BusiVerify.verify(TblClass.Status.ACCESSED == dbClass.getStatus(), "班级未通过审核，不能审查");
         BusiVerify.verify(tblClassDao.updateStatusByClassId(tblClass) > 0, "更新检查状态SQL失败");
     }
 
