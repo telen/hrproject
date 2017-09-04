@@ -19,6 +19,7 @@ import com.mohress.training.util.AccountAuthority;
 import com.mohress.training.util.DateUtil;
 import com.mohress.training.util.SequenceCreator;
 import com.mohress.training.util.constant.RoleConstant;
+import com.mohress.training.util.constant.SecurityConstant;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -70,7 +71,9 @@ public class SecurityServiceImpl implements SecurityService{
         List<AuthorityDto> authorityDtoList = Lists.newArrayList();
 
         for (TblAuthority authority : authorityList){
-            authorityDtoList.add(toAuthorityDto(authority));
+            if (!SecurityConstant.LINK_AUTHORITY_TYPE.equals(authority.getAuthorityType())){
+                authorityDtoList.add(toAuthorityDto(authority));
+            }
         }
         return authorityDtoList;
     }
@@ -128,7 +131,7 @@ public class SecurityServiceImpl implements SecurityService{
 
         tblAccountRoleDao.insert(tblAccountRole);
 
-        if (!Strings.isNullOrEmpty(accountAssignRequestDto.getAgencyId()) && RoleConstant.ROOT_ROLE_ID.equals(accountAssignRequestDto.getRoleId())){
+        if (!Strings.isNullOrEmpty(accountAssignRequestDto.getAgencyId()) && RoleConstant.AGENCY_ROLE_ID.equals(accountAssignRequestDto.getRoleId())){
             TblAgency tblAgency = tblAgencyDao.selectByAgencyId(accountAssignRequestDto.getAgencyId());
             if (tblAgency == null){
                 throw new BusinessException(ResultCode.FAIL, "关联培训机构失败，培训机构不存在");
@@ -168,7 +171,7 @@ public class SecurityServiceImpl implements SecurityService{
         authorityDto.setRoute(authority.getAuthorityRoute());
         authorityDto.setIcon(authority.getAuthorityIcon());
         authorityDto.setBpid(authority.getParentAuthorityId());
-        if ("page".equals(authority.getAuthorityType())){
+        if (SecurityConstant.PAGE_AUTHORITY_TYPE.equals(authority.getAuthorityType())){
             authorityDto.setMpid(authority.getParentAuthorityId());
         }
         return authorityDto;

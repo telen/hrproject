@@ -31,6 +31,11 @@ public class ResourceAuthorityLoadingService implements FilterInvocationSecurity
 
         String url = ((FilterInvocation) o).getRequestUrl();
 
+        int index = url.indexOf("?");
+        if (index != -1){
+            url = url.substring(0, index);
+        }
+
         Set<ConfigAttribute> configAttributeSet = Sets.newHashSet();
         List<TblAction> authorityList = tblActionDao.selectAll();
         for (TblAction it: authorityList){

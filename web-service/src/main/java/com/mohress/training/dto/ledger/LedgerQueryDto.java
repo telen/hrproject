@@ -11,5 +11,5 @@ public class LedgerQueryDto extends BaseQuery{
 
     private String agencyId;
 
-    private String classId;
+    private String keyWord;
 }

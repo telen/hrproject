@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.mohress.training.entity.security.TblAccount;
+import com.mohress.training.entity.security.TblAction;
 import com.mohress.training.util.AccountAuthority;
 import com.mohress.training.util.AuthorityAction;
 import com.mohress.training.util.DateUtil;
@@ -65,8 +66,11 @@ public class AccountSecurityService implements UserDetailsService{
             }
 
             for (AuthorityAction authorityAction : it.getAuthorityAction()){
-                if (authorityAction.getAction() != null){
-                    authorityList.add(new SimpleGrantedAuthority(authorityAction.getAction().getActionName()));
+                if (CollectionUtils.isEmpty(authorityAction.getActionList())){
+                    continue;
+                }
+                for (TblAction action: authorityAction.getActionList()){
+                    authorityList.add(new SimpleGrantedAuthority(action.getActionName()));
                 }
             }
         }

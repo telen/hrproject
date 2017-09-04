@@ -12,7 +12,7 @@ public interface TblActionDao {
 
     int insert(TblAction tblAction);
 
-    TblAction selectByAuthorityId(String authorityId);
+    List<TblAction> selectByAuthorityId(String authorityId);
 
     List<TblAction> selectAll();
 }

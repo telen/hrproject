@@ -5,6 +5,8 @@ import com.mohress.training.entity.security.TblAuthority;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * 权限动作
  */
@@ -12,10 +14,13 @@ import lombok.Data;
 @AllArgsConstructor
 public class AuthorityAction {
 
+    /**
+     * 权限信息
+     */
     private TblAuthority authority;
 
     /**
-     * 可为空
+     * 权限关联动作
      */
-    private TblAction action;
+    private List<TblAction> actionList;
 }

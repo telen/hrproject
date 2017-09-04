@@ -51,6 +51,11 @@ public class LedgerItemDto implements Serializable{
     private Integer graduateNumbers;
 
     /**
+     * 教师名称
+     */
+    private String teacherName;
+
+    /**
      * 毕业时间
      */
     private String graduateTime;
